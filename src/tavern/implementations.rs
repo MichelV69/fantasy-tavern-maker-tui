@@ -1,16 +1,14 @@
 // ---- implementations  ----
 pub mod List {
-    use rand::distributions::{Distribution, WeightedIndex};
-    use rand::thread_rng;
     use strum::{EnumString, IntoEnumIterator, VariantArray, VariantMetadata};
     use inflector::string::singularize::to_singular;
     use std::fmt;
     use is_vowel::*;
 
-    use enums::List::*;
-    use structs::List::*;
-    use traits::List::*;
-    use functions::*;
+    use crate::tavern::enums::List::*;
+    use crate::tavern::structs::List::*;
+    use crate::tavern::traits::List::*;
+    use crate::tavern::functions::*;
 
     impl AppFn for App {
         fn get_version(&self) -> String {

@@ -13,7 +13,7 @@ mod tavern;
 use crate::tavern::*;
 
 // --- local cli code
-fn app() -> String {
+fn main() -> () {
     let pub_and_bed_house = PBHouse::new();
     format!("\n \n {} \n \n", pub_and_bed_house)
 }

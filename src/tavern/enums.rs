@@ -16,7 +16,7 @@ pub mod List {
     // ---
 
     // ---
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum NameVerb {
         Waltzing,
         Checkered,
@@ -41,7 +41,7 @@ pub mod List {
         Heaving,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum NameNoun {
         Werebear,
         Cockrel,
@@ -68,7 +68,7 @@ pub mod List {
         Waves,
     }
 
-    #[derive(Debug, RandGen, Display, EnumString, Eq, PartialEq)]
+    #[derive(Debug, Display, EnumString, Eq, PartialEq)]
     pub enum MoodData {
         Jovial,
         Relaxing,
@@ -89,7 +89,7 @@ pub mod List {
         Flirty,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum LightingAdjectives {
         Brightly,
         Clearly,
@@ -98,13 +98,13 @@ pub mod List {
         Shadowly,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum LightingVerb {
         Lit,
         Illuminated,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum LightingSources {
         Candles,
         AFireplace,
@@ -112,7 +112,7 @@ pub mod List {
         MagicOrbsAndCrystals,
     }
 
-    #[derive(Debug, Display, RandGen, Clone, Copy, Serialize)]
+    #[derive(Debug, Display, Clone, Copy)]
     pub enum EstablishmentQualityLevel {
         Squalid,
         Poor,
@@ -122,7 +122,7 @@ pub mod List {
         Aristocratic,
     }
     // ---
-    #[derive(Debug, Display, RandGen, Serialize)]
+    #[derive(Debug, Display)]
     pub enum SizeList {
         Tiny,
         Small,
@@ -131,7 +131,7 @@ pub mod List {
         Massive,
     }
 
-    #[derive(Debug, Display, Serialize)]
+    #[derive(Debug, Display)]
     pub enum BedTypeList {
         Hammocks,
         BunkBeds,
@@ -139,7 +139,7 @@ pub mod List {
         TentBeds,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum FirstSmell {
         WoodSmoke,
         Spices,
@@ -153,7 +153,7 @@ pub mod List {
         HotBread,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum SecondSmell {
         FreshPastries,
         FoodsCooking,
@@ -167,7 +167,7 @@ pub mod List {
         BakingSweets,
     }
 
-    #[derive(Display, RandGen)]
+    #[derive(Display)]
     pub enum PostedSignLocation {
         OverTheBar,
         OnTheFrontOfTheBar,
@@ -177,7 +177,7 @@ pub mod List {
         HungAroundTheNeckOfATrophyMountedStagsHead,
     }
 
-    #[derive(Display, RandGen, PartialEq)]
+    #[derive(Display, PartialEq)]
     pub enum PostedSignMessage {
         WeDontServeAdventurers,
         WeDontServeTieflings,
@@ -193,7 +193,7 @@ pub mod List {
         WarlocksShotOnSightOnSite,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum HouseDishHowCooked {
         SlowRoasted,
         SmokedAndSeasoned,
@@ -209,7 +209,7 @@ pub mod List {
         CharcoalGroundPit,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum HouseDishWhatCooked {
         MuttonLeg,
         Venison,
@@ -225,7 +225,7 @@ pub mod List {
         PlainsStrider,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum HouseDishWhatSide {
         RootVegtables,
         Mushrooms,
@@ -241,7 +241,7 @@ pub mod List {
         SweetSavoryAndSpicyDippingSauces,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkList {
         Ales,
         Ciders,
@@ -251,14 +251,14 @@ pub mod List {
         OtherStock,
     }
 
-    #[derive(RandGen, Display, VariantCount, EnumIter)]
+    #[derive(Display, VariantCount, EnumIter)]
     pub enum DrinkMade {
         AnImported,
         ALocallyMade,
         TheHousesOwn,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkAlesDetail {
         Dark,
         Light,
@@ -266,14 +266,14 @@ pub mod List {
         Pale,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkCidersDetail {
         Apple,
         Pear,
         Berry,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkRumsDetail {
         White,
         Amber,
@@ -281,13 +281,13 @@ pub mod List {
         Spiced,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkWhiskeysDetail {
         SingleMalt,
         Blended,
     }
 
-    #[derive(RandGen, Display)]
+    #[derive(Display)]
     pub enum DrinkWinesDetail {
         Red,
         White,
@@ -295,7 +295,7 @@ pub mod List {
         Sparkling,
     }
 
-    #[derive(RandGen, Display, VariantCount, EnumIter)]
+    #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentHistoryAge {
         Generational,
         Permanent,
@@ -303,7 +303,7 @@ pub mod List {
         Recent,
     }
 
-    #[derive(RandGen, Display, VariantCount, EnumIter)]
+    #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentAppearance {
         MinorRepairs,
         GoodCondition,
@@ -311,7 +311,7 @@ pub mod List {
         WhiteWashed,
     }
 
-    #[derive(RandGen, Display, VariantCount, EnumIter)]
+    #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentReputuation {
         PlotRumors,
         MerchantsLike,

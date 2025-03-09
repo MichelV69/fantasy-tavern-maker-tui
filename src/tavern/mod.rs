@@ -8,7 +8,7 @@ use tracing::info;
 
 // --- my stuff ---
 mod traits;
-use crate::traits::List::*;
+use tavern::traits::List::*;
 
 mod implementations;
 use crate::implementations::List::*;

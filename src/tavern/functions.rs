@@ -5,16 +5,14 @@
 
 use inflector::string::singularize::to_singular;
 use is_vowel::*;
-use rand::distributions::WeightedIndex;
 use rand::prelude::*;
-use rand_derive2::RandGen;
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
 
-use crate::enums::List::*;
-use crate::structs::List::*;
-use crate::traits::List::ToCapitalized;
+use crate::tavern::enums::List::*;
+use crate::tavern::structs::List::*;
+use crate::tavern::traits::List::ToCapitalized;
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
