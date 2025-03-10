@@ -4,11 +4,34 @@ pub mod List {
     use inflector::string::singularize::to_singular;
     use std::fmt;
     use is_vowel::*;
+    use rand::prelude::*;
+    use rand::distr::{Distribution, StandardUniform};
 
     use crate::tavern::enums::List::*;
     use crate::tavern::structs::List::*;
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
+
+    impl Distribution<NameVerb> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameVerb {
+            let index: u8 = rng.random_range(0..=5);
+            match index {
+                0 => NameVerb::Autumn,
+                1 => NameVerb::Blue,
+                2 => NameVerb::Carousing,
+                3 => NameVerb::Checkered,
+                4 => NameVerb::Drifting,
+                5 => NameVerb::Fickle,
+                6 => NameVerb::Flirting,
+                7 => NameVerb::Green,
+                8 => NameVerb::Heaving,
+                9 => NameVerb::Lazy,
+                10 => NameVerb::Melting,
+                11 => NameVerb::Pouring,
+                _ => unreachable!(),
+            }
+        }
+    }
 
     impl AppFn for App {
         fn get_version(&self) -> String {
