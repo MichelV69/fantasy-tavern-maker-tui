@@ -191,26 +191,19 @@ pub mod Tower {
     }
 
     fn process_roll_request(request: RollRequest) -> DiceResult {
-        let mut rng = rand::thread_rng();
+        use rand::Rng;
+        let mut rng = rand::rng();
         let mut roll_list: Vec<i8> = [].to_vec();
-
-        let die2 = Uniform::new(0, 2);
-        let die4 = Uniform::new(0, 4);
-        let die6 = Uniform::new(0, 6);
-        let die8 = Uniform::new(0, 8);
-        let die10 = Uniform::new(0, 10);
-        let die12 = Uniform::new(0, 12);
-        let die20 = Uniform::new(0, 20);
 
         for index in 0..request.number_rolls {
             let low_roll_val: i8 = match request.die_requested {
-                DiceBag::Coin | DiceBag::D2 => rng.sample::<i8, _>(die2),
-                DiceBag::D4 => rng.sample::<i8, _>(die4),
-                DiceBag::D6 => rng.sample::<i8, _>(die6),
-                DiceBag::D8 => rng.sample::<i8, _>(die8),
-                DiceBag::D10 => rng.sample::<i8, _>(die10),
-                DiceBag::D12 => rng.sample::<i8, _>(die12),
-                DiceBag::D20 => rng.sample::<i8, _>(die20),
+                DiceBag::Coin | DiceBag::D2 => rng.random_range(1..=2),
+                DiceBag::D4 => rng.random_range(1..=4),
+                DiceBag::D6 => rng.random_range(1..=6),
+                DiceBag::D8 => rng.random_range(1..=8),
+                DiceBag::D10 => rng.random_range(1..=10),
+                DiceBag::D12 => rng.random_range(1..=12),
+                DiceBag::D20 => rng.random_range(1..=20),
             };
             let roll_val = low_roll_val + 1;
             event!(Level::INFO, "roll_val[{}]", roll_val);
