@@ -12,6 +12,38 @@ pub mod List {
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
 
+    impl Distribution<NameNoun> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameNoun {
+            let index: u8 = rng.random_range(0..=5);
+            match index {
+                0 => NameNoun::Bard,
+                1 => NameNoun::Chalice,
+                2 => NameNoun::Cockrel,
+                3 => NameNoun::Crystal,
+                4 => NameNoun::Curmudgeon,
+                5 => NameNoun::Draft,
+                6 => NameNoun::Dragon,
+                7 => NameNoun::Dryad,
+                8 => NameNoun::Fortune,
+                9 => NameNoun::Harvest,
+                10 => NameNoun::Hen,
+                11 => NameNoun::Ice,
+                12 => NameNoun::Meadow,
+                13 => NameNoun::Mongrel,
+                14 => NameNoun::Sky,
+                15 => NameNoun::Snows,
+                16 => NameNoun::Sun,
+                17 => NameNoun::Tempest,
+                18 => NameNoun::Tide,
+                19 => NameNoun::Waters,
+                20 => NameNoun::Waves,
+                21 => NameNoun::Wench,
+                22 => NameNoun::Werebear,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<NameVerb> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameVerb {
             let index: u8 = rng.random_range(0..=5);
@@ -28,6 +60,15 @@ pub mod List {
                 9 => NameVerb::Lazy,
                 10 => NameVerb::Melting,
                 11 => NameVerb::Pouring,
+                12 => NameVerb::Red,
+                13 => NameVerb::Roaring,
+                14 => NameVerb::Saucy,
+                15 => NameVerb::Silver,
+                16 => NameVerb::Spring,
+                17 => NameVerb::Summer,
+                18 => NameVerb::Waltzing,
+                19 => NameVerb::Winter,
+                20 => NameVerb::Yellow,
                 _ => unreachable!(),
             }
         }
