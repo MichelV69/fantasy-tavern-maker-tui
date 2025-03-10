@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 Inflector = "0.11.4"
+inquire = "0.7.5"
 is-vowel = "0.1.0"
 markdown = "=1.0.0-alpha.23"
 rand = "0.9.0"
