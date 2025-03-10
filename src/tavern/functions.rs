@@ -37,8 +37,9 @@ pub fn tidy(s: String) -> String {
 
 // ---
 pub fn get_name() -> String {
-    let verb: NameVerb = random();
-    let noun: NameNoun = random();
+    let mut rng = rand::rng();
+    let verb: NameVerb = NameVerb.choose(&mut rng).unwrap();
+    let noun: NameNoun = NameNoun.choose(&mut rng).unwrap();
 
     format!(
         "{} {}",
