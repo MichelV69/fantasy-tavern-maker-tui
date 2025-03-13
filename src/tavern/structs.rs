@@ -3,11 +3,10 @@
 pub mod List {
     use rand::prelude::*;
     use rand_derive2::RandGen;
-    use rocket::serde::Serialize;
     use strum_macros::Display;
     use strum_macros::EnumString;
 
-    use crate::enums::List::*;
+    use crate::tavern::enums::*;
 
     #[derive(Debug)]
     pub struct App {
@@ -17,7 +16,7 @@ pub mod List {
         pub version_fix: i8,
     }
 
-    #[derive(Debug, Serialize)]
+    #[derive(Debug)]
     pub struct PBHouse{
         pub name: String,
         pub mood: String,
@@ -33,14 +32,14 @@ pub mod List {
     }
 
     // ---
-    #[derive(Debug, Clone, Serialize)]
+    #[derive(Debug, Clone)]
     pub struct EstablishmentQuality {
         pub level: EstablishmentQualityLevel,
         pub rooms: String,
         pub meals: String,
     }
 
-    #[derive(Debug, Serialize)]
+    #[derive(Debug)]
     pub struct PBHouseSize {
         pub size_description: SizeList,
         pub table_count: i8,
@@ -49,13 +48,13 @@ pub mod List {
         pub private_room_count: i8,
     }
 
-    #[derive(Debug, Serialize)]
+    #[derive(Debug)]
     pub struct HouseDrink {
         pub desc: String,
         pub price: String,
     }
 
-    #[derive(Debug, Serialize)]
+    #[derive(Debug)]
     pub struct HouseDish {
         pub desc: String,
         pub price: String,
