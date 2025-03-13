@@ -234,7 +234,7 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
     let weights_vector = (1..=DrinkMade::VARIANT_COUNT).collect::<Vec<usize>>(); // courtesy WGaffa (Twitch)
     let dist = WeightedIndex::new(weights_vector).unwrap();
 
-    let mut rng = ChaCha20Rng::from_os_rng();;
+    let mut rng = ChaCha20Rng::from_os_rng();
     let options_list: Vec<_> = DrinkMade::iter().collect();
     let where_is_made = &options_list[dist.sample(&mut rng)];
 
@@ -343,7 +343,7 @@ pub fn get_establishment_history_age() -> String {
     let weights_vector = (1..=EstablishmentHistoryAge::VARIANT_COUNT).collect::<Vec<usize>>(); // courtesy WGaffa (Twitch)
     let dist = WeightedIndex::new(weights_vector).unwrap();
 
-    let mut rng = thread_rng();
+    let mut rng = ChaCha20Rng::from_os_rng();
     let options_list: Vec<_> = EstablishmentHistoryAge::iter().collect();
     let chosen_option = &options_list[dist.sample(&mut rng)];
 
@@ -369,7 +369,7 @@ pub fn get_establishment_appearance() -> String {
     let weights_vector = (1..=EstablishmentAppearance::VARIANT_COUNT).collect::<Vec<usize>>(); // courtesy WGaffa (Twitch)
     let dist = WeightedIndex::new(weights_vector).unwrap();
 
-    let mut rng = thread_rng();
+    let mut rng = ChaCha20Rng::from_os_rng();
     let options_list: Vec<_> = EstablishmentAppearance::iter().collect();
     let chosen_option = &options_list[dist.sample(&mut rng)];
 
@@ -394,7 +394,7 @@ pub fn get_establishment_reputation() -> String {
     let weights_vector = (1..=EstablishmentReputuation::VARIANT_COUNT).collect::<Vec<usize>>(); // courtesy WGaffa (Twitch)
     let dist = WeightedIndex::new(weights_vector).unwrap();
 
-    let mut rng = thread_rng();
+    let mut rng = ChaCha20Rng::from_os_rng();
     let options_list: Vec<_> = EstablishmentReputuation::iter().collect();
     let mut chosen_option = &options_list[dist.sample(&mut rng)];
 
@@ -463,7 +463,7 @@ pub fn get_red_light_services_list() -> Option<String> {
     let die_pool_result = <Tower::DiceResult as RollDice>::from_pool("5d6|6");
     let how_many_services: i8 = 1 + die_pool_result.get_total();
     let mut red_light_services_list: String = "".into();
-    let mut rng = thread_rng();
+    let mut rng = ChaCha20Rng::from_os_rng();
 
     for i in 1..=how_many_services {
         let result = &possible_services_table[table_weights.sample(&mut rng)];
