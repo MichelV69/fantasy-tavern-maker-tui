@@ -12,6 +12,72 @@ pub mod List {
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
 
+    /*
+    impl Distribution<LightingSources> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingSources {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => LightingSources::AFireplace,
+                1 => LightingSources::Candles,
+                2 => LightingSources::MagicOrbsAndCrystals,
+                3 => LightingSources::OilLamps,
+                _ => unreachable!(),
+            }
+        }
+    }
+    */
+
+
+    impl Distribution<SizeList> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> SizeList {
+            let index: u8 = rng.random_range(0..=4);
+            match index {
+                0 => SizeList::Large,
+                1 => SizeList::Massive,
+                2 => SizeList::Modest,
+                3 => SizeList::Small,
+                4 => SizeList::Tiny,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<PostedSignMessage> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> PostedSignMessage {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => PostedSignMessage::AdventurersCanEatButNoAlcoholOrRooms,
+                1 => PostedSignMessage::AlcoholNotServedToHalfOrcsHalflingsOrTieflings,
+                2 => PostedSignMessage::AventurersWelcomePercentOff,
+                3 => PostedSignMessage::CheapRoomForGoodPerformancesPercentOff,
+                4 => PostedSignMessage::ColorfulNamesOfPriorGuests,
+                5 => PostedSignMessage::FreeMealForGoodPerformances,
+                6 => PostedSignMessage::NoSpellCasting,
+                7 => PostedSignMessage::WarlocksShotOnSightOnSite,
+                8 => PostedSignMessage::WeDontServeAdventurers,
+                9 => PostedSignMessage::WeDontServeGoblins,
+                10 => PostedSignMessage::WeDontServeTieflings,
+                11 => PostedSignMessage::WeaponsNotPermitedToBeDrawn,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<PostedSignLocation> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> PostedSignLocation {
+            let index: u8 = rng.random_range(0..=5);
+            match index {
+                0 => PostedSignLocation::HungAroundTheNeckOfATrophyMountedStagsHead,
+                1 => PostedSignLocation::HungFromTheFireplaceMantle,
+                2 => PostedSignLocation::JustInsideTheDoor,
+                3 => PostedSignLocation::JustOutsideTheDoor,
+                4 => PostedSignLocation::OnTheFrontOfTheBar,
+                5 => PostedSignLocation::OverTheBar,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<SecondSmell> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> SecondSmell {
             let index: u8 = rng.random_range(0..=9);

@@ -11,10 +11,10 @@ use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
 
+use crate::dice_bag::*;
+use crate::dice_bag::Tower::RollDice;
 use crate::tavern::enums::List::*;
-use crate::tavern::implementations::List::*;
-use crate::tavern::structs::List::*;
-use crate::tavern::traits::List::ToCapitalized;
+use crate::tavern::traits::List::*;
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -84,8 +84,8 @@ pub fn get_smells() -> String {
 }
 
 pub fn get_posted_sign() -> String {
-    let sign_location: PostedSignLocation = random();
-    let sign_message: PostedSignMessage = random();
+    let sign_location: PostedSignLocation = rand::random();
+    let sign_message: PostedSignMessage = rand::random();
 
     let sign_location_text = tidy(sign_location.to_string())
         .replace("stags", "stag's")
