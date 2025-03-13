@@ -6,11 +6,13 @@
 use inflector::string::singularize::to_singular;
 use is_vowel::*;
 use rand::prelude::*;
+use rand::distr::{Distribution, StandardUniform};
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
 
 use crate::tavern::enums::List::*;
+use crate::tavern::implementations::List::*;
 use crate::tavern::structs::List::*;
 use crate::tavern::traits::List::ToCapitalized;
 
@@ -37,9 +39,8 @@ pub fn tidy(s: String) -> String {
 
 // ---
 pub fn get_name() -> String {
-    let mut rng = rand::rng();
-    let verb: NameVerb = NameVerb.choose(&mut rng).unwrap();
-    let noun: NameNoun = NameNoun.choose(&mut rng).unwrap();
+    let verb: NameVerb = rand::random();
+    let noun: NameNoun = rand::random();
 
     format!(
         "{} {}",
@@ -49,7 +50,7 @@ pub fn get_name() -> String {
 }
 
 pub fn get_mood() -> String {
-    let current_mood: MoodData = random();
+    let current_mood: MoodData = rand::random();
     let result: String = match current_mood {
         MoodData::MerchantFriendly => "merchant-friendly".to_string(),
         _ => tidy(current_mood.to_string()),

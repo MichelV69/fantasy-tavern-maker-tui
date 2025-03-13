@@ -12,9 +12,33 @@ pub mod List {
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
 
+    impl Distribution<MoodData> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> MoodData {
+            let index: u8 = rng.random_range(0..=14);
+            match index {
+                0 => MoodData::Busy,
+                1 => MoodData::Dour,
+                2 => MoodData::EnthusiasticGamblers,
+                3 => MoodData::Erudite,
+                4 => MoodData::Flirty,
+                5 => MoodData::Jovial,
+                6 => MoodData::Loud,
+                7 => MoodData::LowerClass,
+                8 => MoodData::MerchantFriendly,
+                9 => MoodData::MiddleClass,
+                10 => MoodData::Relaxing,
+                11 => MoodData::Rowdy,
+                12 => MoodData::Seedy,
+                13 => MoodData::Shady,
+                14 => MoodData::Smoky,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<NameNoun> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameNoun {
-            let index: u8 = rng.random_range(0..=5);
+            let index: u8 = rng.random_range(0..=22);
             match index {
                 0 => NameNoun::Bard,
                 1 => NameNoun::Chalice,
@@ -46,7 +70,7 @@ pub mod List {
 
     impl Distribution<NameVerb> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameVerb {
-            let index: u8 = rng.random_range(0..=5);
+            let index: u8 = rng.random_range(0..=20);
             match index {
                 0 => NameVerb::Autumn,
                 1 => NameVerb::Blue,
