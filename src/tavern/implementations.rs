@@ -28,6 +28,66 @@ pub mod List {
     */
 
 
+    impl Distribution<HouseDishWhatSide> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishWhatSide {
+            let index: u8 = rng.random_range(0..=11);
+            match index {
+                0 => HouseDishWhatSide::BerrySauce,
+                1 => HouseDishWhatSide::CheeseSauce,
+                2 => HouseDishWhatSide::ChoppedPotatoes,
+                3 => HouseDishWhatSide::HardBoiledGooseEggsAndSweetDates,
+                4 => HouseDishWhatSide::HotCream,
+                5 => HouseDishWhatSide::LeeksOnionsAndCatTails,
+                6 => HouseDishWhatSide::MixedGreens,
+                7 => HouseDishWhatSide::Mushrooms,
+                8 => HouseDishWhatSide::OnionSoup,
+                9 => HouseDishWhatSide::RoastedForestNuts,
+                10 => HouseDishWhatSide::RootVegtables,
+                11 => HouseDishWhatSide::SweetSavoryAndSpicyDippingSauces,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<HouseDishWhatCooked> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishWhatCooked {
+            let index: u8 = rng.random_range(0..=10);
+            match index {
+                0 => HouseDishWhatCooked::BerryAndCheesePies,
+                1 => HouseDishWhatCooked::BoarRibs,
+                2 => HouseDishWhatCooked::HandFish,
+                3 => HouseDishWhatCooked::MuttonLeg,
+                4 => HouseDishWhatCooked::Pheasant,
+                5 => HouseDishWhatCooked::PlainsStrider,
+                6 => HouseDishWhatCooked::Sausage,
+                7 => HouseDishWhatCooked::SerpentSteak,
+                8 => HouseDishWhatCooked::Venison,
+                9 => HouseDishWhatCooked::WildBoarChops,
+                10 => HouseDishWhatCooked::WolfFlank,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<HouseDishHowCooked> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishHowCooked {
+            let index: u8 = rng.random_range(0..=9);
+            match index {
+                0 => HouseDishHowCooked::Baked,
+                1 => HouseDishHowCooked::Broiled,
+                2 => HouseDishHowCooked::CharcoalGroundPit,
+                3 => HouseDishHowCooked::DeepFried,
+                4 => HouseDishHowCooked::DryAged,
+                5 => HouseDishHowCooked::Fermented,
+                6 => HouseDishHowCooked::FireRoasted,
+                7 => HouseDishHowCooked::HoneyBraised,
+                8 => HouseDishHowCooked::SmokedAndSeasoned,
+                9 => HouseDishHowCooked::StuffedAndBaconWrapped,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<DrinkWinesDetail> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkWinesDetail {
             let index: u8 = rng.random_range(0..=3);

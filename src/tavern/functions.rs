@@ -18,7 +18,7 @@ use crate::dice_bag::Tower::RollDice;
 use crate::tavern::enums::List::*;
 use crate::tavern::traits::List::*;
 
-use super::structs::List::{EstablishmentQuality, HouseDrink, PBHouseSize};
+use super::structs::List::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -308,9 +308,9 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
 }
 
 pub fn get_house_dish(eql: EstablishmentQualityLevel) -> HouseDish {
-    let how_cooked: HouseDishHowCooked = random();
-    let what_cooked: HouseDishWhatCooked = random();
-    let side_dish: HouseDishWhatSide = random();
+    let how_cooked: HouseDishHowCooked = rand::random();
+    let what_cooked: HouseDishWhatCooked = rand::random();
+    let side_dish: HouseDishWhatSide = rand::random();
 
     let desc: String = format!(
         "{} {} served with {}",
