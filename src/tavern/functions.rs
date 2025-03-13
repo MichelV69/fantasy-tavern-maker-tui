@@ -59,9 +59,9 @@ pub fn get_mood() -> String {
 }
 
 pub fn get_lighting() -> String {
-    let adjective: LightingAdjectives = random();
-    let verb: LightingVerb = random();
-    let source: LightingSources = random();
+    let adjective: LightingAdjectives =  rand::random();
+    let verb: LightingVerb = rand::random();
+    let source: LightingSources = rand::random();
     let result = format!(
         " and the main area is {} {} by {}",
         tidy(adjective.to_string()),

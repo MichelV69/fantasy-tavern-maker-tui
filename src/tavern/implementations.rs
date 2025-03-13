@@ -12,6 +12,43 @@ pub mod List {
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
 
+    impl Distribution<LightingSources> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingSources {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => LightingSources::AFireplace,
+                1 => LightingSources::Candles,
+                2 => LightingSources::MagicOrbsAndCrystals,
+                3 => LightingSources::OilLamps,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<LightingVerb> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingVerb {
+            let index: u8 = rng.random_range(0..=1);
+            match index {
+                0 => LightingVerb::Illuminated,
+                1 => LightingVerb::Lit,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<LightingAdjectives> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingAdjectives {
+            let index: u8 = rng.random_range(0..=4);
+            match index {
+                0 => LightingAdjectives::Brightly,
+                1 => LightingAdjectives::Clearly,
+                2 => LightingAdjectives::Dimly,
+                3 => LightingAdjectives::Evenly,
+                4 => LightingAdjectives::Shadowly,
+                _ => unreachable!(),
+            }
+        }
+    }
     impl Distribution<MoodData> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> MoodData {
             let index: u8 = rng.random_range(0..=14);
