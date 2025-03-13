@@ -17,10 +17,13 @@ mod implementations;
 use implementations::*;
 
 mod structs;
-use structs::*;
+use structs::{List::PBHouse, *};
 
 mod traits;
 use traits::*;
 
-
+pub fn get_pbhouse() -> String {
+    let pub_and_bed_house = PBHouse::new();
+    return format!("\n \n {} \n \n", pub_and_bed_house)
+}
 // --- eof ---

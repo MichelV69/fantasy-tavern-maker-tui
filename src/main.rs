@@ -17,7 +17,6 @@ use crate::tavern::*;
 
 // --- local cli code
 fn main() -> () {
-    let pub_and_bed_house = PBHouse::new();
-    format!("\n \n {} \n \n", pub_and_bed_house)
+    get_pbhouse();
 }
 // --- eof ---
