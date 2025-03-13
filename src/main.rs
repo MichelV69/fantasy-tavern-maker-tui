@@ -17,6 +17,6 @@ use crate::tavern::*;
 
 // --- local cli code
 fn main() -> () {
-    get_pbhouse();
+    print!("{}", get_pbhouse());
 }
 // --- eof ---
