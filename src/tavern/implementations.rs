@@ -27,6 +27,84 @@ pub mod List {
     }
     */
 
+
+    impl Distribution<DrinkWinesDetail> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkWinesDetail {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => DrinkWinesDetail::Red,
+                1 => DrinkWinesDetail::Rose,
+                2 => DrinkWinesDetail::Sparkling,
+                3 => DrinkWinesDetail::White,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<DrinkRumsDetail> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkRumsDetail {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => DrinkRumsDetail::Amber,
+                1 => DrinkRumsDetail::Dark,
+                2 => DrinkRumsDetail::Spiced,
+                3 => DrinkRumsDetail::White,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<DrinkWhiskeysDetail> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkWhiskeysDetail {
+            let index: u8 = rng.random_range(0..=1);
+            match index {
+                0 => DrinkWhiskeysDetail::Blended,
+                1 => DrinkWhiskeysDetail::SingleMalt,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<DrinkCidersDetail> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkCidersDetail {
+            let index: u8 = rng.random_range(0..=2);
+            match index {
+                0 => DrinkCidersDetail::Apple,
+                1 => DrinkCidersDetail::Berry,
+                2 => DrinkCidersDetail::Pear,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<DrinkAlesDetail> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkAlesDetail {
+            let index: u8 = rng.random_range(0..=3);
+            match index {
+                0 => DrinkAlesDetail::Dark,
+                1 => DrinkAlesDetail::Hoppy,
+                2 => DrinkAlesDetail::Light,
+                3 => DrinkAlesDetail::Pale,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<DrinkList> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> DrinkList {
+            let index: u8 = rng.random_range(0..=5);
+            match index {
+                0 => DrinkList::Ales,
+                1 => DrinkList::Ciders,
+                2 => DrinkList::OtherStock,
+                3 => DrinkList::Rums,
+                4 => DrinkList::Whiskeys,
+                5 => DrinkList::Wines,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<EstablishmentQualityLevel> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> EstablishmentQualityLevel {
             let index: u8 = rng.random_range(0..=5);

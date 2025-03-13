@@ -5,8 +5,10 @@
 
 use inflector::string::singularize::to_singular;
 use is_vowel::*;
+use rand::distr::weighted::WeightedIndex;
 use rand::prelude::*;
 use rand::distr::{Distribution, StandardUniform};
+use rand_chacha::ChaCha20Rng;
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
@@ -16,7 +18,7 @@ use crate::dice_bag::Tower::RollDice;
 use crate::tavern::enums::List::*;
 use crate::tavern::traits::List::*;
 
-use super::structs::List::{EstablishmentQuality, PBHouseSize};
+use super::structs::List::{EstablishmentQuality, HouseDrink, PBHouseSize};
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -232,11 +234,11 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
     let weights_vector = (1..=DrinkMade::VARIANT_COUNT).collect::<Vec<usize>>(); // courtesy WGaffa (Twitch)
     let dist = WeightedIndex::new(weights_vector).unwrap();
 
-    let mut rng = thread_rng();
+    let mut rng = ChaCha20Rng::from_os_rng();;
     let options_list: Vec<_> = DrinkMade::iter().collect();
     let where_is_made = &options_list[dist.sample(&mut rng)];
 
-    let drink_index: DrinkList = random();
+    let drink_index: DrinkList = rand::random();
     let drink_type_group = match drink_index {
         DrinkList::Ales => drink_index.to_string(),
         DrinkList::Ciders => drink_index.to_string(),
@@ -248,23 +250,23 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
 
     let drink_type_detail: String = match drink_index {
         DrinkList::Ales => {
-            let buffer: DrinkAlesDetail = random();
+            let buffer: DrinkAlesDetail = rand::random();
             tidy(buffer.to_string())
         }
         DrinkList::Ciders => {
-            let buffer: DrinkCidersDetail = random();
+            let buffer: DrinkCidersDetail = rand::random();
             tidy(buffer.to_string())
         }
         DrinkList::Whiskeys => {
-            let buffer: DrinkWhiskeysDetail = random();
+            let buffer: DrinkWhiskeysDetail = rand::random();
             tidy(buffer.to_string())
         }
         DrinkList::Rums => {
-            let buffer: DrinkRumsDetail = random();
+            let buffer: DrinkRumsDetail = rand::random();
             tidy(buffer.to_string())
         }
         DrinkList::Wines => {
-            let buffer: DrinkWinesDetail = random();
+            let buffer: DrinkWinesDetail = rand::random();
             tidy(buffer.to_string())
         }
         DrinkList::OtherStock => {
@@ -282,7 +284,6 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
                     <Tower::DiceResult as RollDice>::from_string("1d2+1").get_total()
                 ),
             ];
-            let mut rng = thread_rng();
             let result = options_list
                 .choose(&mut rng)
                 .expect("valid roll in range")
