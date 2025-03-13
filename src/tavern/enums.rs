@@ -18,226 +18,226 @@ pub mod List {
     // ---
     #[derive(Display)]
     pub enum NameVerb {
-        Waltzing,
-        Checkered,
-        Lazy,
-        Silver,
-        Saucy,
-        Flirting,
-        Blue,
-        Red,
-        Green,
-        Yellow,
-        Fickle,
-        Roaring,
-        Carousing,
-        Melting,
-        Drifting,
-        Spring,
-        Winter,
-        Summer,
         Autumn,
-        Pouring,
+        Blue,
+        Carousing,
+        Checkered,
+        Drifting,
+        Fickle,
+        Flirting,
+        Green,
         Heaving,
+        Lazy,
+        Melting,
+        Pouring,
+        Red,
+        Roaring,
+        Saucy,
+        Silver,
+        Spring,
+        Summer,
+        Waltzing,
+        Winter,
+        Yellow,
     }
 
     #[derive(Display)]
     pub enum NameNoun {
-        Werebear,
-        Cockrel,
-        Hen,
-        Dragon,
-        Wench,
-        Dryad,
-        Sky,
-        Tide,
-        Meadow,
-        Sun,
-        Fortune,
-        Waters,
         Bard,
-        Curmudgeon,
-        Crystal,
-        Mongrel,
-        Ice,
-        Tempest,
-        Snows,
-        Draft,
-        Harvest,
         Chalice,
+        Cockrel,
+        Crystal,
+        Curmudgeon,
+        Draft,
+        Dragon,
+        Dryad,
+        Fortune,
+        Harvest,
+        Hen,
+        Ice,
+        Meadow,
+        Mongrel,
+        Sky,
+        Snows,
+        Sun,
+        Tempest,
+        Tide,
+        Waters,
         Waves,
+        Wench,
+        Werebear,
     }
 
     #[derive(Debug, Display, EnumString, Eq, PartialEq)]
     pub enum MoodData {
-        Jovial,
-        Relaxing,
-        Smoky,
+        Busy,
+        Dour,
+        EnthusiasticGamblers,
         Erudite,
+        Flirty,
+        Jovial,
         Loud,
-        Subdued,
+        LowerClass,
+        MerchantFriendly,
+        MiddleClass,
+        Relaxing,
         Rowdy,
         Seedy,
         Shady,
-        Busy,
-        LowerClass,
-        MiddleClass,
+        Smoky,
+        Subdued,
         UpperClass,
-        MerchantFriendly,
-        EnthusiasticGamblers,
-        Dour,
-        Flirty,
     }
 
     #[derive(Display)]
     pub enum LightingAdjectives {
         Brightly,
         Clearly,
-        Evenly,
         Dimly,
+        Evenly,
         Shadowly,
     }
 
     #[derive(Display)]
     pub enum LightingVerb {
-        Lit,
         Illuminated,
+        Lit,
     }
 
     #[derive(Display)]
     pub enum LightingSources {
-        Candles,
         AFireplace,
-        OilLamps,
+        Candles,
         MagicOrbsAndCrystals,
+        OilLamps,
     }
 
     #[derive(Debug, Display, Clone, Copy)]
     pub enum EstablishmentQualityLevel {
-        Squalid,
-        Poor,
-        Modest,
-        Comfortable,
-        Wealthy,
         Aristocratic,
+        Comfortable,
+        Modest,
+        Poor,
+        Squalid,
+        Wealthy,
     }
     // ---
     #[derive(Debug, Display)]
     pub enum SizeList {
-        Tiny,
-        Small,
-        Modest,
         Large,
         Massive,
+        Modest,
+        Small,
+        Tiny,
     }
 
     #[derive(Debug, Display)]
     pub enum BedTypeList {
-        Hammocks,
         BunkBeds,
+        Hammocks,
         SingleBeds,
         TentBeds,
     }
 
     #[derive(Display)]
     pub enum FirstSmell {
-        WoodSmoke,
-        Spices,
-        Perfumes,
-        WearyTravellers,
-        StrongDrink,
-        Tobacco,
-        SpicedTobacco,
-        Shisha,
         FreshLinen,
         HotBread,
+        Perfumes,
+        Shisha,
+        SpicedTobacco,
+        Spices,
+        StrongDrink,
+        Tobacco,
+        WearyTravellers,
+        WoodSmoke,
     }
 
     #[derive(Display)]
     pub enum SecondSmell {
-        FreshPastries,
-        FoodsCooking,
-        TheOutsideSurroundings,
-        TheOcean,
-        TheForests,
-        FermentingWine,
-        Hops,
-        FermentingRye,
-        HotSpicedCider,
         BakingSweets,
+        FermentingRye,
+        FermentingWine,
+        FoodsCooking,
+        FreshPastries,
+        Hops,
+        HotSpicedCider,
+        TheForests,
+        TheOcean,
+        TheOutsideSurroundings,
     }
 
     #[derive(Display)]
     pub enum PostedSignLocation {
-        OverTheBar,
-        OnTheFrontOfTheBar,
+        HungAroundTheNeckOfATrophyMountedStagsHead,
+        HungFromTheFireplaceMantle,
         JustInsideTheDoor,
         JustOutsideTheDoor,
-        HungFromTheFireplaceMantle,
-        HungAroundTheNeckOfATrophyMountedStagsHead,
+        OnTheFrontOfTheBar,
+        OverTheBar,
     }
 
     #[derive(Display, PartialEq)]
     pub enum PostedSignMessage {
-        WeDontServeAdventurers,
-        WeDontServeTieflings,
-        FreeMealForGoodPerformances,
-        CheapRoomForGoodPerformancesPercentOff,
-        WeaponsNotPermitedToBeDrawn,
-        NoSpellCasting,
-        WeDontServeGoblins,
-        AventurersWelcomePercentOff,
         AdventurersCanEatButNoAlcoholOrRooms,
         AlcoholNotServedToHalfOrcsHalflingsOrTieflings,
+        AventurersWelcomePercentOff,
+        CheapRoomForGoodPerformancesPercentOff,
         ColorfulNamesOfPriorGuests,
+        FreeMealForGoodPerformances,
+        NoSpellCasting,
         WarlocksShotOnSightOnSite,
+        WeaponsNotPermitedToBeDrawn,
+        WeDontServeAdventurers,
+        WeDontServeGoblins,
+        WeDontServeTieflings,
     }
 
     #[derive(Display)]
     pub enum HouseDishHowCooked {
-        SlowRoasted,
-        SmokedAndSeasoned,
-        FireRoasted,
-        DryAged,
-        Broiled,
         Baked,
+        Broiled,
+        CharcoalGroundPit,
+        DeepFried,
+        DryAged,
+        Fermented,
+        FireRoasted,
         HoneyBraised,
         Poached,
-        Fermented,
+        SlowRoasted,
+        SmokedAndSeasoned,
         StuffedAndBaconWrapped,
-        DeepFried,
-        CharcoalGroundPit,
     }
 
     #[derive(Display)]
     pub enum HouseDishWhatCooked {
-        MuttonLeg,
-        Venison,
-        PlatterFish,
-        HandFish,
-        WildBoarChops,
-        Sausage,
-        BoarRibs,
         BerryAndCheesePies,
-        WolfFlank,
+        BoarRibs,
+        HandFish,
+        MuttonLeg,
         Pheasant,
-        SerpentSteak,
         PlainsStrider,
+        PlatterFish,
+        Sausage,
+        SerpentSteak,
+        Venison,
+        WildBoarChops,
+        WolfFlank,
     }
 
     #[derive(Display)]
     pub enum HouseDishWhatSide {
-        RootVegtables,
-        Mushrooms,
-        CheeseSauce,
-        HotCream,
-        HardBoiledGooseEggsAndSweetDates,
-        OnionSoup,
         BerrySauce,
+        CheeseSauce,
         ChoppedPotatoes,
-        MixedGreens,
+        HardBoiledGooseEggsAndSweetDates,
+        HotCream,
         LeeksOnionsAndCatTails,
+        MixedGreens,
+        Mushrooms,
+        OnionSoup,
         RoastedForestNuts,
+        RootVegtables,
         SweetSavoryAndSpicyDippingSauces,
     }
 
@@ -245,78 +245,78 @@ pub mod List {
     pub enum DrinkList {
         Ales,
         Ciders,
-        Whiskeys,
-        Rums,
-        Wines,
         OtherStock,
+        Rums,
+        Whiskeys,
+        Wines,
     }
 
     #[derive(Display, VariantCount, EnumIter)]
     pub enum DrinkMade {
-        AnImported,
         ALocallyMade,
+        AnImported,
         TheHousesOwn,
     }
 
     #[derive(Display)]
     pub enum DrinkAlesDetail {
         Dark,
-        Light,
         Hoppy,
+        Light,
         Pale,
     }
 
     #[derive(Display)]
     pub enum DrinkCidersDetail {
         Apple,
-        Pear,
         Berry,
+        Pear,
     }
 
     #[derive(Display)]
     pub enum DrinkRumsDetail {
-        White,
         Amber,
         Dark,
         Spiced,
+        White,
     }
 
     #[derive(Display)]
     pub enum DrinkWhiskeysDetail {
-        SingleMalt,
         Blended,
+        SingleMalt,
     }
 
     #[derive(Display)]
     pub enum DrinkWinesDetail {
         Red,
-        White,
         Rose,
         Sparkling,
+        White,
     }
 
     #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentHistoryAge {
         Generational,
         Permanent,
-        WellEstablished,
         Recent,
+        WellEstablished,
     }
 
     #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentAppearance {
-        MinorRepairs,
-        GoodCondition,
         BrandNew,
+        GoodCondition,
+        MinorRepairs,
         WhiteWashed,
     }
 
     #[derive(Display, VariantCount, EnumIter)]
     pub enum EstablishmentReputuation {
-        PlotRumors,
         MerchantsLike,
         MilitaPatrol,
         MurderScene,
+        PlotRumors,
     }
 }
 
