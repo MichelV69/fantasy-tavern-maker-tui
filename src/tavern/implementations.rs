@@ -27,6 +27,20 @@ pub mod List {
     }
     */
 
+    impl Distribution<EstablishmentQualityLevel> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> EstablishmentQualityLevel {
+            let index: u8 = rng.random_range(0..=5);
+            match index {
+                0 => EstablishmentQualityLevel::Aristocratic,
+                1 => EstablishmentQualityLevel::Comfortable,
+                2 => EstablishmentQualityLevel::Modest,
+                3 => EstablishmentQualityLevel::Poor,
+                4 => EstablishmentQualityLevel::Squalid,
+                5 => EstablishmentQualityLevel::Wealthy,
+                _ => unreachable!(),
+            }
+        }
+    }
 
     impl Distribution<SizeList> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> SizeList {

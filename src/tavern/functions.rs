@@ -16,7 +16,7 @@ use crate::dice_bag::Tower::RollDice;
 use crate::tavern::enums::List::*;
 use crate::tavern::traits::List::*;
 
-use super::structs::List::PBHouseSize;
+use super::structs::List::{EstablishmentQuality, PBHouseSize};
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -211,7 +211,7 @@ pub fn get_pb_house_size() -> PBHouseSize {
 }
 
 pub fn get_establishment_quality() -> EstablishmentQuality {
-    let establishment_quality_level: EstablishmentQualityLevel = random();
+    let establishment_quality_level: EstablishmentQualityLevel = rand::random();
     let cost_data = match establishment_quality_level {
         EstablishmentQualityLevel::Squalid => ("7cp", "3cp"),
         EstablishmentQualityLevel::Poor => ("1sp", "6cp"),
