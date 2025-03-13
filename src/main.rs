@@ -8,9 +8,12 @@ use tracing::info;
 
 // --- my stuff ---
 mod dice_bag;
-use crate::dice_bag::*;
 mod tavern;
+
+use crate::dice_bag::*;
 use crate::tavern::*;
+
+// todo!("add types of mead to the drink list");
 
 // --- local cli code
 fn main() -> () {
