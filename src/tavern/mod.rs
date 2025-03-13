@@ -7,19 +7,20 @@
 use tracing::info;
 
 // --- my stuff ---
-mod traits;
-use tavern::traits::List::*;
-
-mod implementations;
-use crate::implementations::List::*;
+mod enums;
+use enums::*;
 
 mod functions;
 use functions::*;
 
-mod enums;
-use crate::enums::List::*;
+mod implementations;
+use implementations::*;
 
 mod structs;
-use crate::structs::List::*;
+use structs::*;
+
+mod traits;
+use traits::*;
+
 
 // --- eof ---
