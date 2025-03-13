@@ -12,6 +12,44 @@ pub mod List {
     use crate::tavern::traits::List::*;
     use crate::tavern::functions::*;
 
+    impl Distribution<SecondSmell> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> SecondSmell {
+            let index: u8 = rng.random_range(0..=9);
+            match index {
+                0 => SecondSmell::BakingSweets,
+                1 => SecondSmell::FermentingRye,
+                2 => SecondSmell::FermentingWine,
+                3 => SecondSmell::FoodsCooking,
+                4 => SecondSmell::FreshPastries,
+                5 => SecondSmell::Hops,
+                6 => SecondSmell::HotSpicedCider,
+                7 => SecondSmell::TheForests,
+                8 => SecondSmell::TheOcean,
+                9 => SecondSmell::TheOutsideSurroundings,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Distribution<FirstSmell> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> FirstSmell {
+            let index: u8 = rng.random_range(0..=9);
+            match index {
+                0 => FirstSmell::FreshLinen,
+                1 => FirstSmell::HotBread,
+                2 => FirstSmell::Perfumes,
+                3 => FirstSmell::Shisha,
+                4 => FirstSmell::SpicedTobacco,
+                5 => FirstSmell::Spices,
+                6 => FirstSmell::StrongDrink,
+                7 => FirstSmell::Tobacco,
+                8 => FirstSmell::WearyTravellers,
+                9 => FirstSmell::WoodSmoke,
+                _ => unreachable!(),
+            }
+        }
+    }
+
     impl Distribution<LightingSources> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingSources {
             let index: u8 = rng.random_range(0..=3);

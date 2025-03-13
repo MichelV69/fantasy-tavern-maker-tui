@@ -72,8 +72,8 @@ pub fn get_lighting() -> String {
 }
 
 pub fn get_smells() -> String {
-    let sniff1: FirstSmell = random();
-    let sniff2: SecondSmell = random();
+    let sniff1: FirstSmell = rand::random();
+    let sniff2: SecondSmell = rand::random();
     let result = format!(
         "{} and {}",
         tidy(sniff1.to_string()),
