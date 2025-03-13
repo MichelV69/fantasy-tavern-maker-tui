@@ -16,6 +16,8 @@ use crate::dice_bag::Tower::RollDice;
 use crate::tavern::enums::List::*;
 use crate::tavern::traits::List::*;
 
+use super::structs::List::PBHouseSize;
+
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
     words.join(" ")
@@ -117,7 +119,7 @@ pub fn get_posted_sign() -> String {
 }
 
 pub fn get_pb_house_size() -> PBHouseSize {
-    let pb_size: SizeList = random();
+    let pb_size: SizeList = rand::random();
     let our_pbhouse: PBHouseSize = match pb_size {
         SizeList::Tiny => {
             let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("2d4");
