@@ -5,6 +5,7 @@
 #![allow(non_snake_case)]
 
 use cursive;
+use cursive::view::Scrollable;
 use cursive::Cursive;
 use cursive::view::Resizable;
 use cursive::views::Dialog;
@@ -51,24 +52,18 @@ fn get_new_pbhouse(s: &mut Cursive) -> () {
 
     //---
     let dialog_title = format!("P&B House: the {}", &pbh.name);
-    /*
-        pub struct PBHouse {
-        pub name: String,
-        pub mood: String,
-        pub lighting: String,
-        pub smells: String,
-        pub size: PBHouseSize,
-        pub posted_sign: String,
-        pub house_drink: HouseDrink,
-        pub house_dish: HouseDish,
-        pub establishment_quality: EstablishmentQuality,
-        pub establishment_history_notes: Vec<String>,
-        pub redlight_services: Vec<String>,
-    }
-     */
-
     for line in &pbh.general_info() {
         player_text += &line;
+    }
+
+    for line in &pbh.establishment_history_notes {
+        gm_text += &line;
+    }
+
+    gm_text += "\n\n";
+
+    for line in &pbh.redlight_services {
+        gm_text += &line;
     }
 
     //---
@@ -82,15 +77,15 @@ fn get_new_pbhouse(s: &mut Cursive) -> () {
                     .child(
                         Dialog::text(player_text)
                             .title("Player Notes")
-                            .fixed_width(42),
+                            .fixed_width(42)
+                            .scrollable()
+                            .scroll_y(true),
                     ),
             )
             .button("Quit", |s| s.quit())
+            .button("Another", |s| get_new_pbhouse(s))
             .h_align(cursive::align::HAlign::Center),
     );
 }
-
-// .button("Another", |s| get_new_pbhouse(s))
-// .button("Finish", |s| s.quit()),
 
 // --- eof ---

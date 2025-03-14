@@ -461,8 +461,7 @@ pub mod List {
             };
 
             let para1: String = format!(
-                "'*The {}*' is the local Pub and Bed House for travellers in this area.
-            The {}-quality establishment would be considered {}, with {} tables.",
+                "'*The {}*' is the local Pub and Bed House for travellers in this area. The {}-quality establishment would be considered {}, with {} tables.\n\n",
                 self.name,
                 trim_whitespace(enum_string_to_phase(
                     self.establishment_quality.level.to_string()
@@ -478,8 +477,7 @@ pub mod List {
                 tidy(self.size.common_bed_type.to_string())
             };
             let para2: String = format!(
-                "It has {} {} in the common room and {} private rooms.
-            Rooms are *{}* per day, and meals are *{}* per day.",
+                "It has {} {} in the common room and {} private rooms. Rooms are *{}* per day, and meals are *{}* per day.\n\n",
                 self.size.common_bed_count,
                 bed_type_name,
                 self.size.private_room_count,
@@ -489,7 +487,7 @@ pub mod List {
             pb_house_desc.push(para2);
 
             let para3: String = format!(
-                "As you enter, the air is full of the scents of {}. The current patrons seem to be {prep} {} bunch, {}. {}",
+                "As you enter, the air is full of the scents of {}. The current patrons seem to be {prep} {} bunch, {}. {}\n\n",
                 self.smells,
                 self.mood,
                 self.lighting,
@@ -498,9 +496,7 @@ pub mod List {
             pb_house_desc.push(para3);
 
             let para4: String = format!(
-                "The menu has the usual standard fare posted.
-            The House specialty beverage is {}, for {},
-            while the House specialty dish is {}, for {}.",
+                "The menu has the usual standard fare posted. The House specialty beverage is {}, for {}, while the House specialty dish is {}, for {}.\n\n",
                 self.house_drink.desc,
                 self.house_drink.price,
                 self.house_dish.desc,
