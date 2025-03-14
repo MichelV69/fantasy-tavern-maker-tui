@@ -5,9 +5,9 @@
 #![allow(non_snake_case)]
 
 use cursive;
-use cursive::view::Scrollable;
 use cursive::Cursive;
 use cursive::view::Resizable;
+use cursive::view::Scrollable;
 use cursive::views::Dialog;
 use cursive::views::LinearLayout;
 use cursive::views::TextView;
@@ -38,14 +38,14 @@ fn main() -> () {
     siv.add_layer(
         Dialog::text(&format!("Welcome to {}", &app.name))
             .title(&app.name)
-            .button("New", |s| get_new_pbhouse(s))
+            .button("New", move |s| get_new_pbhouse(s, app.clone()))
             .button("Finish", |s| s.quit()),
     );
 
     siv.run()
 }
 
-fn get_new_pbhouse(s: &mut Cursive) -> () {
+fn get_new_pbhouse(s: &mut Cursive, app: App) -> () {
     let pbh = PBHouse::new();
     let mut gm_text: String = "".into();
     let mut player_text: String = "".into();
@@ -56,18 +56,26 @@ fn get_new_pbhouse(s: &mut Cursive) -> () {
         player_text += &line;
     }
 
+    gm_text += "\n\n Establishment History Notes \n\n";
     for line in &pbh.establishment_history_notes {
         gm_text += &line;
     }
 
-    gm_text += "\n\n";
+    gm_text += "\n\n Redlight Services \n\n";
 
-    for line in &pbh.redlight_services {
-        gm_text += &line;
+    if pbh.redlight_services.len() > 0 {
+        for line in &pbh.redlight_services {
+            gm_text += &line;
+        }
+    } else {
+        gm_text += "_<none>_";
     }
 
     //---
     s.pop_layer();
+    let app1 = app.clone();
+    let app2 = app.clone();
+
     s.add_layer(
         Dialog::new()
             .title(dialog_title)
@@ -83,9 +91,23 @@ fn get_new_pbhouse(s: &mut Cursive) -> () {
                     ),
             )
             .button("Quit", |s| s.quit())
-            .button("Another", |s| get_new_pbhouse(s))
+            .button("Save to file",  move |s| save_pbhouse_to_file(s, pbh.clone(), app1.clone()))
+            .button("Roll another",  move |s| get_new_pbhouse(s, app2.clone()))
             .h_align(cursive::align::HAlign::Center),
     );
+}
+
+fn save_pbhouse_to_file(s: &mut Cursive, pbh:PBHouse, app: App ) {
+    s.pop_layer();
+
+    s.add_layer(
+        Dialog::text(&format!("{} - saving {} to disk", &app.name, pbh.name))
+            .title(&app.name)
+            .button("Roll another", move |s| get_new_pbhouse(s, app.clone()))
+            .button("Finish", |s| s.quit()),
+    );
+
+    return;
 }
 
 // --- eof ---

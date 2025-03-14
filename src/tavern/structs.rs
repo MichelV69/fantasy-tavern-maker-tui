@@ -11,7 +11,7 @@ pub mod List {
     use crate::tavern::enums::List::SizeList;
     use crate::tavern::enums::*;
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub struct App {
         pub name: String,
         pub version_major: i8,
@@ -20,7 +20,7 @@ pub mod List {
         pub version_build: i8,
     }
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub struct PBHouse {
         pub name: String,
         pub mood: String,
@@ -43,7 +43,7 @@ pub mod List {
         pub meals: String,
     }
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub struct PBHouseSize {
         pub size_description: SizeList,
         pub table_count: i8,
@@ -52,13 +52,13 @@ pub mod List {
         pub private_room_count: i8,
     }
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub struct HouseDrink {
         pub desc: String,
         pub price: String,
     }
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub struct HouseDish {
         pub desc: String,
         pub price: String,

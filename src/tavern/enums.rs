@@ -122,7 +122,7 @@ pub mod List {
         Wealthy,
     }
     // ---
-    #[derive(Debug, Display)]
+    #[derive(Debug, Display, Clone)]
     pub enum SizeList {
         Large,
         Massive,
@@ -131,7 +131,7 @@ pub mod List {
         Tiny,
     }
 
-    #[derive(Debug, Display)]
+    #[derive(Debug, Display, Clone)]
     pub enum BedTypeList {
         BunkBeds,
         Hammocks,
