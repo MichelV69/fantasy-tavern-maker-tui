@@ -7,8 +7,8 @@
 use cursive;
 use cursive::Cursive;
 use cursive::view::Resizable;
-use cursive::views::LinearLayout;
 use cursive::views::Dialog;
+use cursive::views::LinearLayout;
 use cursive::views::TextView;
 use tracing::info;
 
@@ -17,8 +17,8 @@ mod dice_bag;
 mod tavern;
 
 use crate::dice_bag::*;
-use crate::tavern::*;
 use crate::tavern::structs::List::App;
+use crate::tavern::*;
 use tavern::structs::List::PBHouse;
 
 // todo!("add types of mead to the drink list");
@@ -46,36 +46,51 @@ fn main() -> () {
 
 fn get_new_pbhouse(s: &mut Cursive) -> () {
     let pbh = PBHouse::new();
-    let gm_text: String = "".into();
-    let player_text: String = "".into();
+    let mut gm_text: String = "".into();
+    let mut player_text: String = "".into();
 
-    let dialog_title = pbh.name;
+    //---
+    let dialog_title = format!("P&B House: the {}", &pbh.name);
+    /*
+        pub struct PBHouse {
+        pub name: String,
+        pub mood: String,
+        pub lighting: String,
+        pub smells: String,
+        pub size: PBHouseSize,
+        pub posted_sign: String,
+        pub house_drink: HouseDrink,
+        pub house_dish: HouseDish,
+        pub establishment_quality: EstablishmentQuality,
+        pub establishment_history_notes: Vec<String>,
+        pub redlight_services: Vec<String>,
+    }
+     */
 
+    for line in &pbh.general_info() {
+        player_text += &line;
+    }
+
+    //---
     s.pop_layer();
     s.add_layer(
         Dialog::new()
             .title(dialog_title)
             .content(
                 LinearLayout::horizontal()
-                .child(
-                    Dialog::text(gm_text)
-                    .title("GM Notes")
-                    .fixed_width(42)
-                )
-                .child(
+                    .child(Dialog::text(gm_text).title("GM Notes").fixed_width(42))
+                    .child(
                         Dialog::text(player_text)
-                        .title("Player Notes")
-                        .fixed_width(42)
-                )
+                            .title("Player Notes")
+                            .fixed_width(42),
+                    ),
             )
             .button("Quit", |s| s.quit())
             .h_align(cursive::align::HAlign::Center),
-
     );
 }
 
 // .button("Another", |s| get_new_pbhouse(s))
 // .button("Finish", |s| s.quit()),
-
 
 // --- eof ---
