@@ -17,6 +17,7 @@ pub mod List {
         pub version_major: i8,
         pub version_minor: i8,
         pub version_fix: i8,
+        pub version_build: i8
     }
 
     #[derive(Debug)]

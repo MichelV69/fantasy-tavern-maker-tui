@@ -403,10 +403,11 @@ pub mod List {
     impl App {
         pub fn new() -> Self {
             App {
-                name: "Fantasy Tavern Maker".into(),
+                name: "Blank App Name".into(),
                 version_major: 0,
-                version_minor: 6,
+                version_minor: 0,
                 version_fix: 0,
+                version_build: 0,
             }
         }
     }

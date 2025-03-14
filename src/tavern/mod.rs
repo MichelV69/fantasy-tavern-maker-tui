@@ -16,7 +16,7 @@ use functions::*;
 mod implementations;
 use implementations::*;
 
-mod structs;
+pub(crate) mod structs;
 use structs::{List::PBHouse, *};
 
 mod traits;
