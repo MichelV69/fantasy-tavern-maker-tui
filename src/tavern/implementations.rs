@@ -514,7 +514,7 @@ pub mod List {
             write!(
                 f,
                 "{}",
-                "\n-----                        Player Blurb                        -----"
+                "\n *-----                        **Player Blurb**                        -----* \n"
             )?;
             for line in &self.general_info() {
                 write!(f, "{}", line)?;
@@ -523,7 +523,7 @@ pub mod List {
             write!(
                 f,
                 "{}",
-                "\n -----                          DM Notes                          -----"
+                "\n *-----                          **DM Notes**                          -----* \n"
             )?;
             for line in &self.establishment_history_notes {
                 write!(f, "{}", line)?;
