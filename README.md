@@ -3,7 +3,7 @@
 ***For Fantasy Worlds Settings such as Dungeons & Dragons 5th Edition***
 
 ## Current Version
-0.5.1
+0.6.13-39
 
 ## Purpose
 Most Games Masters or Authors are aware that they need to unique and
