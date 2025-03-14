@@ -19,7 +19,7 @@ use implementations::*;
 pub(crate) mod structs;
 use structs::{List::PBHouse, *};
 
-mod traits;
+pub(crate) mod traits;
 use traits::*;
 
 pub fn get_pbhouse_plain_text() -> String {
