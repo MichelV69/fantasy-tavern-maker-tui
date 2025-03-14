@@ -17,7 +17,7 @@ more what I was hoping to achieve.
 
 ## Sample Output
 
-![[content/2025-mar-14-example.png]]
+![screenshot of example TUI output](content/2025-mar-14-example.png)
 
 # libraries in use
 
