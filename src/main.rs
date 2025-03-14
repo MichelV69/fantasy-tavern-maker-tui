@@ -6,6 +6,8 @@
 
 use cursive;
 use cursive::Cursive;
+use cursive::view::Resizable;
+use cursive::views::LinearLayout;
 use cursive::views::Dialog;
 use cursive::views::TextView;
 use tracing::info;
@@ -15,8 +17,9 @@ mod dice_bag;
 mod tavern;
 
 use crate::dice_bag::*;
-use crate::tavern::structs::List::App;
 use crate::tavern::*;
+use crate::tavern::structs::List::App;
+use tavern::structs::List::PBHouse;
 
 // todo!("add types of mead to the drink list");
 
@@ -42,13 +45,37 @@ fn main() -> () {
 }
 
 fn get_new_pbhouse(s: &mut Cursive) -> () {
+    let pbh = PBHouse::new();
+    let gm_text: String = "".into();
+    let player_text: String = "".into();
+
+    let dialog_title = pbh.name;
+
     s.pop_layer();
     s.add_layer(
-        Dialog::text(get_pbhouse())
-            .title("Results")
-            .button("Another", |s| get_new_pbhouse(s))
-            .button("Finish", |s| s.quit()),
+        Dialog::new()
+            .title(dialog_title)
+            .content(
+                LinearLayout::horizontal()
+                .child(
+                    Dialog::text(gm_text)
+                    .title("GM Notes")
+                    .fixed_width(42)
+                )
+                .child(
+                        Dialog::text(player_text)
+                        .title("Player Notes")
+                        .fixed_width(42)
+                )
+            )
+            .button("Quit", |s| s.quit())
+            .h_align(cursive::align::HAlign::Center),
+
     );
 }
+
+// .button("Another", |s| get_new_pbhouse(s))
+// .button("Finish", |s| s.quit()),
+
 
 // --- eof ---
