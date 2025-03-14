@@ -196,7 +196,7 @@ pub mod Tower {
         let mut roll_list: Vec<i8> = [].to_vec();
 
         for index in 0..request.number_rolls {
-            let low_roll_val: i8 = match request.die_requested {
+            let roll_val: i8 = match request.die_requested {
                 DiceBag::Coin | DiceBag::D2 => rng.random_range(1..=2),
                 DiceBag::D4 => rng.random_range(1..=4),
                 DiceBag::D6 => rng.random_range(1..=6),
@@ -205,7 +205,6 @@ pub mod Tower {
                 DiceBag::D12 => rng.random_range(1..=12),
                 DiceBag::D20 => rng.random_range(1..=20),
             };
-            let roll_val = low_roll_val + 1;
             event!(Level::INFO, "roll_val[{}]", roll_val);
 
             roll_list.push(roll_val);
@@ -263,13 +262,14 @@ mod tests {
 
     #[test]
     fn rolls_22d8() {
-        let request: &str = "22d8";
+        let request: &str = "4d8";
         let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
         let roll_value: i8 = resulting_roll.get_total();
 
         event!(Level::INFO, "from_string[{}]", roll_value);
         println!("roll_value[{}]", roll_value);
         for this_roll in resulting_roll.get_rolls() {
+            println!("this_roll[{}]", &this_roll);
             debug_assert!((1..=8).contains(&this_roll));
         }
     }
