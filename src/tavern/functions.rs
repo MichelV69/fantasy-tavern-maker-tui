@@ -6,15 +6,15 @@
 use inflector::string::singularize::to_singular;
 use is_vowel::*;
 use rand::distr::weighted::WeightedIndex;
-use rand::prelude::*;
 use rand::distr::{Distribution, StandardUniform};
+use rand::prelude::*;
 use rand_chacha::ChaCha20Rng;
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
 
-use crate::dice_bag::*;
 use crate::dice_bag::Tower::RollDice;
+use crate::dice_bag::*;
 use crate::tavern::enums::List::*;
 use crate::tavern::traits::List::*;
 
@@ -63,7 +63,7 @@ pub fn get_mood() -> String {
 }
 
 pub fn get_lighting() -> String {
-    let adjective: LightingAdjectives =  rand::random();
+    let adjective: LightingAdjectives = rand::random();
     let verb: LightingVerb = rand::random();
     let source: LightingSources = rand::random();
     let result = format!(
@@ -104,7 +104,10 @@ pub fn get_posted_sign() -> String {
         if sign_message == PostedSignMessage::ColorfulNamesOfPriorGuests {
             let how_many_ban_hammers =
                 <Tower::DiceResult as RollDice>::from_string("2d4+1").get_total();
-            format!("The following people are BANNED from this establishment!!! (A colorful list of {} name follows)", how_many_ban_hammers)
+            format!(
+                "The following people are BANNED from this establishment!!! (A colorful list of {} name follows)",
+                how_many_ban_hammers
+            )
         } else {
             tidy(sign_message.to_string())
                 .replace("dont", "don't")
@@ -477,7 +480,7 @@ pub fn get_red_light_services_list() -> Option<String> {
     Some(red_light_services_list)
 }
 
-pub fn get_establishment_history_notes(est_name : &str) -> Vec<String> {
+pub fn get_establishment_history_notes(est_name: &str) -> Vec<String> {
     let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
 
     pb_house_desc.push(format!(

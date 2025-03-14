@@ -2,7 +2,7 @@
 pub mod Tower {
     use rand::prelude::*;
     use std::str::Split;
-    use tracing::{event, Level};
+    use tracing::{Level, event};
 
     pub struct DiceResult {
         request: String,
@@ -236,7 +236,7 @@ pub mod Tower {
 mod tests {
     use super::*;
     use crate::Tower::*;
-    use tracing::{event, Level};
+    use tracing::{Level, event};
 
     #[test]
     fn does_flip_coin() {

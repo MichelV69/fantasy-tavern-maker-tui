@@ -1,16 +1,16 @@
 // ---- implementations  ----
 pub mod List {
-    use strum::{EnumString, IntoEnumIterator, VariantArray, VariantMetadata};
     use inflector::string::singularize::to_singular;
-    use std::fmt;
     use is_vowel::*;
-    use rand::prelude::*;
     use rand::distr::{Distribution, StandardUniform};
+    use rand::prelude::*;
+    use std::fmt;
+    use strum::{EnumString, IntoEnumIterator, VariantArray, VariantMetadata};
 
     use crate::tavern::enums::List::*;
+    use crate::tavern::functions::*;
     use crate::tavern::structs::List::*;
     use crate::tavern::traits::List::*;
-    use crate::tavern::functions::*;
 
     /*
     impl Distribution<LightingSources> for StandardUniform {
@@ -26,7 +26,6 @@ pub mod List {
         }
     }
     */
-
 
     impl Distribution<HouseDishWhatSide> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishWhatSide {
@@ -490,9 +489,12 @@ pub mod List {
             pb_house_desc.push(para2);
 
             let para3: String = format!(
-            "As you enter, the air is full of the scents of {}. The current patrons seem to be {prep} {} bunch, {}. {}",
-            self.smells, self.mood, self.lighting, self.posted_sign.clone()
-        );
+                "As you enter, the air is full of the scents of {}. The current patrons seem to be {prep} {} bunch, {}. {}",
+                self.smells,
+                self.mood,
+                self.lighting,
+                self.posted_sign.clone()
+            );
             pb_house_desc.push(para3);
 
             let para4: String = format!(
