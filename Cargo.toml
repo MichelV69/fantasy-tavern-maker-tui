@@ -1,11 +1,11 @@
 [package]
 name = "fantasy-tavern-maker-tui"
-version = "0.1.0"
+version = "0.5.1"
 edition = "2024"
 
 [dependencies]
 Inflector = "0.11.4"
-iced = "0.13.1"
+cursive = { version = "0.21.1" , features = ["crossterm-backend", "markdown", "ansi"] }
 inquire = "0.7.5"
 is-vowel = "0.1.0"
 markdown = "=1.0.0-alpha.23"
