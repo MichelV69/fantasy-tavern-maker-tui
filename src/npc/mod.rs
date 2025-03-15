@@ -2,11 +2,15 @@
 /// Provides structs and functions required to generate simple
 /// fantasy Dnd5e Non-Player Characters
 pub mod Build {
+    use std::default;
+
     use rand::{
         Rng,
         distr::{Distribution, StandardUniform},
     };
     use tracing::{Level, event};
+
+    use crate::dice_bag::Tower::{self, DiceResult, RollDice};
 
     pub struct Profile {
         pub npc_type: NpcTypeCode,
@@ -67,7 +71,23 @@ pub mod Build {
         }
 
         pub fn set_random_npc_type_code(&mut self) -> () {
-            self.npc_type = NpcTypeCode::Staff;
+            self.npc_type = rand::random();
+        }
+
+        pub fn set_random_gender(&mut self) -> () {
+            let set_of_rolls = Tower::DiceResult::from_string("1d10");
+            let total_of_rolls = set_of_rolls.get_total();
+
+            self.gender = match total_of_rolls {
+                1..=5 => GenderCode::Male,
+                6..=8 => GenderCode::Female,
+                9..=10 => GenderCode::Androgynous,
+                default => panic!(
+                    "Unexpected roll out of bounds {}:{}",
+                    set_of_rolls.get_request(),
+                    total_of_rolls
+                ),
+            }
         }
     }
 

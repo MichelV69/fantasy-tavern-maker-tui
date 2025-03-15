@@ -2,7 +2,10 @@
 
 mod suite {
     use super::*;
-    use crate::npc::Build::*;
+    use crate::{
+        dice_bag::Tower::{self, RollDice},
+        npc::Build::*,
+    };
     use tracing::{Level, event};
 
     #[test]
@@ -37,6 +40,15 @@ mod suite {
         event!(Level::INFO, "new_npc.npc_type[{:#?}]", new_npc.npc_type);
         println!("new_npc.npc_type[{:#?}]", new_npc.npc_type);
         debug_assert_ne!(new_npc.npc_type, NpcTypeCode::Patron);
+    }
+
+    #[test]
+    fn set_random_gender() {
+        let mut new_npc: Profile = Profile::new();
+
+        new_npc.set_random_gender();
+
+        //debug_assert!(new_npc.gender.contains(GenderCode));
     }
 } // mod tests
 // ---- end of file ----
