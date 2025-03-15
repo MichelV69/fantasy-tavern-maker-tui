@@ -3,7 +3,7 @@
 ***For Fantasy Worlds Settings such as Dungeons & Dragons 5th Edition***
 
 ## Current Version
-0.7.0-56
+0.7.1-64
 
 ## Purpose
 Most Games Masters or Authors are aware that they need to unique and
@@ -18,6 +18,12 @@ more what I was hoping to achieve.
 ## Sample Output
 
 ![screenshot of example TUI output](content/2025-mar-14-example.png)
+
+# user requirements
+Ensure that you have a folder called "fantasy-tavern-maker-tui" in your "Documents" folder.
+This is where you will have to unzip the provided PSV data tables.
+
+![screenshot of example data folder](content/2025-mar-15-doc-folder.png)
 
 # libraries in use
 
