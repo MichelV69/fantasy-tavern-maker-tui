@@ -167,7 +167,7 @@ pub mod Build {
         StoryCharacter,
     }
 
-    #[derive(PartialEq)]
+    #[derive(PartialEq, Debug)]
     pub enum GenderCode {
         Androgynous,
         Female,

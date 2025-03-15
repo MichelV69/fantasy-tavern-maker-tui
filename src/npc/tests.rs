@@ -46,9 +46,13 @@ mod suite {
     fn set_random_gender() {
         let mut new_npc: Profile = Profile::new();
 
-        new_npc.set_random_gender();
+        while new_npc.gender == GenderCode::Androgynous {
+            new_npc.set_random_gender();
+        }
 
-        //debug_assert!(new_npc.gender.contains(GenderCode));
+        event!(Level::INFO, "new_npc.gender[{:#?}]", new_npc.gender);
+        println!("new_npc.gender[{:#?}]", new_npc.gender);
+        debug_assert_ne!(new_npc.gender, GenderCode::Androgynous);
     }
 } // mod tests
 // ---- end of file ----
