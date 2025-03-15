@@ -15,6 +15,8 @@ pub mod Build {
         pub hair_color: HairColorCode,
         pub hair_style: HairStyleCode,
         pub eye_color: EyeColorCode,
+        pub quirk_emotional: String,
+        pub quirk_physical: String,
     }
 
 
@@ -50,6 +52,8 @@ pub mod Build {
                 hair_color: HairColorCode::Blonde,
                 hair_style: HairStyleCode::BunchOfBeadedBraids,
                 eye_color: EyeColorCode::Amber,
+                quirk_emotional: "nothing interesting".into(),
+                quirk_physical: "nothing interesting".into(),
             }
         }
     }

@@ -19,6 +19,8 @@ mod suite {
         debug_assert!(new_npc.hair_color == HairColorCode::Blonde);
         debug_assert!(new_npc.hair_style == HairStyleCode::BunchOfBeadedBraids);
         debug_assert!(new_npc.eye_color == EyeColorCode::Amber);
+        debug_assert!(new_npc.quirk_emotional == "nothing interesting");
+        debug_assert!(new_npc.quirk_physical == "nothing interesting");
 
     }
 } // mod tests
