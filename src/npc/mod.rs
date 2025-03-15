@@ -13,7 +13,29 @@ pub mod Build {
         pub height_desc: String,
         pub build_desc: String,
         pub hair_color: HairColorCode,
+        pub hair_style: HairStyleCode,
+        pub eye_color: EyeColorCode,
     }
+
+
+    ///
+    ///  used to create a new NPC profile for use with Dnd5e
+    ///
+    ///  # example
+    ///
+    /// ```
+    /// let new_npc: Profile = Profile::new();
+    ///
+    /// debug_assert!(new_npc.npc_type == NpcTypeCode::Patron);
+    /// debug_assert!(new_npc.gender == GenderCode::Androgynous);
+    /// debug_assert!(new_npc.public_name == "New NPC");
+    /// debug_assert!(new_npc.task_description == "Realm's Most Interesting Person");
+    /// debug_assert!(new_npc.species == SpeciesCode::Dragonborn);
+    /// debug_assert!(new_npc.height_desc == "about average");
+    /// debug_assert!(new_npc.build_desc == "about average");
+    /// debug_assert!(new_npc.hair_color == HairColorCode::Blonde);
+    /// debug_assert!(new_npc.hair_style == HairStyleCode::BunchOfBeadedBraids);
+    /// ```
 
     impl Profile {
         pub fn new() -> Self {
@@ -25,9 +47,43 @@ pub mod Build {
                 species: SpeciesCode::Dragonborn,
                 height_desc: "about average".into(),
                 build_desc: "about average".into(),
-                hair_color: HairColorCode::Blonde
+                hair_color: HairColorCode::Blonde,
+                hair_style: HairStyleCode::BunchOfBeadedBraids,
+                eye_color: EyeColorCode::Amber,
             }
         }
+    }
+
+    #[derive(PartialEq)]
+    pub enum EyeColorCode {
+        Amber,
+        Blue,
+        Brown,
+        Green,
+        Grey,
+        Hazel,
+        Red,
+    }
+
+    #[derive(PartialEq)]
+    pub enum HairStyleCode {
+        BunchOfBeadedBraids,
+        CrewCut,
+        CroppedMohawk,
+        FewShortBraids,
+        LongAndLoose,
+        LongBraid,
+        LongCurls,
+        LongMohawk,
+        LongPonytail,
+        ShavedClean,
+        ShortAndLoose,
+        ShortBraid,
+        ShortCurls,
+        ShortMohawk,
+        ShortPonytail,
+        TopKnot,
+        TrioOfLongBraids,
     }
 
     #[derive(PartialEq)]
