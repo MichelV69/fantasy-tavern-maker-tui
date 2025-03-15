@@ -3,6 +3,9 @@ name = "fantasy-tavern-maker-tui"
 version = "0.7.0-46"
 edition = "2024"
 
+[dev-dependencies]
+pretty_assertions = "1"
+
 [dependencies]
 Inflector = "0.11.4"
 cursive = { version = "0.21.1" , features = ["crossterm-backend", "markdown", "ansi"] }
