@@ -2,7 +2,7 @@
 
 mod suite {
     use super::*;
-    use crate::{dice_bag::Tower, Tower::*};
+    use crate::{Tower::*, dice_bag::Tower};
     use tracing::{Level, event};
 
     #[test]
