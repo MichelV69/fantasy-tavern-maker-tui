@@ -2,6 +2,10 @@
 /// Provides structs and functions required to generate simple
 /// fantasy Dnd5e Non-Player Characters
 pub mod Build {
+    use rand::{
+        Rng,
+        distr::{Distribution, StandardUniform},
+    };
     use tracing::{Level, event};
 
     pub struct Profile {
@@ -61,8 +65,26 @@ pub mod Build {
                 schtick_ability_description: "nothing interesting".into(),
             }
         }
+
+        pub fn set_random_npc_type_code(&mut self) -> () {
+            self.npc_type = NpcTypeCode::Staff;
+        }
     }
 
+    // ---
+    impl Distribution<NpcTypeCode> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NpcTypeCode {
+            let index: u8 = rng.random_range(0..=2);
+            match index {
+                0 => NpcTypeCode::Patron,
+                1 => NpcTypeCode::Staff,
+                2 => NpcTypeCode::StoryCharacter,
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    // ---
     #[derive(PartialEq)]
     pub enum EyeColorCode {
         Amber,
@@ -118,7 +140,7 @@ pub mod Build {
         Tiefling,
     }
 
-    #[derive(PartialEq)]
+    #[derive(PartialEq, Debug)]
     pub enum NpcTypeCode {
         Patron,
         Staff,

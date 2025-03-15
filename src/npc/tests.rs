@@ -25,5 +25,18 @@ mod suite {
         debug_assert!(new_npc.notable_attribute_negative == "nothing interesting");
         debug_assert!(new_npc.schtick_ability_description == "nothing interesting");
     }
+
+    #[test]
+    fn set_random_npc_type_code() {
+        let mut new_npc: Profile = Profile::new();
+
+        while new_npc.npc_type == NpcTypeCode::Patron {
+            new_npc.set_random_npc_type_code();
+        }
+
+        event!(Level::INFO, "new_npc.npc_type[{:#?}]", new_npc.npc_type);
+        println!("new_npc.npc_type[{:#?}]", new_npc.npc_type);
+        debug_assert_ne!(new_npc.npc_type, NpcTypeCode::Patron);
+    }
 } // mod tests
 // ---- end of file ----
