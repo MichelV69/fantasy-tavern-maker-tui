@@ -36,7 +36,7 @@ use tavern::structs::List::PBHouse;
 fn main() -> () {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 46;
+    app.version_build = 56;
     app.version_major = 0;
     app.version_minor = 7;
     app.version_fix = 0;
@@ -141,7 +141,7 @@ fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App) {
     };
 
     s.add_layer(
-        Dialog::text(&format!("{} - saving {} to disk", &app.name, pbh.name))
+        Dialog::text(&format!("{} - saved {} to disk", &app.name, pbh.name))
             .title(&app.name)
             .button("Roll another", move |s| get_new_pbhouse(s, app.clone()))
             .button("Finish", |s| s.quit()),
