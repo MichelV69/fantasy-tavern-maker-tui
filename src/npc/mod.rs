@@ -2,6 +2,7 @@
 /// Provides structs and functions required to generate simple
 /// fantasy Dnd5e Non-Player Characters
 pub mod Build {
+
     use std::default;
 
     use rand::{
@@ -89,6 +90,8 @@ pub mod Build {
                 ),
             }
         }
+
+        pub fn set_random_task_description(&mut self) -> () {}
     }
 
     // ---
@@ -174,5 +177,6 @@ pub mod Build {
         Male,
     }
 } //pub mod NPC
+mod lib;
 #[cfg(test)]
 mod tests;

@@ -1,10 +1,12 @@
 // ---- start of tests ----
 
 mod suite {
+    use std::path::Path;
+
     use super::*;
     use crate::{
         dice_bag::Tower::{self, RollDice},
-        npc::Build::*,
+        npc::{lib::fnset::read_psv_file, Build::*}, structs::List::App,
     };
     use tracing::{Level, event};
 
@@ -53,6 +55,37 @@ mod suite {
         event!(Level::INFO, "new_npc.gender[{:#?}]", new_npc.gender);
         println!("new_npc.gender[{:#?}]", new_npc.gender);
         debug_assert_ne!(new_npc.gender, GenderCode::Androgynous);
+    }
+
+    #[test]
+    fn set_random_task_description() {
+        let mut new_npc: Profile = Profile::new();
+        new_npc.set_random_task_description();
+
+        event!(
+            Level::INFO,
+            "new_npc.task_description[{:#?}]",
+            new_npc.task_description
+        );
+        println!("new_npc.task_description[{:#?}]", new_npc.task_description);
+        debug_assert_ne!(new_npc.task_description, "Realm's Most Interesting Person");
+    }
+
+    #[test]
+    fn test_read_psv_file() {
+
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let test_file = "table-RandomTaskDesc.psv";
+        let psv_file_contents = read_psv_file(test_file, &app);
+
+        event!(Level::INFO, "psv_file_contents[0].0[{:#?}]", psv_file_contents[0].0);
+        println!("psv_file_contents[0].0[{:#?}]",psv_file_contents[0].0);
+
+        debug_assert_eq!(psv_file_contents[0].0, 40);
+        debug_assert_eq!(psv_file_contents[0].1, "Commonfolk");
+
     }
 } // mod tests
 // ---- end of file ----
