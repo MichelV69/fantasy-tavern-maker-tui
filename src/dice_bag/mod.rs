@@ -262,7 +262,7 @@ mod tests {
 
     #[test]
     fn rolls_22d8() {
-        let request: &str = "4d8";
+        let request: &str = "22d8";
         let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
         let roll_value: i8 = resulting_roll.get_total();
 

@@ -20,12 +20,14 @@ use std::io::prelude::*;
 
 // --- my stuff ---
 mod dice_bag;
+mod npc;
 mod tavern;
 
 use crate::dice_bag::*;
-use crate::tavern::*;
+use crate::npc::*;
 use crate::tavern::structs::List::App;
 use crate::tavern::traits::List::AppFn;
+use crate::tavern::*;
 use tavern::structs::List::PBHouse;
 
 // todo!("add types of mead to the drink list");
@@ -36,16 +38,22 @@ fn main() -> () {
     app.name = "fantasy-tavern-maker-tui".into();
     app.version_build = 45;
     app.version_major = 0;
-    app.version_minor = 6;
-    app.version_fix = 16;
+    app.version_minor = 7;
+    app.version_fix = 0;
 
     let mut siv = cursive::default();
 
     siv.add_layer(
-        Dialog::text(&format!("Welcome to {} ({})", &app.name, &app.get_version()))
-            .title(&app.name)
-            .button("Create a new P&B House?", move |s| get_new_pbhouse(s, app.clone()))
-            .button("Quit", |s| s.quit()),
+        Dialog::text(&format!(
+            "Welcome to {} ({})",
+            &app.name,
+            &app.get_version()
+        ))
+        .title(&app.name)
+        .button("Create a new P&B House?", move |s| {
+            get_new_pbhouse(s, app.clone())
+        })
+        .button("Quit", |s| s.quit()),
     );
 
     siv.run()
@@ -102,7 +110,6 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) -> () {
             .button("Roll another", move |s| get_new_pbhouse(s, app2.clone()))
             .h_align(cursive::align::HAlign::Center)
             .button("Quit", |s| s.quit()),
-
     );
 }
 
