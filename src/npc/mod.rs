@@ -6,6 +6,7 @@ pub mod Build {
         pub npc_type: NpcTypeCode,
         pub gender: GenderCode,
         pub public_name: String,
+        pub task_description: String,
     }
 
     impl Profile {
@@ -14,6 +15,7 @@ pub mod Build {
                 npc_type: NpcTypeCode::Patron,
                 gender: GenderCode::Androgynous,
                 public_name: "New NPC".into(),
+                task_description: "Realm's Most Interesting Person".into(),
             }
         }
     }
@@ -47,6 +49,7 @@ mod tests {
         debug_assert!(test_pilot.npc_type == NpcTypeCode::Patron);
         debug_assert!(test_pilot.gender == GenderCode::Androgynous);
         debug_assert!(test_pilot.public_name == "New NPC");
+        debug_assert!(test_pilot.task_description == "Realm's Most Interesting Person");
     }
 } // mod tests
 // ---- end of file ----
