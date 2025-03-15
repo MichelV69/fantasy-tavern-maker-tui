@@ -36,7 +36,7 @@ use tavern::structs::List::PBHouse;
 fn main() -> () {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 45;
+    app.version_build = 46;
     app.version_major = 0;
     app.version_minor = 7;
     app.version_fix = 0;
