@@ -14,7 +14,9 @@ mod suite {
         debug_assert!(test_pilot.public_name == "New NPC");
         debug_assert!(test_pilot.task_description == "Realm's Most Interesting Person");
         debug_assert!(test_pilot.species == SpeciesCode::Dragonborn);
-        debug_assert!(test_pilot.height_desc  == "about average");
+        debug_assert!(test_pilot.height_desc == "about average");
+        debug_assert!(test_pilot.build_desc == "about average");
+        debug_assert!(test_pilot.hair_color == HairColorCode::Blonde);
 
     }
 } // mod tests

@@ -1,4 +1,6 @@
 // ---- start of file ----
+/// Provides structs and functions required to generate simple
+/// fantasy Dnd5e Non-Player Characters
 pub mod Build {
     use tracing::{Level, event};
 
@@ -9,6 +11,8 @@ pub mod Build {
         pub task_description: String,
         pub species: SpeciesCode,
         pub height_desc: String,
+        pub build_desc: String,
+        pub hair_color: HairColorCode,
     }
 
     impl Profile {
@@ -19,9 +23,23 @@ pub mod Build {
                 public_name: "New NPC".into(),
                 task_description: "Realm's Most Interesting Person".into(),
                 species: SpeciesCode::Dragonborn,
-                height_desc: "about average".into()
+                height_desc: "about average".into(),
+                build_desc: "about average".into(),
+                hair_color: HairColorCode::Blonde
             }
         }
+    }
+
+    #[derive(PartialEq)]
+    pub enum HairColorCode {
+        Blonde,
+        Blue,
+        Brown,
+        Dark,
+        Green,
+        Red,
+        SilverGrey,
+        White,
     }
 
     #[derive(PartialEq)]
