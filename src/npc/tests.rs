@@ -21,7 +21,9 @@ mod suite {
         debug_assert!(new_npc.eye_color == EyeColorCode::Amber);
         debug_assert!(new_npc.quirk_emotional == "nothing interesting");
         debug_assert!(new_npc.quirk_physical == "nothing interesting");
-
+        debug_assert!(new_npc.notable_attribute_positive == "nothing interesting");
+        debug_assert!(new_npc.notable_attribute_negative == "nothing interesting");
+        debug_assert!(new_npc.schtick_ability_description == "nothing interesting");
     }
 } // mod tests
 // ---- end of file ----

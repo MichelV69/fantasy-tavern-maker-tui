@@ -17,8 +17,10 @@ pub mod Build {
         pub eye_color: EyeColorCode,
         pub quirk_emotional: String,
         pub quirk_physical: String,
+        pub notable_attribute_positive: String,
+        pub notable_attribute_negative: String,
+        pub schtick_ability_description: String,
     }
-
 
     ///
     ///  used to create a new NPC profile for use with Dnd5e
@@ -54,6 +56,9 @@ pub mod Build {
                 eye_color: EyeColorCode::Amber,
                 quirk_emotional: "nothing interesting".into(),
                 quirk_physical: "nothing interesting".into(),
+                notable_attribute_positive: "nothing interesting".into(),
+                notable_attribute_negative: "nothing interesting".into(),
+                schtick_ability_description: "nothing interesting".into(),
             }
         }
     }
