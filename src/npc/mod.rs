@@ -15,7 +15,6 @@ pub mod Build {
     use rand::prelude::*;
     use super::lib::fnset::{read_psv_file, RollTable};
 
-
     pub struct Profile {
         pub npc_type: NpcTypeCode,
         pub gender: GenderCode,
@@ -75,6 +74,65 @@ pub mod Build {
             }
         }
 
+        pub fn set_random_species(&mut self, app: App) -> () {
+            let test_file = "table-RandomSpeciesByWeight.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result =  Self::roll_from_table(psv_file_contents);
+            println!("set_random_species:result:[{}]", result);
+            self.species =  match result {
+                val if val == "human" => SpeciesCode::Human,
+                val if val == "dwarf" => SpeciesCode::Dwarf,
+                val if val == "halfling" => SpeciesCode::Halfling,
+                val if val == "elf" => SpeciesCode::Elf,
+                val if val == "gnome" => SpeciesCode::Gnome,
+                val if val == "tiefling" => SpeciesCode::Tiefling,
+                val if val == "dragonborn" => SpeciesCode::Dragonborn,
+                _ => panic!("set_random_species result: [{result}]"),
+            };
+            return ;
+        }
+
+        fn roll_from_table(psv_file_contents: Vec<(i16, String)>) -> String {
+            // build the table
+            let mut result_table:  Vec<RollTable> = Vec::with_capacity(42);
+
+            let mut ptr: usize = 0;
+            let mut high: i16 = 0;
+            for line in psv_file_contents {
+
+                let mut low :i16 = 1;
+                if result_table.len() > 1 {
+                    low = result_table[result_table.len() -1].high+1;
+                }
+                high = low + line.0 - 1 ;
+                let result = line.1;
+
+                let to_push: RollTable = RollTable{low: low, high, result};
+                println!("roll_from_table::to_push:[{:#?}]",to_push);
+                result_table.push(to_push);
+            }
+
+            // roll from the table
+            println!("roll_from_table::high:[{}]",high);
+            let mut rng = rand::rng();
+            let table_roll = rng.random_range(1..=high);
+            let mut table_result : String = "".into();
+            for line in result_table{
+                if (table_roll >= line.low)
+                && (table_roll <= line.high) {table_result = line.result};
+            }
+
+            event!(
+                Level::INFO,
+                "table_result[{:#?}]",
+                table_result
+            );
+            println!("roll_from_table::table_roll:result:[{}:{}]",table_roll, table_result);
+            if table_result == "" {panic!("table_result should never be empty! [{table_roll}:{high}]")}
+
+            return table_result;
+        }
+
         pub fn set_random_npc_type_code(&mut self) -> () {
             self.npc_type = rand::random();
         }
@@ -98,33 +156,7 @@ pub mod Build {
         pub fn set_random_task_description(&mut self, app: App) -> () {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
-
-            let mut task_table:  Vec<RollTable> = Vec::with_capacity(42);
-            let ptr: usize = 0;
-            let mut high: i8 = 0;
-            for line in psv_file_contents {
-
-                let mut low :i8 = 0;
-                if ptr > 0 {
-                    low = task_table[ptr -1].high+1;
-                }
-
-                high = low + line.0;
-                let result = line.1;
-
-                let to_push = RollTable{low: low, high: high, result};
-                task_table.push(to_push);
-            }
-
-            // roll from the table
-            let mut rng = rand::rng();
-            let table_roll = rng.random_range(0..=high);
-            let mut table_result : String = "".into();
-            for line in task_table{
-                if line.low >= table_roll
-                && line.high <= table_roll {table_result = line.result};
-            }
-            self.task_description = table_result;
+            self.task_description = Self::roll_from_table(psv_file_contents);
             return ;
         }
     }
@@ -187,7 +219,7 @@ pub mod Build {
         White,
     }
 
-    #[derive(PartialEq)]
+    #[derive(PartialEq, Debug)]
     pub enum SpeciesCode {
         Dragonborn,
         Dwarf,
