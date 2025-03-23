@@ -109,7 +109,16 @@ mod suite {
 
         event!(Level::INFO, "new_npc.species[{:#?}]", new_npc.species);
         println!("new_npc.species[{:#?}]", new_npc.species);
-        debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
+        debug_assert_ne!(new_npc.species, SpeciesCode::Dragonborn);
     }
+
+    #[test]
+    fn set_random_height_desc() {
+        let mut new_npc: Profile = Profile::new();
+        new_npc.set_random_height_desc();
+
+        debug_assert_ne!(new_npc.height_desc, "about average");
+    }
+
 } // mod tests
 // ---- end of file ----

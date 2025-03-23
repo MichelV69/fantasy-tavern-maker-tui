@@ -78,6 +78,22 @@ pub mod Build {
             }
         }
 
+        pub fn set_random_height_desc(&mut self) {
+            let roll_2d6: i8 = <Tower::DiceResult>::from_string("2d6").get_total();
+            self.height_desc = match roll_2d6 {
+                2 =>        <Tower::DiceResult>::inline_replace("very short (-[3d8+6]%)"),
+                3 =>        <Tower::DiceResult>::inline_replace("short (-[2d8+3]%)"),
+                4 =>        <Tower::DiceResult>::inline_replace("short-ish (-[1d8+1]%)"),
+                6..=8 =>     <Tower::DiceResult>::inline_replace("average height ([2d4-4]%)"),
+                9..=10 =>    <Tower::DiceResult>::inline_replace("tall-ish (+[1d8+1]%)"),
+                11 =>       <Tower::DiceResult>::inline_replace("tall (+[2d8+3]%)"),
+                12 =>       <Tower::DiceResult>::inline_replace("very tall (+[3d8+6]%)"),
+                _ =>        panic!("Rolled weird on 2d6 : [{roll_2d6}] "),
+            };
+
+            return;
+        }
+
         pub fn set_random_species(&mut self, app: App) -> () {
             let test_file = "table-RandomSpeciesByWeight.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
