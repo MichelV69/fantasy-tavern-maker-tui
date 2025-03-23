@@ -88,7 +88,24 @@ mod suite {
 
         debug_assert_eq!(psv_file_contents[0].0, 40);
         debug_assert_eq!(psv_file_contents[0].1, "Commonfolk");
+    }
 
+    #[test]
+    fn set_random_species(){
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter : i8 = 0;
+        while (new_npc.species == SpeciesCode::Dragonborn) && counter < 7 {
+            counter+=1 ;
+            new_npc.set_random_species(app.clone());
+        }
+
+        event!(Level::INFO, "new_npc.species[{:#?}]", new_npc.species);
+        println!("new_npc.species[{:#?}]", new_npc.species);
+        debug_assert!(new_npc.species != SpeciesCode::Dragonborn);
     }
 } // mod tests
 // ---- end of file ----
