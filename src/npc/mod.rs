@@ -51,6 +51,7 @@ pub mod Build {
     /// debug_assert!(new_npc.build_desc == "about average");
     /// debug_assert!(new_npc.hair_color == HairColorCode::Blonde);
     /// debug_assert!(new_npc.hair_style == HairStyleCode::BunchOfBeadedBraids);
+    /// debug_assert_ne!(new_npc.task_description, "Realm's Most Interesting Person");;
     /// ```
 
     impl Profile {
