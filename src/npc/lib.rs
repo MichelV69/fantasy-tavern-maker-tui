@@ -4,14 +4,14 @@
 
 pub mod fnset {
     use std::{
-        fs::{self, read_to_string, File},
+        fs::{self, File, read_to_string},
         io::Read,
         path::{Path, PathBuf},
     };
 
-    use dirs::document_dir;
-    use tracing::{event, Level};
     use crate::structs::List::App;
+    use dirs::document_dir;
+    use tracing::{Level, event};
 
     #[derive(Debug)]
     pub struct RollTable {
@@ -25,10 +25,17 @@ pub mod fnset {
 
         let get_dir_result = match document_dir() {
             Some(path) => path,
-            None => panic!("Should have the tables folder installed!")
+            None => panic!("Should have the tables folder installed!"),
         };
 
-        let psv_file_path: PathBuf = format!("{}/{}/{}/{}", get_dir_result.display(), app.name, "mod_npc", psv_file).into();
+        let psv_file_path: PathBuf = format!(
+            "{}/{}/{}/{}",
+            get_dir_result.display(),
+            app.name,
+            "mod_npc",
+            psv_file
+        )
+        .into();
 
         let read_result = fs::read_to_string(&psv_file_path);
         let mut file_content = match read_result {
@@ -49,7 +56,6 @@ pub mod fnset {
 
         return table_set;
     } // read_psv_file
-
 } // mod fnset
 
 // ---- end of file ----
