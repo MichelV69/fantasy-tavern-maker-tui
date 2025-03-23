@@ -11,7 +11,10 @@ pub mod Build {
     };
     use tracing::{Level, event};
 
-    use crate::dice_bag::Tower::{self, DiceResult, RollDice};
+    use crate::{dice_bag::Tower::{self, DiceResult, RollDice}, structs::List::App};
+    use rand::prelude::*;
+    use super::lib::fnset::{read_psv_file, RollTable};
+
 
     pub struct Profile {
         pub npc_type: NpcTypeCode,
@@ -91,7 +94,38 @@ pub mod Build {
             }
         }
 
-        pub fn set_random_task_description(&mut self) -> () {}
+        pub fn set_random_task_description(&mut self, app: App) -> () {
+            let test_file = "table-RandomTaskDesc.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+
+            let mut task_table:  Vec<RollTable> = Vec::with_capacity(42);
+            let ptr: usize = 0;
+            let mut high: i8 = 0;
+            for line in psv_file_contents {
+
+                let mut low :i8 = 0;
+                if ptr > 0 {
+                    low = task_table[ptr -1].high+1;
+                }
+
+                high = low + line.0;
+                let result = line.1;
+
+                let to_push = RollTable{low: low, high: high, result};
+                task_table.push(to_push);
+            }
+
+            // roll from the table
+            let mut rng = rand::rng();
+            let table_roll = rng.random_range(0..=high);
+            let mut table_result : String = "".into();
+            for line in task_table{
+                if line.low >= table_roll
+                && line.high <= table_roll {table_result = line.result};
+            }
+            self.task_description = table_result;
+            return ;
+        }
     }
 
     // ---

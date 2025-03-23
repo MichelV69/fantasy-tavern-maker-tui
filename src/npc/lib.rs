@@ -11,8 +11,13 @@ pub mod fnset {
 
     use dirs::document_dir;
     use tracing::{event, Level};
-
     use crate::structs::List::App;
+
+    pub struct RollTable {
+        pub low: i8,
+        pub high: i8,
+        pub result: String,
+    }
 
     pub fn read_psv_file(psv_file: &str, app: &App) -> Vec<(i8, String)> {
         let mut table_set: Vec<(i8, String)> = Vec::with_capacity(42);

@@ -59,8 +59,11 @@ mod suite {
 
     #[test]
     fn set_random_task_description() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
         let mut new_npc: Profile = Profile::new();
-        new_npc.set_random_task_description();
+        new_npc.set_random_task_description(app);
 
         event!(
             Level::INFO,
