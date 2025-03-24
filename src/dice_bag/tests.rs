@@ -9,7 +9,7 @@ mod suite {
     fn does_flip_coin() {
         let request: &str = "1d2";
         let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
-        let roll_value: i8 = resulting_roll.get_total();
+        let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "roll_value[{}]", roll_value);
         println!("roll_value[{}]", roll_value);
@@ -20,7 +20,7 @@ mod suite {
     fn rolls_1d4() {
         let request: &str = "1d4";
         let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
-        let roll_value: i8 = resulting_roll.get_total();
+        let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "from_string[{}]", roll_value);
         println!("roll_value[{}]", roll_value);
@@ -31,7 +31,7 @@ mod suite {
     fn rolls_22d8() {
         let request: &str = "22d8";
         let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
-        let roll_value: i8 = resulting_roll.get_total();
+        let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "from_string[{}]", roll_value);
         println!("roll_value[{}]", roll_value);
@@ -47,8 +47,8 @@ mod suite {
 
         for i in 1..99 {
             let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
-            let roll_value: i8 = resulting_roll.get_total();
-            let mod_total: i8 = resulting_roll.get_mod_total();
+            let roll_value: i16 = resulting_roll.get_total();
+            let mod_total: i16 = resulting_roll.get_mod_total();
 
             event!(Level::INFO, "from_string[{}]", roll_value);
             println!("roll_value[{}]", roll_value);
@@ -63,8 +63,8 @@ mod suite {
 
         for i in 1..99 {
             let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
-            let roll_value: i8 = resulting_roll.get_total();
-            let mod_total: i8 = resulting_roll.get_mod_total();
+            let roll_value: i16 = resulting_roll.get_total();
+            let mod_total: i16 = resulting_roll.get_mod_total();
 
             event!(Level::INFO, "from_string[{}]", roll_value);
             println!("roll_value[{}]", roll_value);

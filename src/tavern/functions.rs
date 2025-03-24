@@ -330,7 +330,7 @@ pub fn get_house_dish(eql: EstablishmentQualityLevel) -> HouseDish {
     HouseDish { desc, price }
 }
 
-pub fn get_cost_of_goods(eql: EstablishmentQualityLevel) -> (String, i8, String) {
+pub fn get_cost_of_goods(eql: EstablishmentQualityLevel) -> (String, i16, String) {
     let (coin_type, cost_minimum, dice_to_roll) = match eql {
         EstablishmentQualityLevel::Squalid => ("copper".to_string(), 2, "1d4+1".to_string()),
         EstablishmentQualityLevel::Poor => ("copper".to_string(), 3, "1d4+1".to_string()),
@@ -424,7 +424,7 @@ pub fn get_red_light_services_list() -> Option<String> {
     }
 
     struct ServiceTableItem<'a> {
-        weight: i8,
+        weight: i16,
         description: &'a str,
         dc_dice_roll: &'a str,
     }
@@ -464,7 +464,7 @@ pub fn get_red_light_services_list() -> Option<String> {
         WeightedIndex::new(possible_services_table.iter().map(|item| item.weight)).unwrap();
 
     let die_pool_result = <Tower::DiceResult as RollDice>::from_pool("5d6|6");
-    let how_many_services: i8 = 1 + die_pool_result.get_total();
+    let how_many_services: i16 = 1 + die_pool_result.get_total();
     let mut red_light_services_list: String = "".into();
     let mut rng = ChaCha20Rng::from_os_rng();
 

@@ -6,16 +6,16 @@ pub mod Tower {
 
     pub struct DiceResult {
         request: String,
-        rolls: Vec<i8>,
-        total_mod: i8,
-        total_roll: i8,
+        rolls: Vec<i16>,
+        total_mod: i16,
+        total_roll: i16,
     }
 
     pub trait RollDice {
         fn get_request(&self) -> String;
-        fn get_total(&self) -> i8;
-        fn get_mod_total(&self) -> i8;
-        fn get_rolls(&self) -> Vec<i8>;
+        fn get_total(&self) -> i16;
+        fn get_mod_total(&self) -> i16;
+        fn get_rolls(&self) -> Vec<i16>;
         fn from_string(request: &str) -> DiceResult;
         fn inline_replace(human_readable: &str) -> String;
         fn from_pool(request: &str) -> DiceResult;
@@ -26,15 +26,15 @@ pub mod Tower {
             self.request.clone()
         }
 
-        fn get_total(&self) -> i8 {
+        fn get_total(&self) -> i16 {
             self.total_roll
         }
 
-        fn get_mod_total(&self) -> i8 {
+        fn get_mod_total(&self) -> i16 {
             self.total_mod
         }
 
-        fn get_rolls(&self) -> Vec<i8> {
+        fn get_rolls(&self) -> Vec<i16> {
             self.rolls.clone()
         }
 
@@ -55,25 +55,25 @@ pub mod Tower {
 
             // ---
             let buffer1: Vec<String> = request.split('d').map(|s| s.to_string()).collect();
-            let die_count = buffer1[0].parse::<i8>().unwrap();
+            let die_count = buffer1[0].parse::<i16>().unwrap();
             let die_size = buffer1[1]
                 .split(['+', '-'])
-                .map(|i| i.parse::<i8>().unwrap())
+                .map(|i| i.parse::<i16>().unwrap())
                 .collect::<Vec<_>>()[0];
 
             // ----
-            let mut mod_list: Vec<i8> = vec![];
+            let mut mod_list: Vec<i16> = vec![];
             if buffer1[1].contains(['+', '-']) {
                 let mut buffer: String = "".to_string();
                 for c in buffer1[1].chars() {
                     if ['+', '-'].contains(&c) && !buffer.is_empty() {
-                        mod_list.push(buffer.parse::<i8>().unwrap());
+                        mod_list.push(buffer.parse::<i16>().unwrap());
                         buffer = "".to_string();
                     }
                     buffer += &c.to_string();
                 }
                 if !buffer.is_empty() {
-                    mod_list.push(buffer.parse::<i8>().unwrap());
+                    mod_list.push(buffer.parse::<i16>().unwrap());
                 }
             }
 
@@ -83,7 +83,7 @@ pub mod Tower {
             }
 
             // ---
-            let mut mod_total: i8 = 0;
+            let mut mod_total: i16 = 0;
             for v in &mod_list {
                 mod_total += v;
             }
@@ -144,17 +144,17 @@ pub mod Tower {
             let buffer1: Vec<String> = request.split('|').map(|s| s.to_string()).collect();
 
             let dice_string: String = buffer1[0].clone();
-            let success_check: i8 = buffer1[1].parse::<i8>().expect("should be an i8");
+            let success_check: i16 = buffer1[1].parse::<i16>().expect("should be an i16");
 
             let buffer2: Vec<String> = dice_string.split('d').map(|s| s.to_string()).collect();
 
-            let die_count: i8 = buffer2[0].parse::<i8>().expect("should be N of NdX");
-            let die_size: i8 = buffer2[1].parse::<i8>().expect("should be X of NdX");
+            let die_count: i16 = buffer2[0].parse::<i16>().expect("should be N of NdX");
+            let die_size: i16 = buffer2[1].parse::<i16>().expect("should be X of NdX");
 
             let wrapped_roll = Self::from_string(&format!("{}d{}", die_count, die_size));
             let list_rolls = &wrapped_roll.get_rolls();
 
-            let mut success_count: i8 = 0;
+            let mut success_count: i16 = 0;
             for roll in list_rolls {
                 if *roll >= success_check {
                     success_count += 1;
@@ -175,8 +175,8 @@ pub mod Tower {
 
     struct RollRequest {
         die_requested: DiceBag,
-        number_rolls: i8,
-        modifer_list: Vec<i8>,
+        number_rolls: i16,
+        modifer_list: Vec<i16>,
     }
 
     enum DiceBag {
@@ -193,10 +193,10 @@ pub mod Tower {
     fn process_roll_request(request: RollRequest) -> DiceResult {
         use rand::Rng;
         let mut rng = rand::rng();
-        let mut roll_list: Vec<i8> = [].to_vec();
+        let mut roll_list: Vec<i16> = [].to_vec();
 
         for index in 0..request.number_rolls {
-            let roll_val: i8 = match request.die_requested {
+            let roll_val: i16 = match request.die_requested {
                 DiceBag::Coin | DiceBag::D2 => rng.random_range(1..=2),
                 DiceBag::D4 => rng.random_range(1..=4),
                 DiceBag::D6 => rng.random_range(1..=6),
@@ -210,13 +210,13 @@ pub mod Tower {
             roll_list.push(roll_val);
         }
 
-        // modifer_list: Vec<i8>
-        let mut mod_total = 0;
+        // modifer_list: Vec<i16>
+        let mut mod_total: i16 = 0;
         for v in request.modifer_list {
             mod_total += v;
         }
 
-        let mut roll_total = 0;
+        let mut roll_total:i16 = 0;
         for roll in &roll_list {
             roll_total += roll;
         }

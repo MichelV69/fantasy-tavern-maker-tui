@@ -79,7 +79,7 @@ pub mod Build {
         }
 
         pub fn set_random_height_desc(&mut self) {
-            let roll_2d6: i8 = <Tower::DiceResult>::from_string("2d6").get_total();
+            let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
             self.height_desc = match roll_2d6 {
                 2 =>        <Tower::DiceResult>::inline_replace("very short (-[3d8+6]%)"),
                 3 =>        <Tower::DiceResult>::inline_replace("short (-[2d8+3]%)"),

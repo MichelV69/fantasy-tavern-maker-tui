@@ -14,10 +14,10 @@ pub mod List {
     #[derive(Debug, Clone)]
     pub struct App {
         pub name: String,
-        pub version_major: i8,
-        pub version_minor: i8,
-        pub version_fix: i8,
-        pub version_build: i8,
+        pub version_major: i16,
+        pub version_minor: i16,
+        pub version_fix: i16,
+        pub version_build: i16,
     }
 
     #[derive(Debug, Clone)]
@@ -46,10 +46,10 @@ pub mod List {
     #[derive(Debug, Clone)]
     pub struct PBHouseSize {
         pub size_description: SizeList,
-        pub table_count: i8,
+        pub table_count: i16,
         pub common_bed_type: BedTypeList,
-        pub common_bed_count: i8,
-        pub private_room_count: i8,
+        pub common_bed_count: i16,
+        pub private_room_count: i16,
     }
 
     #[derive(Debug, Clone)]
