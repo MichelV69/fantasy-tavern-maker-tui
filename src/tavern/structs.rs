@@ -6,10 +6,10 @@ pub mod List {
     use strum_macros::Display;
     use strum_macros::EnumString;
 
+    use crate::tavern::enums;
     use crate::tavern::enums::List::BedTypeList;
     use crate::tavern::enums::List::EstablishmentQualityLevel;
     use crate::tavern::enums::List::SizeList;
-    use crate::tavern::enums;
 
     #[derive(Debug, Clone)]
     pub struct App {

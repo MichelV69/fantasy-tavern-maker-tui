@@ -216,7 +216,7 @@ pub mod Tower {
             mod_total += v;
         }
 
-        let mut roll_total:i16 = 0;
+        let mut roll_total: i16 = 0;
         for roll in &roll_list {
             roll_total += roll;
         }

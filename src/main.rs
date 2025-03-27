@@ -26,7 +26,6 @@ mod dice_bag;
 mod npc;
 mod tavern;
 
-
 // todo!("add types of mead to the drink list");
 
 // --- local cli code

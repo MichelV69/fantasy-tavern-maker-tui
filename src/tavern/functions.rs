@@ -8,7 +8,7 @@ use is_vowel;
 use rand::distr::weighted::WeightedIndex;
 use rand::distr::{Distribution, StandardUniform};
 use rand::seq::IndexedRandom;
-use rand::{prelude, SeedableRng};
+use rand::{SeedableRng, prelude};
 use rand_chacha::ChaCha20Rng;
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
@@ -18,9 +18,14 @@ use crate::dice_bag::Tower::{self, RollDice};
 use crate::tavern::enums::List::{NameNoun, NameVerb};
 use crate::tavern::traits::List::ToCapitalized;
 
-use super::enums::List::{BedTypeList, DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkMade, DrinkRumsDetail, DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentAppearance, EstablishmentHistoryAge, EstablishmentQualityLevel, EstablishmentReputuation, FirstSmell, HouseDishHowCooked, HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb, MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList};
+use super::enums::List::{
+    BedTypeList, DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkMade, DrinkRumsDetail,
+    DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentAppearance, EstablishmentHistoryAge,
+    EstablishmentQualityLevel, EstablishmentReputuation, FirstSmell, HouseDishHowCooked,
+    HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
+    MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
+};
 use super::structs::List::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
-
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -104,8 +109,7 @@ pub fn get_posted_sign() -> String {
 
     let sign_message_text: String = {
         if sign_message == PostedSignMessage::ColorfulNamesOfPriorGuests {
-            let how_many_ban_hammers =
-                Tower::DiceResult::from_string("2d4+1").get_total();
+            let how_many_ban_hammers = Tower::DiceResult::from_string("2d4+1").get_total();
             format!(
                 "The following people are BANNED from this establishment!!! (A colorful list of {} name follows)",
                 how_many_ban_hammers
@@ -359,11 +363,9 @@ pub fn get_establishment_history_age() -> String {
         EstablishmentHistoryAge::Permanent => Tower::DiceResult::inline_replace(
             "well established, and has been here for [4d4+3] months",
         ),
-        EstablishmentHistoryAge::WellEstablished => {
-            Tower::DiceResult::inline_replace(
-                "a permanent local fixture, and has been in business for [2d6] years",
-            )
-        }
+        EstablishmentHistoryAge::WellEstablished => Tower::DiceResult::inline_replace(
+            "a permanent local fixture, and has been in business for [2d6] years",
+        ),
         EstablishmentHistoryAge::Recent => Tower::DiceResult::inline_replace(
             "a multi-generation business, in operation for more than [3d8+12] years",
         ),

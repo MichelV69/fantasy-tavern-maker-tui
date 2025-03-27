@@ -3,12 +3,21 @@ pub mod List {
     use inflector::string::singularize::to_singular;
     use is_vowel::{self, IsRomanceVowel};
     use rand::distr::{Distribution, StandardUniform};
-    use rand::{prelude, Rng};
+    use rand::{Rng, prelude};
     use std::fmt;
     use strum::{EnumString, IntoEnumIterator, VariantArray, VariantMetadata};
 
-    use crate::tavern::enums::List::{DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkRumsDetail, DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentQualityLevel, FirstSmell, HouseDishHowCooked, HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb, MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList};
-    use crate::tavern::functions::{enum_string_to_phase, get_establishment_history_notes, get_establishment_quality, get_house_dish, get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size, get_posted_sign, get_redlight_services, get_smells, tidy, trim_whitespace};
+    use crate::tavern::enums::List::{
+        DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkRumsDetail, DrinkWhiskeysDetail,
+        DrinkWinesDetail, EstablishmentQualityLevel, FirstSmell, HouseDishHowCooked,
+        HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
+        MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
+    };
+    use crate::tavern::functions::{
+        enum_string_to_phase, get_establishment_history_notes, get_establishment_quality,
+        get_house_dish, get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size,
+        get_posted_sign, get_redlight_services, get_smells, tidy, trim_whitespace,
+    };
     use crate::tavern::structs::List::{App, PBHouse};
     use crate::tavern::traits::List::{AppFn, ToCapitalized};
 

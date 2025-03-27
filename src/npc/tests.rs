@@ -6,7 +6,14 @@ mod suite {
     use super::*;
     use crate::{
         dice_bag::Tower::{self, RollDice},
-        npc::{lib::fnset::read_psv_file, Build::{self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, SpeciesCode}}, tavern::structs::List::App,
+        npc::{
+            Build::{
+                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile,
+                SpeciesCode,
+            },
+            lib::fnset::read_psv_file,
+        },
+        tavern::structs::List::App,
     };
     use tracing::{Level, event};
 
@@ -118,6 +125,5 @@ mod suite {
 
         debug_assert_ne!(new_npc.height_desc, "about average");
     }
-
 } // mod tests
 // ---- end of file ----
