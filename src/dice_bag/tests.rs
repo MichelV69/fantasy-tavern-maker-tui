@@ -1,14 +1,13 @@
 // ---- start of tests ----
 
 mod suite {
-    use super::*;
-    use crate::{Tower::*, dice_bag::Tower};
+    use crate::dice_bag::Tower::{self, DiceResult, RollDice};
     use tracing::{Level, event};
 
     #[test]
     fn does_flip_coin() {
         let request: &str = "1d2";
-        let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
+        let resulting_roll = <DiceResult as RollDice>::from_string(request);
         let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "roll_value[{}]", roll_value);
@@ -19,7 +18,7 @@ mod suite {
     #[test]
     fn rolls_1d4() {
         let request: &str = "1d4";
-        let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
+        let resulting_roll = <DiceResult as RollDice>::from_string(request);
         let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "from_string[{}]", roll_value);
@@ -30,7 +29,7 @@ mod suite {
     #[test]
     fn rolls_22d8() {
         let request: &str = "22d8";
-        let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
+        let resulting_roll = <DiceResult as RollDice>::from_string(request);
         let roll_value: i16 = resulting_roll.get_total();
 
         event!(Level::INFO, "from_string[{}]", roll_value);
@@ -46,7 +45,7 @@ mod suite {
         let request: &str = "1d6+3";
 
         for i in 1..99 {
-            let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
+            let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value: i16 = resulting_roll.get_total();
             let mod_total: i16 = resulting_roll.get_mod_total();
 
@@ -62,7 +61,7 @@ mod suite {
         let request: &str = "1d6-3";
 
         for i in 1..99 {
-            let resulting_roll = <Tower::DiceResult as RollDice>::from_string(request);
+            let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value: i16 = resulting_roll.get_total();
             let mod_total: i16 = resulting_roll.get_mod_total();
 
@@ -76,7 +75,7 @@ mod suite {
     #[test]
     fn rolls_inline_3d4plus2() {
         let request: &str = "rolls_inline_3d4plus2: [3d4+2]. <<== ";
-        let resulting_text = <Tower::DiceResult as RollDice>::inline_replace(request);
+        let resulting_text = <DiceResult as RollDice>::inline_replace(request);
 
         println!("resulting_text [{}]", resulting_text);
         debug_assert!(request != resulting_text);
@@ -85,7 +84,7 @@ mod suite {
     #[test]
     fn rolls_inline_4d6minus3() {
         let request: &str = "rolls_inline_4d6minus3: [4d6-3]. <<== ";
-        let resulting_text = <Tower::DiceResult as RollDice>::inline_replace(request);
+        let resulting_text = <DiceResult as RollDice>::inline_replace(request);
 
         println!("resulting_text [{}]", resulting_text);
         debug_assert!(request != resulting_text);

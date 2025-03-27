@@ -1,7 +1,7 @@
 // ---- start of file ----
 
 pub mod List {
-    use rand::prelude::*;
+    use rand::prelude;
     use rand_derive2::RandGen;
     use strum_macros::Display;
     use strum_macros::EnumString;
@@ -9,7 +9,7 @@ pub mod List {
     use crate::tavern::enums::List::BedTypeList;
     use crate::tavern::enums::List::EstablishmentQualityLevel;
     use crate::tavern::enums::List::SizeList;
-    use crate::tavern::enums::*;
+    use crate::tavern::enums;
 
     #[derive(Debug, Clone)]
     pub struct App {

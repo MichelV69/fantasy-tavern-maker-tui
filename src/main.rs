@@ -12,6 +12,9 @@ use cursive::views::Dialog;
 use cursive::views::LinearLayout;
 use cursive::views::TextView;
 use dirs::download_dir;
+use tavern::structs::List::App;
+use tavern::structs::List::PBHouse;
+use tavern::traits::List::AppFn;
 use tracing::info;
 
 use std::fmt::format;
@@ -23,12 +26,6 @@ mod dice_bag;
 mod npc;
 mod tavern;
 
-use crate::dice_bag::*;
-use crate::npc::*;
-use crate::tavern::structs::List::App;
-use crate::tavern::traits::List::AppFn;
-use crate::tavern::*;
-use tavern::structs::List::PBHouse;
 
 // todo!("add types of mead to the drink list");
 

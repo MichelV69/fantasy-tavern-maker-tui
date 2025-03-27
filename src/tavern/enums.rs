@@ -6,8 +6,8 @@ pub mod List {
     use strum_macros::EnumIter;
     use strum_macros::EnumString;
 
-    use is_vowel::*;
-    use rand::prelude::*;
+    use is_vowel;
+    use rand::prelude;
     use rand_derive2::RandGen;
     use std::fmt;
 

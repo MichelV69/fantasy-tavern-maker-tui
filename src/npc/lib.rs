@@ -9,9 +9,9 @@ pub mod fnset {
         path::{Path, PathBuf},
     };
 
-    use crate::structs::List::App;
     use dirs::document_dir;
     use tracing::{Level, event};
+    use crate::tavern::structs::List::App;
 
     #[derive(Debug)]
     pub struct RollTable {

@@ -12,11 +12,8 @@ pub mod Build {
     use tracing::{Level, event};
 
     use super::lib::fnset::{RollTable, read_psv_file};
-    use crate::{
-        dice_bag::Tower::{self, DiceResult, RollDice},
-        structs::List::App,
-    };
-    use rand::prelude::*;
+    use crate::{dice_bag::Tower::{self, DiceResult, RollDice}, tavern::structs::List::App};
+    use rand::prelude;
 
     pub struct Profile {
         pub npc_type: NpcTypeCode,

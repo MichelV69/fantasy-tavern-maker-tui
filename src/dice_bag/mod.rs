@@ -1,6 +1,6 @@
 // ---- start of file ----
 pub mod Tower {
-    use rand::prelude::*;
+    use rand::prelude;
     use std::str::Split;
     use tracing::{Level, event};
 

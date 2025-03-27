@@ -4,21 +4,23 @@
 #![allow(unused_mut)]
 
 use inflector::string::singularize::to_singular;
-use is_vowel::*;
+use is_vowel;
 use rand::distr::weighted::WeightedIndex;
 use rand::distr::{Distribution, StandardUniform};
-use rand::prelude::*;
+use rand::seq::IndexedRandom;
+use rand::{prelude, SeedableRng};
 use rand_chacha::ChaCha20Rng;
 use std::{cmp::*, fmt};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumString};
 
-use crate::dice_bag::Tower::RollDice;
-use crate::dice_bag::*;
-use crate::tavern::enums::List::*;
-use crate::tavern::traits::List::*;
+use crate::dice_bag::Tower::{self, RollDice};
+use crate::tavern::enums::List::{NameNoun, NameVerb};
+use crate::tavern::traits::List::ToCapitalized;
 
+use super::enums::List::{BedTypeList, DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkMade, DrinkRumsDetail, DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentAppearance, EstablishmentHistoryAge, EstablishmentQualityLevel, EstablishmentReputuation, FirstSmell, HouseDishHowCooked, HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb, MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList};
 use super::structs::List::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
+
 
 pub fn trim_whitespace(s: String) -> String {
     let words: Vec<_> = s.split_whitespace().collect();
@@ -96,14 +98,14 @@ pub fn get_posted_sign() -> String {
         .replace("trophy mounted", "trophy-mounted");
     let percent_replace = format!(
         "({} {}!!)",
-        <Tower::DiceResult as RollDice>::from_string("4d4").get_total(),
+        Tower::DiceResult::from_string("4d4").get_total(),
         "percent off"
     );
 
     let sign_message_text: String = {
         if sign_message == PostedSignMessage::ColorfulNamesOfPriorGuests {
             let how_many_ban_hammers =
-                <Tower::DiceResult as RollDice>::from_string("2d4+1").get_total();
+                Tower::DiceResult::from_string("2d4+1").get_total();
             format!(
                 "The following people are BANNED from this establishment!!! (A colorful list of {} name follows)",
                 how_many_ban_hammers
@@ -127,10 +129,10 @@ pub fn get_pb_house_size() -> PBHouseSize {
     let pb_size: SizeList = rand::random();
     let our_pbhouse: PBHouseSize = match pb_size {
         SizeList::Tiny => {
-            let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("2d4");
+            let pb_tables_roll = Tower::DiceResult::from_string("2d4");
             let pb_tables = pb_tables_roll.get_total();
 
-            let pb_beds_roll = <Tower::DiceResult as RollDice>::from_string("1d4");
+            let pb_beds_roll = Tower::DiceResult::from_string("1d4");
             let pb_beds = pb_beds_roll.get_total();
 
             PBHouseSize {
@@ -142,13 +144,13 @@ pub fn get_pb_house_size() -> PBHouseSize {
             }
         }
         SizeList::Small => {
-            let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("3d4");
+            let pb_tables_roll = Tower::DiceResult::from_string("3d4");
             let pb_tables = pb_tables_roll.get_total();
 
-            let pb_beds_roll = <Tower::DiceResult as RollDice>::from_string("2d4");
+            let pb_beds_roll = Tower::DiceResult::from_string("2d4");
             let pb_beds = pb_beds_roll.get_total();
 
-            let pb_priv_room_roll = <Tower::DiceResult as RollDice>::from_string("1d4");
+            let pb_priv_room_roll = Tower::DiceResult::from_string("1d4");
             let pb_priv_rooms = pb_priv_room_roll.get_total();
             PBHouseSize {
                 size_description: pb_size,
@@ -159,13 +161,13 @@ pub fn get_pb_house_size() -> PBHouseSize {
             }
         }
         SizeList::Modest => {
-            let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("4d6");
+            let pb_tables_roll = Tower::DiceResult::from_string("4d6");
             let pb_tables = pb_tables_roll.get_total();
 
-            let pb_beds_roll = <Tower::DiceResult as RollDice>::from_string("3d6");
+            let pb_beds_roll = Tower::DiceResult::from_string("3d6");
             let pb_beds = pb_beds_roll.get_total();
 
-            let pb_priv_room_roll = <Tower::DiceResult as RollDice>::from_string("2d6");
+            let pb_priv_room_roll = Tower::DiceResult::from_string("2d6");
             let pb_priv_rooms = pb_priv_room_roll.get_total();
             PBHouseSize {
                 size_description: pb_size,
@@ -176,13 +178,13 @@ pub fn get_pb_house_size() -> PBHouseSize {
             }
         }
         SizeList::Large => {
-            let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("5d6");
+            let pb_tables_roll = Tower::DiceResult::from_string("5d6");
             let pb_tables = pb_tables_roll.get_total();
 
-            let pb_beds_roll = <Tower::DiceResult as RollDice>::from_string("4d6");
+            let pb_beds_roll = Tower::DiceResult::from_string("4d6");
             let pb_beds = pb_beds_roll.get_total();
 
-            let pb_priv_room_roll = <Tower::DiceResult as RollDice>::from_string("3d6");
+            let pb_priv_room_roll = Tower::DiceResult::from_string("3d6");
             let pb_priv_rooms = pb_priv_room_roll.get_total();
             PBHouseSize {
                 size_description: pb_size,
@@ -193,13 +195,13 @@ pub fn get_pb_house_size() -> PBHouseSize {
             }
         }
         SizeList::Massive => {
-            let pb_tables_roll = <Tower::DiceResult as RollDice>::from_string("7d8");
+            let pb_tables_roll = Tower::DiceResult::from_string("7d8");
             let pb_tables = pb_tables_roll.get_total();
 
-            let pb_beds_roll = <Tower::DiceResult as RollDice>::from_string("6d8");
+            let pb_beds_roll = Tower::DiceResult::from_string("6d8");
             let pb_beds = pb_beds_roll.get_total();
 
-            let pb_priv_room_roll = <Tower::DiceResult as RollDice>::from_string("4d8");
+            let pb_priv_room_roll = Tower::DiceResult::from_string("4d8");
             let pb_priv_rooms = pb_priv_room_roll.get_total();
             PBHouseSize {
                 size_description: pb_size,
@@ -280,11 +282,11 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
                 "a milky liqueur that closely resembles heavy cream".to_string(),
                 format!(
                     "an iced cocktail made with {} different liquers",
-                    <Tower::DiceResult as RollDice>::from_string("1d2+1").get_total()
+                    Tower::DiceResult::from_string("1d2+1").get_total()
                 ),
                 format!(
                     "a coffee-based drink, served in a stien, with {} strong spirits mixed in",
-                    <Tower::DiceResult as RollDice>::from_string("1d2+1").get_total()
+                    Tower::DiceResult::from_string("1d2+1").get_total()
                 ),
             ];
             let result = options_list
@@ -303,7 +305,7 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
     .replace(" OtherStock", "");
 
     let cost_of_goods = get_cost_of_goods(eql);
-    let roll_value = <Tower::DiceResult as RollDice>::from_string(&cost_of_goods.2).get_total();
+    let roll_value = Tower::DiceResult::from_string(&cost_of_goods.2).get_total();
     let cost_of_goods_value = max(cost_of_goods.1, roll_value);
     let price: String = format!("{} {}", cost_of_goods_value, cost_of_goods.0);
 
@@ -323,7 +325,7 @@ pub fn get_house_dish(eql: EstablishmentQualityLevel) -> HouseDish {
     );
 
     let cost_of_goods = get_cost_of_goods(eql);
-    let roll_value = <Tower::DiceResult as RollDice>::from_string(&cost_of_goods.2).get_total();
+    let roll_value = Tower::DiceResult::from_string(&cost_of_goods.2).get_total();
     let cost_of_goods_value = max(cost_of_goods.1, roll_value);
     let price: String = format!("{} {}", cost_of_goods_value, cost_of_goods.0);
 
@@ -351,18 +353,18 @@ pub fn get_establishment_history_age() -> String {
     let chosen_option = &options_list[dist.sample(&mut rng)];
 
     match chosen_option {
-        EstablishmentHistoryAge::Generational => <Tower::DiceResult as RollDice>::inline_replace(
+        EstablishmentHistoryAge::Generational => Tower::DiceResult::inline_replace(
             "recently established, within the past [2d4+2] months",
         ),
-        EstablishmentHistoryAge::Permanent => <Tower::DiceResult as RollDice>::inline_replace(
+        EstablishmentHistoryAge::Permanent => Tower::DiceResult::inline_replace(
             "well established, and has been here for [4d4+3] months",
         ),
         EstablishmentHistoryAge::WellEstablished => {
-            <Tower::DiceResult as RollDice>::inline_replace(
+            Tower::DiceResult::inline_replace(
                 "a permanent local fixture, and has been in business for [2d6] years",
             )
         }
-        EstablishmentHistoryAge::Recent => <Tower::DiceResult as RollDice>::inline_replace(
+        EstablishmentHistoryAge::Recent => Tower::DiceResult::inline_replace(
             "a multi-generation business, in operation for more than [3d8+12] years",
         ),
     }
@@ -409,7 +411,7 @@ pub fn get_establishment_reputation() -> String {
     let result = match chosen_option {
         EstablishmentReputuation::PlotRumors => "Owner knows plot-relevant rumors",
         EstablishmentReputuation::MerchantsLike => "Traveling merchants know the place well",
-        EstablishmentReputuation::MilitaPatrol => &<Tower::DiceResult as RollDice>::inline_replace(
+        EstablishmentReputuation::MilitaPatrol => &Tower::DiceResult::inline_replace(
             "A local milita band stops by here every [3d6+4] days as part of their patrol route",
         ),
         EstablishmentReputuation::MurderScene => "An infamous murder happened here",
@@ -419,7 +421,7 @@ pub fn get_establishment_reputation() -> String {
 }
 
 pub fn get_red_light_services_list() -> Option<String> {
-    if <Tower::DiceResult as RollDice>::from_string("flip coin").get_total() == 2 {
+    if Tower::DiceResult::from_string("flip coin").get_total() == 2 {
         return None;
     }
 
@@ -463,14 +465,14 @@ pub fn get_red_light_services_list() -> Option<String> {
     let table_weights =
         WeightedIndex::new(possible_services_table.iter().map(|item| item.weight)).unwrap();
 
-    let die_pool_result = <Tower::DiceResult as RollDice>::from_pool("5d6|6");
+    let die_pool_result = Tower::DiceResult::from_pool("5d6|6");
     let how_many_services: i16 = 1 + die_pool_result.get_total();
     let mut red_light_services_list: String = "".into();
     let mut rng = ChaCha20Rng::from_os_rng();
 
     for i in 1..=how_many_services {
         let result = &possible_services_table[table_weights.sample(&mut rng)];
-        let new_service: String = <Tower::DiceResult as RollDice>::inline_replace(&format!(
+        let new_service: String = Tower::DiceResult::inline_replace(&format!(
             " * {} (DC [{}]) \n",
             result.description, result.dc_dice_roll
         ));

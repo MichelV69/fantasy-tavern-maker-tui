@@ -6,8 +6,7 @@ mod suite {
     use super::*;
     use crate::{
         dice_bag::Tower::{self, RollDice},
-        npc::{Build::*, lib::fnset::read_psv_file},
-        structs::List::App,
+        npc::{lib::fnset::read_psv_file, Build::{self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, SpeciesCode}}, tavern::structs::List::App,
     };
     use tracing::{Level, event};
 
