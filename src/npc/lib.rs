@@ -1,7 +1,6 @@
 /// external functions used by the mod
 /// accessible to all class/struct/impl
 ///
-
 pub mod fnset {
     use std::{
         fs::{self, File, read_to_string},
@@ -54,7 +53,7 @@ pub mod fnset {
             table_set.push((probability, description));
         }
 
-        return table_set;
+        table_set
     } // read_psv_file
 } // mod fnset
 

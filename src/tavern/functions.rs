@@ -4,7 +4,6 @@
 #![allow(unused_mut)]
 
 use inflector::string::singularize::to_singular;
-use is_vowel;
 use rand::distr::weighted::WeightedIndex;
 use rand::distr::{Distribution, StandardUniform};
 use rand::seq::IndexedRandom;
@@ -503,10 +502,9 @@ pub fn get_redlight_services() -> Vec<String> {
     let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
     let red_light_services_list = get_red_light_services_list();
     if red_light_services_list.is_some() {
-        pb_house_desc.push(format!(
-            "{}",
-            red_light_services_list.expect("Should always be String.")
-        ))
+        pb_house_desc.push(
+            red_light_services_list.expect("Should always be String.").to_string()
+        )
     }
     // ---
     pb_house_desc

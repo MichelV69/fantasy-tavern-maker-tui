@@ -56,7 +56,6 @@ pub mod Build {
     /// debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
     /// debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
     /// ```
-
     impl Profile {
         pub fn new() -> Self {
             Profile {
@@ -90,11 +89,9 @@ pub mod Build {
                 12 => <Tower::DiceResult>::inline_replace("very tall (+[3d8+6]%)"),
                 _ => panic!("Rolled weird on 2d6 : [{roll_2d6}] "),
             };
-
-            return;
         }
 
-        pub fn set_random_species(&mut self, app: App) -> () {
+        pub fn set_random_species(&mut self, app: App) {
             let test_file = "table-RandomSpeciesByWeight.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -109,7 +106,7 @@ pub mod Build {
                 val if val == "dragonborn" => SpeciesCode::Dragonborn,
                 _ => panic!("set_random_species result: [{result}]"),
             };
-            return;
+
         }
 
         fn roll_from_table(psv_file_contents: Vec<(i16, String)>) -> String {
@@ -127,7 +124,7 @@ pub mod Build {
                 let result = line.1;
 
                 let to_push: RollTable = RollTable {
-                    low: low,
+                    low,
                     high,
                     result,
                 };
@@ -151,18 +148,18 @@ pub mod Build {
                 "roll_from_table::table_roll:result:[{}:{}]",
                 table_roll, table_result
             );
-            if table_result == "" {
+            if table_result.is_empty() {
                 panic!("table_result should never be empty! [{table_roll}:{high}]")
             }
 
-            return table_result;
+            table_result
         }
 
-        pub fn set_random_npc_type_code(&mut self) -> () {
+        pub fn set_random_npc_type_code(&mut self) {
             self.npc_type = rand::random();
         }
 
-        pub fn set_random_gender(&mut self) -> () {
+        pub fn set_random_gender(&mut self) {
             let set_of_rolls = Tower::DiceResult::from_string("1d10");
             let total_of_rolls = set_of_rolls.get_total();
 
@@ -178,11 +175,11 @@ pub mod Build {
             }
         }
 
-        pub fn set_random_task_description(&mut self, app: App) -> () {
+        pub fn set_random_task_description(&mut self, app: App) {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             self.task_description = Self::roll_from_table(psv_file_contents);
-            return;
+
         }
     }
 

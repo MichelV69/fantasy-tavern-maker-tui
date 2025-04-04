@@ -4,7 +4,6 @@
 #![allow(unused_mut)]
 #![allow(non_snake_case)]
 
-use cursive;
 use cursive::Cursive;
 use cursive::view::Resizable;
 use cursive::view::Scrollable;
@@ -29,7 +28,7 @@ mod tavern;
 // todo!("add types of mead to the drink list");
 
 // --- local cli code
-fn main() -> () {
+fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
     app.version_build = 64;
@@ -40,7 +39,7 @@ fn main() -> () {
     let mut siv = cursive::default();
 
     siv.add_layer(
-        Dialog::text(&format!(
+        Dialog::text(format!(
             "Welcome to {} ({})",
             &app.name,
             &app.get_version()
@@ -55,7 +54,7 @@ fn main() -> () {
     siv.run()
 }
 
-fn get_new_pbhouse(s: &mut Cursive, app: App) -> () {
+fn get_new_pbhouse(s: &mut Cursive, app: App) {
     let pbh = PBHouse::new();
     let mut gm_text: String = "".into();
     let mut player_text: String = "".into();
@@ -63,19 +62,19 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) -> () {
     //---
     let dialog_title = format!("P&B House: the {}", &pbh.name);
     for line in &pbh.general_info() {
-        player_text += &line;
+        player_text += line;
     }
 
     gm_text += "\n\n Establishment History Notes \n\n";
     for line in &pbh.establishment_history_notes {
-        gm_text += &line;
+        gm_text += line;
     }
 
     gm_text += "\n\n Redlight Services \n\n";
 
-    if pbh.redlight_services.len() > 0 {
+    if !pbh.redlight_services.is_empty() {
         for line in &pbh.redlight_services {
-            gm_text += &line;
+            gm_text += line;
         }
     } else {
         gm_text += "_<none>_";
@@ -130,20 +129,18 @@ fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App) {
         Err(error) => panic!("Problem opening the file: {error:?}"),
     };
 
-    let file_write_result = write!(file_handle, "{}", format!("\n \n {} \n \n", pbh));
-    let work_result = match file_write_result {
+    let file_write_result = write!(file_handle, "{}", format_args!("\n \n {} \n \n", pbh));
+    match file_write_result {
         Ok(file) => file,
         Err(error) => panic!("Problem writing to the file: {error:?}"),
     };
 
     s.add_layer(
-        Dialog::text(&format!("{} - saved {} to disk", &app.name, pbh.name))
+        Dialog::text(format!("{} - saved {} to disk", &app.name, pbh.name))
             .title(&app.name)
             .button("Roll another", move |s| get_new_pbhouse(s, app.clone()))
             .button("Finish", |s| s.quit()),
     );
-
-    return;
 }
 
 // --- eof ---

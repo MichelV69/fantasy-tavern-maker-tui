@@ -16,6 +16,6 @@ pub(crate) mod traits;
 
 pub fn get_pbhouse_plain_text() -> String {
     let pub_and_bed_house = PBHouse::new();
-    return format!("\n \n {} \n \n", pub_and_bed_house);
+    format!("\n \n {} \n \n", pub_and_bed_house)
 }
 // --- eof ---

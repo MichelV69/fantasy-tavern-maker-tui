@@ -522,7 +522,6 @@ pub mod List {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             write!(
                 f,
-                "{}",
                 "\n *-----                        **Player Blurb**                        -----* \n"
             )?;
             for line in &self.general_info() {
@@ -531,7 +530,6 @@ pub mod List {
 
             write!(
                 f,
-                "{}",
                 "\n *-----                          **DM Notes**                          -----* \n"
             )?;
             for line in &self.establishment_history_notes {
