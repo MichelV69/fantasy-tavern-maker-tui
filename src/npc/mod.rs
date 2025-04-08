@@ -77,6 +77,20 @@ pub mod Build {
             }
         }
 
+        pub fn set_random_build_desc(&mut self) {
+            let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
+            self.build_desc = match roll_2d6 {
+                2 => <Tower::DiceResult>::inline_replace("gaunt (-[3d8+6]%)"),
+                3 => <Tower::DiceResult>::inline_replace("lean (-[2d8+3]%)"),
+                4 => <Tower::DiceResult>::inline_replace("slightly angular (-[1d8+1]%)"),
+                6..=8 => <Tower::DiceResult>::inline_replace("medium build ([2d4-4]%)"),
+                9..=10 => <Tower::DiceResult>::inline_replace("slightly husky (+[1d8+1]%)"),
+                11 => <Tower::DiceResult>::inline_replace("stout (+[2d8+3]%)"),
+                12 => <Tower::DiceResult>::inline_replace("portly (+[3d8+6]%)"),
+                _ => panic!("Rolled weird on 2d6 : [{roll_2d6}] "),
+            };
+        }
+
         pub fn set_random_height_desc(&mut self) {
             let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
             self.height_desc = match roll_2d6 {

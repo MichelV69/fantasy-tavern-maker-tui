@@ -125,5 +125,14 @@ mod suite {
 
         debug_assert_ne!(new_npc.height_desc, "about average");
     }
+
+    #[test]
+    fn set_random_build_desc () {
+        let mut new_npc: Profile = Profile::new();
+        new_npc.set_random_build_desc();
+
+        debug_assert_ne!(new_npc.build_desc, "about average");
+    }
+
 } // mod tests
 // ---- end of file ----
