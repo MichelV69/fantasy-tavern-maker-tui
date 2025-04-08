@@ -134,5 +134,23 @@ mod suite {
         debug_assert_ne!(new_npc.build_desc, "about average");
     }
 
+    #[test]
+    fn set_random_hair_color() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter: i8 = 0;
+        while (new_npc.hair_color == HairColorCode::Blonde) && counter < 7 {
+            counter += 1;
+            new_npc.set_random_hair_color(app.clone());
+        }
+
+        event!(Level::INFO, "new_npc.hair_color[{:#?}]", new_npc.hair_color);
+        println!("new_npc.hair_color[{:#?}]", new_npc.hair_color);
+        debug_assert_ne!(new_npc.hair_color, HairColorCode::Blonde);
+    }
+
 } // mod tests
 // ---- end of file ----

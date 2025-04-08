@@ -77,12 +77,31 @@ pub mod Build {
             }
         }
 
+        pub fn set_random_hair_color(&mut self, app: App) {
+            let test_file = "table-RandomHairColor.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result = Self::roll_from_table(psv_file_contents);
+            println!("set_random_hair_color:result:[{}]", result);
+            self.hair_color = match result {
+                val if val == "dark" => HairColorCode::Brown,
+                val if val == "brown" => HairColorCode::Brown,
+                val if val == "blonde" => HairColorCode::Blonde,
+                val if val == "white" => HairColorCode::White,
+                val if val == "silver-grey" => HairColorCode::SilverGrey,
+                val if val == "red" => HairColorCode::Red,
+                val if val == "green" => HairColorCode::Red,
+                val if val == "blue" => HairColorCode::Blue,
+                val if val == "purple" => HairColorCode::Purple,
+                _ => panic!("set_random_hair_color result: [{result}]"),
+            };
+        }
+
         pub fn set_random_build_desc(&mut self) {
             let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
             self.build_desc = match roll_2d6 {
                 2 => <Tower::DiceResult>::inline_replace("gaunt (-[3d8+6]%)"),
                 3 => <Tower::DiceResult>::inline_replace("lean (-[2d8+3]%)"),
-                4 => <Tower::DiceResult>::inline_replace("slightly angular (-[1d8+1]%)"),
+                4..=5 => <Tower::DiceResult>::inline_replace("slightly angular (-[1d8+1]%)"),
                 6..=8 => <Tower::DiceResult>::inline_replace("medium build ([2d4-4]%)"),
                 9..=10 => <Tower::DiceResult>::inline_replace("slightly husky (+[1d8+1]%)"),
                 11 => <Tower::DiceResult>::inline_replace("stout (+[2d8+3]%)"),
@@ -250,6 +269,7 @@ pub mod Build {
         Brown,
         Dark,
         Green,
+        Purple,
         Red,
         SilverGrey,
         White,
