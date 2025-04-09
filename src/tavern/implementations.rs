@@ -207,7 +207,7 @@ pub mod List {
             let index: u8 = rng.random_range(0..=3);
             match index {
                 0 => PostedSignMessage::AdventurersCanEatButNoAlcoholOrRooms,
-                1 => PostedSignMessage::AlcoholNotServedToHalfOrcsHalflingsOrTieflings,
+                1 => PostedSignMessage::AlcoholNotServedToOrcsGoblinsOrTieflings,
                 2 => PostedSignMessage::AventurersWelcomePercentOff,
                 3 => PostedSignMessage::CheapRoomForGoodPerformancesPercentOff,
                 4 => PostedSignMessage::ColorfulNamesOfPriorGuests,

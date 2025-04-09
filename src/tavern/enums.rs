@@ -180,7 +180,7 @@ pub mod List {
     #[derive(Display, PartialEq)]
     pub enum PostedSignMessage {
         AdventurersCanEatButNoAlcoholOrRooms,
-        AlcoholNotServedToHalfOrcsHalflingsOrTieflings,
+        AlcoholNotServedToOrcsGoblinsOrTieflings,
         AventurersWelcomePercentOff,
         CheapRoomForGoodPerformancesPercentOff,
         ColorfulNamesOfPriorGuests,
