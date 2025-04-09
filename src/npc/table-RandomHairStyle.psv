@@ -1,15 +1,15 @@
-6 | short braid
-5 | short ponytail
-5 | short loose
-5 | short curls
-5 | long ponytail
-3 | short mohawk
-3 | long loose
-3 | long curls
-2 | long braid
-1 | top-knot
-1 | shaved clean
-1 | long mohawk
-1 | cropped mohawk
-1 | crew-cut
-1 | beaded braid
+6 | ShortBraided
+5 | ShortPonytail
+5 | ShortLoose
+5 | ShortCurls
+5 | LongPonytail
+3 | ShortMohawk
+3 | LongLoose
+3 | LongCurls
+2 | LongBraided
+1 | TopKnot
+1 | ShavedClean
+1 | TallMohawk
+1 | CroppedMohawk
+1 | CrewCut
+1 | BeadedBraided
