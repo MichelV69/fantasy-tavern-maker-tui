@@ -30,7 +30,7 @@ mod suite {
         debug_assert_eq!(new_npc.build_desc, "about average");
         debug_assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
         debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
-        debug_assert_eq!(new_npc.eye_color, EyeColorCode::Amber);
+        debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
         debug_assert_eq!(new_npc.quirk_emotional, "nothing interesting");
         debug_assert_eq!(new_npc.quirk_physical, "nothing interesting");
         debug_assert_eq!(new_npc.notable_attribute_positive, "nothing interesting");
@@ -168,6 +168,24 @@ mod suite {
         event!(Level::INFO, "new_npc.hair_style[{:#?}]", new_npc.hair_style);
         println!("new_npc.hair_style[{:#?}]", new_npc.hair_style);
         debug_assert_ne!(new_npc.hair_style, HairStyleCode::BeadedBraided);
+    }
+
+    #[test]
+    fn set_random_eye_color() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter: i8 = 0;
+        while (new_npc.eye_color == EyeColorCode::Red) && counter < 7 {
+            counter += 1;
+            new_npc.set_random_eye_color(app.clone());
+        }
+
+        event!(Level::INFO, "new_npc.eye_color[{:#?}]", new_npc.eye_color);
+        println!("new_npc.eye_color[{:#?}]", new_npc.eye_color);
+        debug_assert_ne!(new_npc.eye_color, EyeColorCode::Red);
     }
 
 } // mod tests

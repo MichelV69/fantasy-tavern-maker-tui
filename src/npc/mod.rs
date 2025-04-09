@@ -68,13 +68,24 @@ pub mod Build {
                 build_desc: "about average".into(),
                 hair_color: HairColorCode::Blonde,
                 hair_style: HairStyleCode::BeadedBraided,
-                eye_color: EyeColorCode::Amber,
+                eye_color: EyeColorCode::Red,
                 quirk_emotional: "nothing interesting".into(),
                 quirk_physical: "nothing interesting".into(),
                 notable_attribute_positive: "nothing interesting".into(),
                 notable_attribute_negative: "nothing interesting".into(),
                 schtick_ability_description: "nothing interesting".into(),
             }
+        }
+
+        pub fn set_random_eye_color(&mut self, app: App) {
+            let test_file = "table-RandomEyeColor.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result = Self::roll_from_table(psv_file_contents);
+            println!("set_random_eye_color:result:[{}]", result);
+            self.eye_color = match result {
+                val if val == "Red" => EyeColorCode::Red,
+                _ => panic!("set_random_eye_color result: [{result}]"),
+            };
         }
 
         pub fn set_random_hair_style(&mut self, app: App) {
@@ -258,12 +269,13 @@ pub mod Build {
     // ---
     #[derive(PartialEq, Debug)]
     pub enum EyeColorCode {
-        Amber,
-        Blue,
         Brown,
+        Hazel,
+        Blue,
         Green,
         Grey,
-        Hazel,
+        Amber,
+        Purple,
         Red,
     }
 
