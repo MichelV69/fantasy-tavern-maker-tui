@@ -7,11 +7,9 @@ mod suite {
     use crate::{
         dice_bag::Tower::{self, RollDice},
         npc::{
-            Build::{
-                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile,
-                SpeciesCode,
-            },
-            lib::fnset::read_psv_file,
+            lib::fnset::read_psv_file, Build::{
+                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, SpeciesCode
+            }
         },
         tavern::structs::List::App,
     };
@@ -31,7 +29,7 @@ mod suite {
         debug_assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
         debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
         debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
-        debug_assert_eq!(new_npc.quirk_emotional, "nothing interesting");
+        debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
         debug_assert_eq!(new_npc.quirk_physical, "nothing interesting");
         debug_assert_eq!(new_npc.notable_attribute_positive, "nothing interesting");
         debug_assert_eq!(new_npc.notable_attribute_negative, "nothing interesting");
@@ -186,6 +184,24 @@ mod suite {
         event!(Level::INFO, "new_npc.eye_color[{:#?}]", new_npc.eye_color);
         println!("new_npc.eye_color[{:#?}]", new_npc.eye_color);
         debug_assert_ne!(new_npc.eye_color, EyeColorCode::Red);
+    }
+
+    #[test]
+    fn set_random_quirk_emotional() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter: i8 = 0;
+        while (new_npc.quirk_emotional == QuirkEmotional::Manic) && counter < 7 {
+            counter += 1;
+            new_npc.set_random_quirk_emotional(app.clone());
+        }
+
+        event!(Level::INFO, "new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
+        println!("new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
+        debug_assert_ne!(new_npc.quirk_emotional, QuirkEmotional::Manic);
     }
 
 } // mod tests

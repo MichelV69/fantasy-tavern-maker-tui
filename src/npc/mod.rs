@@ -29,7 +29,7 @@ pub mod Build {
         pub hair_color: HairColorCode,
         pub hair_style: HairStyleCode,
         pub eye_color: EyeColorCode,
-        pub quirk_emotional: String,
+        pub quirk_emotional: QuirkEmotional,
         pub quirk_physical: String,
         pub notable_attribute_positive: String,
         pub notable_attribute_negative: String,
@@ -69,12 +69,38 @@ pub mod Build {
                 hair_color: HairColorCode::Blonde,
                 hair_style: HairStyleCode::BeadedBraided,
                 eye_color: EyeColorCode::Red,
-                quirk_emotional: "nothing interesting".into(),
+                quirk_emotional: QuirkEmotional::Manic,
                 quirk_physical: "nothing interesting".into(),
                 notable_attribute_positive: "nothing interesting".into(),
                 notable_attribute_negative: "nothing interesting".into(),
                 schtick_ability_description: "nothing interesting".into(),
             }
+        }
+
+
+        pub fn set_random_quirk_emotional(&mut self, app: App) {
+            let test_file = "table-RandomQuirkEmotional.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result = Self::roll_from_table(psv_file_contents);
+            println!("set_random_quirk_emotional:result:[{}]", result);
+            self.quirk_emotional = match result {
+                val if val == "None" => QuirkEmotional::None,
+                val if val == "DistrustfulOfAdventurers" => QuirkEmotional::DistrustfulOfAdventurers,
+                val if val == "CheerfulToAdventurers" => QuirkEmotional::CheerfulToAdventurers,
+                val if val == "Shy" => QuirkEmotional::Shy,
+                val if val == "Grumpy" => QuirkEmotional::Grumpy,
+                val if val == "Playful" => QuirkEmotional::Playful,
+                val if val == "Loud" => QuirkEmotional::Loud,
+                val if val == "Miserly" => QuirkEmotional::Miserly,
+                val if val == "Hyperfocused" => QuirkEmotional::Hyperfocused,
+                val if val == "Belligerent" => QuirkEmotional::Belligerent,
+                val if val == "PhysicallyAffectionate" => QuirkEmotional::PhysicallyAffectionate,
+                val if val == "Generous" => QuirkEmotional::Generous,
+                val if val == "EasilyDistracted" => QuirkEmotional::EasilyDistracted,
+                val if val == "Depressive" => QuirkEmotional::Depressive,
+                val if val == "Manic" => QuirkEmotional::Manic,
+                _ => panic!("set_random_quirk_emotional result: [{result}]"),
+            };
         }
 
         pub fn set_random_eye_color(&mut self, app: App) {
@@ -342,6 +368,26 @@ pub mod Build {
         Female,
         Male,
     }
+
+    #[derive(PartialEq, Debug)]
+    pub enum QuirkEmotional {
+        Belligerent,
+        CheerfulToAdventurers,
+        Depressive,
+        DistrustfulOfAdventurers,
+        EasilyDistracted,
+        Generous,
+        Grumpy,
+        Hyperfocused,
+        Loud,
+        Manic,
+        Miserly,
+        None,
+        PhysicallyAffectionate,
+        Playful,
+        Shy,
+    }
+
 } //pub mod NPC
 mod lib;
 #[cfg(test)]
