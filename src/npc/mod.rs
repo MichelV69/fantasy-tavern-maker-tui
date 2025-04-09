@@ -30,7 +30,7 @@ pub mod Build {
         pub hair_style: HairStyleCode,
         pub eye_color: EyeColorCode,
         pub quirk_emotional: QuirkEmotional,
-        pub quirk_physical: String,
+        pub quirk_physical: QuirkPhysical,
         pub notable_attribute_positive: String,
         pub notable_attribute_negative: String,
         pub schtick_ability_description: String,
@@ -44,17 +44,18 @@ pub mod Build {
     /// ```
     /// let new_npc: Profile = Profile::new();
     ///
-    /// debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
-    /// debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
-    /// debug_assert_eq!(new_npc.public_name. "New NPC");
-    /// debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
-    /// debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
-    /// debug_assert_eq!(new_npc.height_desc,"about average");
-    /// debug_assert_eq!(new_npc.build_desc,"about average");
-    /// debug_assert_eq!(new_npc.hair_colorm, HairColorCode::Blonde);
-    /// debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
-    /// debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
-    /// debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
+    ///  debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
+    ///  debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
+    ///  debug_assert_eq!(new_npc.public_name, "New NPC");
+    ///  debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
+    ///  debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
+    ///  debug_assert_eq!(new_npc.height_desc, "about average");
+    ///  debug_assert_eq!(new_npc.build_desc, "about average");
+    ///  debug_assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
+    ///  debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
+    ///  debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
+    ///  debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
+    ///  debug_assert_eq!(new_npc.quirk_physical,  QuirkPhysical::SubstantialWineStain);
     /// ```
     impl Profile {
         pub fn new() -> Self {
@@ -70,11 +71,38 @@ pub mod Build {
                 hair_style: HairStyleCode::BeadedBraided,
                 eye_color: EyeColorCode::Red,
                 quirk_emotional: QuirkEmotional::Manic,
-                quirk_physical: "nothing interesting".into(),
+                quirk_physical: QuirkPhysical::SubstantialWineStain,
                 notable_attribute_positive: "nothing interesting".into(),
                 notable_attribute_negative: "nothing interesting".into(),
                 schtick_ability_description: "nothing interesting".into(),
             }
+        }
+
+
+        pub fn set_random_quirk_physical(&mut self, app: App) {
+            let test_file = "table-RandomQuirkPhysical.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result = Self::roll_from_table(psv_file_contents);
+            println!("set_random_quirk_physical:result:[{}]", result);
+            self.quirk_physical = match result {
+                val if val == "None" => QuirkPhysical::None,
+                val if val == "SlightScar" => QuirkPhysical::SlightScar,
+                val if val == "NoticeableScar" => QuirkPhysical::NoticeableScar,
+                val if val == "SubstantialScar" => QuirkPhysical::SubstantialScar,
+                val if val == "InfrequentSquint" => QuirkPhysical::InfrequentSquint,
+                val if val == "FrequentSquint" => QuirkPhysical::FrequentSquint,
+                val if val == "ConstantSquint" => QuirkPhysical::ConstantSquint,
+                val if val == "SmallTattoo" => QuirkPhysical::SmallTattoo,
+                val if val == "MinorScarification" => QuirkPhysical::MinorScarification,
+                val if val == "NoticeableTattoo" => QuirkPhysical::NoticeableTattoo,
+                val if val == "NoticeableScarification" => QuirkPhysical::NoticeableScarification,
+                val if val == "SubstantialTattoo" => QuirkPhysical::SubstantialTattoo,
+                val if val == "SubstantialScarification" => QuirkPhysical::SubstantialScarification,
+                val if val == "SlightWineStain" => QuirkPhysical::SlightWineStain,
+                val if val == "NoticeableWineStain" => QuirkPhysical::NoticeableWineStain,
+                val if val == "SubstantialWineStain" => QuirkPhysical::SubstantialWineStain,
+                _ => panic!("set_random_quirk_physical result: [{result}]"),
+            };
         }
 
 
@@ -386,6 +414,26 @@ pub mod Build {
         PhysicallyAffectionate,
         Playful,
         Shy,
+    }
+
+    #[derive(PartialEq, Debug)]
+    pub enum QuirkPhysical {
+        None,
+        SlightScar,
+        NoticeableScar,
+        SubstantialScar,
+        InfrequentSquint,
+        FrequentSquint,
+        ConstantSquint,
+        SmallTattoo,
+        MinorScarification,
+        NoticeableTattoo,
+        NoticeableScarification,
+        SubstantialTattoo,
+        SubstantialScarification,
+        SlightWineStain,
+        NoticeableWineStain,
+        SubstantialWineStain,
     }
 
 } //pub mod NPC

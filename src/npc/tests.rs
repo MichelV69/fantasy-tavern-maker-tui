@@ -8,7 +8,7 @@ mod suite {
         dice_bag::Tower::{self, RollDice},
         npc::{
             lib::fnset::read_psv_file, Build::{
-                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, SpeciesCode
+                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode
             }
         },
         tavern::structs::List::App,
@@ -30,7 +30,7 @@ mod suite {
         debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
         debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
         debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
-        debug_assert_eq!(new_npc.quirk_physical, "nothing interesting");
+        debug_assert_eq!(new_npc.quirk_physical,  QuirkPhysical::SubstantialWineStain);
         debug_assert_eq!(new_npc.notable_attribute_positive, "nothing interesting");
         debug_assert_eq!(new_npc.notable_attribute_negative, "nothing interesting");
         debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
@@ -203,6 +203,26 @@ mod suite {
         println!("new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
         debug_assert_ne!(new_npc.quirk_emotional, QuirkEmotional::Manic);
     }
+
+
+    #[test]
+    fn set_random_quirk_physical() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter: i8 = 0;
+        while (new_npc.quirk_physical == QuirkPhysical::SubstantialWineStain) && counter < 7 {
+            counter += 1;
+            new_npc.set_random_quirk_physical(app.clone());
+        }
+
+        event!(Level::INFO, "new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
+        println!("new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
+        debug_assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
+    }
+
 
 } // mod tests
 // ---- end of file ----

@@ -1,0 +1,16 @@
+120 | None
+ 17 | SlightScar
+ 15 | NoticeableScar
+ 13 | SubstantialScar
+ 12 | InfrequentSquint
+ 10 | FrequentSquint
+  8 | ConstantSquint
+  7 | SmallTattoo
+  7 | MinorScarification
+  5 | NoticeableTattoo
+  5 | NoticeableScarification
+  3 | SubstantialTattoo
+  3 | SubstantialScarification
+  3 | SlightWineStain
+  2 | NoticeableWineStain
+  1 | SubstantialWineStain
