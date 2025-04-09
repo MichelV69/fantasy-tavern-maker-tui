@@ -115,7 +115,7 @@ pub mod Build {
             self.height_desc = match roll_2d6 {
                 2 => <Tower::DiceResult>::inline_replace("very short (-[3d8+6]%)"),
                 3 => <Tower::DiceResult>::inline_replace("short (-[2d8+3]%)"),
-                4 => <Tower::DiceResult>::inline_replace("short-ish (-[1d8+1]%)"),
+                4..=5 => <Tower::DiceResult>::inline_replace("short-ish (-[1d8+1]%)"),
                 6..=8 => <Tower::DiceResult>::inline_replace("average height ([2d4-4]%)"),
                 9..=10 => <Tower::DiceResult>::inline_replace("tall-ish (+[1d8+1]%)"),
                 11 => <Tower::DiceResult>::inline_replace("tall (+[2d8+3]%)"),
