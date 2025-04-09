@@ -83,6 +83,13 @@ pub mod Build {
             let result = Self::roll_from_table(psv_file_contents);
             println!("set_random_eye_color:result:[{}]", result);
             self.eye_color = match result {
+                val if val == "Brown" => EyeColorCode::Brown,
+                val if val == "Hazel" => EyeColorCode::Hazel,
+                val if val == "Blue" => EyeColorCode::Blue,
+                val if val == "Green" => EyeColorCode::Green,
+                val if val == "Grey" => EyeColorCode::Grey,
+                val if val == "Amber" => EyeColorCode::Amber,
+                val if val == "Purple" => EyeColorCode::Purple,
                 val if val == "Red" => EyeColorCode::Red,
                 _ => panic!("set_random_eye_color result: [{result}]"),
             };
@@ -120,15 +127,15 @@ pub mod Build {
             let result = Self::roll_from_table(psv_file_contents);
             println!("set_random_hair_color:result:[{}]", result);
             self.hair_color = match result {
-                val if val == "dark" => HairColorCode::Brown,
-                val if val == "brown" => HairColorCode::Brown,
-                val if val == "blonde" => HairColorCode::Blonde,
-                val if val == "white" => HairColorCode::White,
-                val if val == "silver-grey" => HairColorCode::SilverGrey,
-                val if val == "red" => HairColorCode::Red,
-                val if val == "green" => HairColorCode::Red,
-                val if val == "blue" => HairColorCode::Blue,
-                val if val == "purple" => HairColorCode::Purple,
+                val if val == "Dark" => HairColorCode::Brown,
+                val if val == "Brown" => HairColorCode::Brown,
+                val if val == "Blonde" => HairColorCode::Blonde,
+                val if val == "White" => HairColorCode::White,
+                val if val == "Silver-Grey" => HairColorCode::SilverGrey,
+                val if val == "Red" => HairColorCode::Red,
+                val if val == "Green" => HairColorCode::Red,
+                val if val == "Blue" => HairColorCode::Blue,
+                val if val == "Purple" => HairColorCode::Purple,
                 _ => panic!("set_random_hair_color result: [{result}]"),
             };
         }
