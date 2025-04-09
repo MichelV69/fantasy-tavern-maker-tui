@@ -52,7 +52,7 @@ pub mod Build {
     /// debug_assert_eq!(new_npc.height_desc,"about average");
     /// debug_assert_eq!(new_npc.build_desc,"about average");
     /// debug_assert_eq!(new_npc.hair_colorm, HairColorCode::Blonde);
-    /// debug_assert_eq!(new_npc.hair_style, HairStyleCode::BunchOfBeadedBraids);
+    /// debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
     /// debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
     /// debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
     /// ```
@@ -67,7 +67,7 @@ pub mod Build {
                 height_desc: "about average".into(),
                 build_desc: "about average".into(),
                 hair_color: HairColorCode::Blonde,
-                hair_style: HairStyleCode::BunchOfBeadedBraids,
+                hair_style: HairStyleCode::BeadedBraided,
                 eye_color: EyeColorCode::Amber,
                 quirk_emotional: "nothing interesting".into(),
                 quirk_physical: "nothing interesting".into(),
@@ -75,6 +75,32 @@ pub mod Build {
                 notable_attribute_negative: "nothing interesting".into(),
                 schtick_ability_description: "nothing interesting".into(),
             }
+        }
+
+        pub fn set_random_hair_style(&mut self, app: App) {
+            let test_file = "table-RandomHairStyle.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let result = Self::roll_from_table(psv_file_contents);
+            println!("set_random_hair_color:result:[{}]", result);
+            self.hair_style = match result {
+                val if val == "ShortBraided" => HairStyleCode::ShortBraided,
+                val if val == "ShortPonytail" => HairStyleCode::ShortPonytail,
+                val if val == "ShortLoose" => HairStyleCode::ShortLoose,
+                val if val == "ShortCurls" => HairStyleCode::ShortCurls,
+                val if val == "LongPonytail" => HairStyleCode::LongPonytail,
+                val if val == "ShortMohawk" => HairStyleCode::ShortMohawk,
+                val if val == "LongLoose" => HairStyleCode::LongLoose,
+                val if val == "LongCurls" => HairStyleCode::LongCurls,
+                val if val == "LongBraided" => HairStyleCode::LongBraided,
+                val if val == "TopKnot" => HairStyleCode::TopKnot,
+                val if val == "ShavedClean" => HairStyleCode::ShavedClean,
+                val if val == "TallMohawk" => HairStyleCode::TallMohawk,
+                val if val == "CroppedMohawk" => HairStyleCode::CroppedMohawk,
+                val if val == "CrewCut" => HairStyleCode::CrewCut,
+                val if val == "BeadedBraided" => HairStyleCode::BeadedBraided,
+
+                _ => panic!("set_random_hair_color result: [{result}]"),
+            };
         }
 
         pub fn set_random_hair_color(&mut self, app: App) {
@@ -243,23 +269,21 @@ pub mod Build {
 
     #[derive(PartialEq, Debug)]
     pub enum HairStyleCode {
-        BunchOfBeadedBraids,
+        BeadedBraided,
         CrewCut,
         CroppedMohawk,
-        FewShortBraids,
-        LongAndLoose,
-        LongBraid,
+        LongLoose,
+        LongBraided,
         LongCurls,
-        LongMohawk,
+        TallMohawk,
         LongPonytail,
         ShavedClean,
-        ShortAndLoose,
-        ShortBraid,
+        ShortLoose,
+        ShortBraided,
         ShortCurls,
         ShortMohawk,
         ShortPonytail,
         TopKnot,
-        TrioOfLongBraids,
     }
 
     #[derive(PartialEq, Debug)]
