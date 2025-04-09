@@ -5,6 +5,13 @@
 ## Current Version
 0.7.1-64
 
+[![forthebadge made-with-rust](http://ForTheBadge.com/images/badges/made-with-rust.svg)](https://www.rust-lang.org/)
+[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/graphs/commit-activity)
+[![GitHub commits](https://badgen.net/github/commits/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
+[![GitHub issues](https://img.shields.io/github/issues/MichelV69/fantasy-tavern-maker-tui.svg)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/issues/)
+
 ## Purpose
 Most Games Masters or Authors are aware that they need to unique and
 interesting Pubs, Taverns, Inns, Wayhouses and the like as part of the
