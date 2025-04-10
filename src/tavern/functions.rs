@@ -47,6 +47,15 @@ pub fn tidy(s: String) -> String {
     trim_whitespace(enum_string_to_phase(s))
 }
 
+pub fn l1_heading(s: String) -> String {
+    let mut underline_len: usize = s.len();
+    if underline_len > 42 {
+        underline_len = 42
+    }
+    let underline = "=".repeat(underline_len);
+    format!("\n\n {}\n {} \n\n",s, underline)
+}
+
 // ---
 pub fn get_name() -> String {
     let verb: NameVerb = rand::random();

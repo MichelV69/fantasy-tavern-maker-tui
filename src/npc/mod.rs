@@ -144,7 +144,6 @@ pub mod Build {
             let test_file = "table-RandomEyeColor.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_eye_color:result:[{}]", result);
             self.eye_color = match result {
                 val if val == "Brown" => EyeColorCode::Brown,
                 val if val == "Hazel" => EyeColorCode::Hazel,

@@ -18,6 +18,8 @@ use tavern::structs::List::PBHouse;
 use tavern::traits::List::AppFn;
 use tracing::info;
 
+use tavern::functions::l1_heading;
+
 use std::fmt::format;
 use std::fs::File;
 use std::io::prelude::*;
@@ -63,12 +65,12 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         player_text += line;
     }
 
-    gm_text += "\n\n Establishment History Notes \n\n";
+    gm_text += &l1_heading("Establishment History Notes".to_string());
     for line in &pbh.establishment_history_notes {
         gm_text += line;
     }
 
-    gm_text += "\n\n Redlight Services \n\n";
+    gm_text += &l1_heading("Redlight Services".to_string());
 
     if !pbh.redlight_services.is_empty() {
         for line in &pbh.redlight_services {
