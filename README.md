@@ -11,7 +11,10 @@
 [![GitHub commits](https://badgen.net/github/commits/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
 [![GitHub latest commit](https://badgen.net/github/last-commit/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
 [![GitHub issues](https://img.shields.io/github/issues/MichelV69/fantasy-tavern-maker-tui.svg)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/issues/)
-![Github workflow](https://github.com/github/docs/actions/workflows/rust.yml/badge.svg)
+
+[![Rust](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/rust.yml/badge.svg)](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/rust.yml)
+[![CodeQL](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/github-code-scanning/codeql)
+[![Dependabot Updates](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/dependabot/dependabot-updates)
 
 ## Purpose
 Most Games Masters or Authors are aware that they need to unique and
