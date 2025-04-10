@@ -470,7 +470,7 @@ pub mod List {
             };
 
             let para1: String = format!(
-                "'*The {}*' is the local Pub and Bed House for travellers in this area. The {}-quality establishment would be considered {}, with {} tables.\n\n",
+                "'*The {}*' is the local Pub and Bed House for travellers in this area. The {}-quality establishment would be considered {}-sized, with {} tables.\n\n",
                 self.name,
                 trim_whitespace(enum_string_to_phase(
                     self.establishment_quality.level.to_string()

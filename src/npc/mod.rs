@@ -93,7 +93,6 @@ pub mod Build {
             let test_file = "table-RandomQuirkPhysical.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_quirk_physical:result:[{}]", result);
             self.quirk_physical = match result {
                 val if val == "None" => QuirkPhysical::None,
                 val if val == "SlightScar" => QuirkPhysical::SlightScar,
@@ -119,7 +118,6 @@ pub mod Build {
             let test_file = "table-RandomQuirkEmotional.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_quirk_emotional:result:[{}]", result);
             self.quirk_emotional = match result {
                 val if val == "None" => QuirkEmotional::None,
                 val if val == "DistrustfulOfAdventurers" => {
@@ -164,7 +162,6 @@ pub mod Build {
             let test_file = "table-RandomHairStyle.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_hair_color:result:[{}]", result);
             self.hair_style = match result {
                 val if val == "ShortBraided" => HairStyleCode::ShortBraided,
                 val if val == "ShortPonytail" => HairStyleCode::ShortPonytail,
@@ -190,7 +187,6 @@ pub mod Build {
             let test_file = "table-RandomHairColor.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_hair_color:result:[{}]", result);
             self.hair_color = match result {
                 val if val == "Dark" => HairColorCode::Brown,
                 val if val == "Brown" => HairColorCode::Brown,
@@ -237,7 +233,6 @@ pub mod Build {
             let test_file = "table-RandomSpeciesByWeight.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
-            println!("set_random_species:result:[{}]", result);
             self.species = match result {
                 val if val == "human" => SpeciesCode::Human,
                 val if val == "dwarf" => SpeciesCode::Dwarf,
@@ -265,12 +260,10 @@ pub mod Build {
                 let result = line.1;
 
                 let to_push: RollTable = RollTable { low, high, result };
-                println!("roll_from_table::to_push:[{:#?}]", to_push);
                 result_table.push(to_push);
             }
 
             // roll from the table
-            println!("roll_from_table::high:[{}]", high);
             let mut rng = rand::rng();
             let table_roll = rng.random_range(1..=high);
             let mut table_result: String = "".into();
@@ -281,10 +274,6 @@ pub mod Build {
             }
 
             event!(Level::INFO, "table_result[{:#?}]", table_result);
-            println!(
-                "roll_from_table::table_roll:result:[{}:{}]",
-                table_roll, table_result
-            );
             if table_result.is_empty() {
                 panic!("table_result should never be empty! [{table_roll}:{high}]")
             }
