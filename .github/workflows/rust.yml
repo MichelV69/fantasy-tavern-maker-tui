@@ -19,8 +19,7 @@ jobs:
     - name: Build
       run: cargo build --verbose
     - name: copy user psv
-      shell: bash
-        run: |
+      run: |
           mkdir -p C:\\Users\\runneradmin\\Documents/fantasy-tavern-maker-tui/mod_npc/
           copy -v src/npc/*.psv C:\\Users\\runneradmin\\Documents/fantasy-tavern-maker-tui/mod_npc/
     - name: Run tests
