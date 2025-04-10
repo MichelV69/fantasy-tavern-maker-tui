@@ -11,6 +11,7 @@
 [![GitHub commits](https://badgen.net/github/commits/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
 [![GitHub latest commit](https://badgen.net/github/last-commit/MichelV69/fantasy-tavern-maker-tui)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/commit/)
 [![GitHub issues](https://img.shields.io/github/issues/MichelV69/fantasy-tavern-maker-tui.svg)](https://GitHub.com/MichelV69/fantasy-tavern-maker-tui/issues/)
+[!https://github.com/OWNER/REPOSITORY/actions/workflows/rust.yml/badge.svg](https://github.com/OWNER/REPOSITORY/actions/workflows/)
 
 ## Purpose
 Most Games Masters or Authors are aware that they need to unique and
