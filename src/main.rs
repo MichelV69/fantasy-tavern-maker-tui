@@ -11,6 +11,8 @@ use cursive::views::Dialog;
 use cursive::views::LinearLayout;
 use cursive::views::TextView;
 use dirs::download_dir;
+use npc::Build::NpcTypeCode;
+use npc::Build::Profile as npc_Profile;
 use tavern::structs::List::App;
 use tavern::structs::List::PBHouse;
 use tavern::traits::List::AppFn;
@@ -31,10 +33,10 @@ mod tavern;
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 64;
+    app.version_build = 96;
     app.version_major = 0;
-    app.version_minor = 7;
-    app.version_fix = 1;
+    app.version_minor = 8;
+    app.version_fix = 01;
 
     let mut siv = cursive::default();
 
@@ -75,6 +77,21 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     } else {
         gm_text += "_<none>_";
     }
+
+    //--- NPCs present
+    // ("Staff", "Owner")
+    let mut npc_list: Vec<npc_Profile> = vec![];
+    let mut new_npc: npc_Profile = npc_Profile::new();
+    new_npc.npc_type = NpcTypeCode::Staff;
+    new_npc.task_description = "Owner".into();
+    new_npc.random_appearance(&app);
+    new_npc.set_random_quirk_emotional(&app);
+
+    // notablePatronsList ... #dice based on Establishment.size
+    // modest || large || massive => ("Staff", "Cook")
+    // large || massive => ("Staff", "Head Server")
+    // massive => ("Staff", "Bouncer")
+    // redlight_services ?? "specific" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??
 
     //---
     s.pop_layer();

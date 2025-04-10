@@ -70,7 +70,7 @@ mod suite {
         app.name = "fantasy-tavern-maker-tui".into();
 
         let mut new_npc: Profile = Profile::new();
-        new_npc.set_random_task_description(app);
+        new_npc.set_random_task_description(&app);
 
         event!(
             Level::INFO,
@@ -110,7 +110,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.species == SpeciesCode::Dragonborn) && counter < 7 {
             counter += 1;
-            new_npc.set_random_species(app.clone());
+            new_npc.set_random_species(&app);
         }
 
         event!(Level::INFO, "new_npc.species[{:#?}]", new_npc.species);
@@ -144,7 +144,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.hair_color == HairColorCode::Blonde) && counter < 7 {
             counter += 1;
-            new_npc.set_random_hair_color(app.clone());
+            new_npc.set_random_hair_color(&app);
         }
 
         event!(Level::INFO, "new_npc.hair_color[{:#?}]", new_npc.hair_color);
@@ -162,7 +162,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.hair_style == HairStyleCode::BeadedBraided) && counter < 7 {
             counter += 1;
-            new_npc.set_random_hair_style(app.clone());
+            new_npc.set_random_hair_style(&app);
         }
 
         event!(Level::INFO, "new_npc.hair_style[{:#?}]", new_npc.hair_style);
@@ -180,7 +180,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.eye_color == EyeColorCode::Red) && counter < 7 {
             counter += 1;
-            new_npc.set_random_eye_color(app.clone());
+            new_npc.set_random_eye_color(&app);
         }
 
         event!(Level::INFO, "new_npc.eye_color[{:#?}]", new_npc.eye_color);
@@ -198,7 +198,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.quirk_emotional == QuirkEmotional::Manic) && counter < 7 {
             counter += 1;
-            new_npc.set_random_quirk_emotional(app.clone());
+            new_npc.set_random_quirk_emotional(&app);
         }
 
         event!(
@@ -220,7 +220,7 @@ mod suite {
         let mut counter: i8 = 0;
         while (new_npc.quirk_physical == QuirkPhysical::SubstantialWineStain) && counter < 7 {
             counter += 1;
-            new_npc.set_random_quirk_physical(app.clone());
+            new_npc.set_random_quirk_physical(&app);
         }
 
         event!(

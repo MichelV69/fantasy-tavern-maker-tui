@@ -78,7 +78,18 @@ pub mod Build {
             }
         }
 
-        pub fn set_random_quirk_physical(&mut self, app: App) {
+        pub fn random_appearance(&mut self, app: &App) {
+            self.set_random_gender();
+            self.set_random_species(&app);
+            self.set_random_height_desc();
+            self.set_random_build_desc();
+            self.set_random_hair_color(&app);
+            self.set_random_hair_style(&app);
+            self.set_random_eye_color(&app);
+            self.set_random_quirk_physical(&app);
+        }
+
+        pub fn set_random_quirk_physical(&mut self, app: &App) {
             let test_file = "table-RandomQuirkPhysical.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -104,7 +115,7 @@ pub mod Build {
             };
         }
 
-        pub fn set_random_quirk_emotional(&mut self, app: App) {
+        pub fn set_random_quirk_emotional(&mut self, app: &App) {
             let test_file = "table-RandomQuirkEmotional.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -131,7 +142,7 @@ pub mod Build {
             };
         }
 
-        pub fn set_random_eye_color(&mut self, app: App) {
+        pub fn set_random_eye_color(&mut self, app: &App) {
             let test_file = "table-RandomEyeColor.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -149,7 +160,7 @@ pub mod Build {
             };
         }
 
-        pub fn set_random_hair_style(&mut self, app: App) {
+        pub fn set_random_hair_style(&mut self, app: &App) {
             let test_file = "table-RandomHairStyle.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -175,7 +186,7 @@ pub mod Build {
             };
         }
 
-        pub fn set_random_hair_color(&mut self, app: App) {
+        pub fn set_random_hair_color(&mut self, app: &App) {
             let test_file = "table-RandomHairColor.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -222,7 +233,7 @@ pub mod Build {
             };
         }
 
-        pub fn set_random_species(&mut self, app: App) {
+        pub fn set_random_species(&mut self, app: &App) {
             let test_file = "table-RandomSpeciesByWeight.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
@@ -301,7 +312,7 @@ pub mod Build {
             }
         }
 
-        pub fn set_random_task_description(&mut self, app: App) {
+        pub fn set_random_task_description(&mut self, app: &App) {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             self.task_description = Self::roll_from_table(psv_file_contents);
