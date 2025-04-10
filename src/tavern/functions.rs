@@ -503,7 +503,9 @@ pub fn get_redlight_services() -> Vec<String> {
     let red_light_services_list = get_red_light_services_list();
     if red_light_services_list.is_some() {
         pb_house_desc.push(
-            red_light_services_list.expect("Should always be String.").to_string()
+            red_light_services_list
+                .expect("Should always be String.")
+                .to_string(),
         )
     }
     // ---

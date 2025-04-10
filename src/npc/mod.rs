@@ -78,7 +78,6 @@ pub mod Build {
             }
         }
 
-
         pub fn set_random_quirk_physical(&mut self, app: App) {
             let test_file = "table-RandomQuirkPhysical.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
@@ -105,7 +104,6 @@ pub mod Build {
             };
         }
 
-
         pub fn set_random_quirk_emotional(&mut self, app: App) {
             let test_file = "table-RandomQuirkEmotional.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
@@ -113,7 +111,9 @@ pub mod Build {
             println!("set_random_quirk_emotional:result:[{}]", result);
             self.quirk_emotional = match result {
                 val if val == "None" => QuirkEmotional::None,
-                val if val == "DistrustfulOfAdventurers" => QuirkEmotional::DistrustfulOfAdventurers,
+                val if val == "DistrustfulOfAdventurers" => {
+                    QuirkEmotional::DistrustfulOfAdventurers
+                }
                 val if val == "CheerfulToAdventurers" => QuirkEmotional::CheerfulToAdventurers,
                 val if val == "Shy" => QuirkEmotional::Shy,
                 val if val == "Grumpy" => QuirkEmotional::Grumpy,
@@ -237,7 +237,6 @@ pub mod Build {
                 val if val == "dragonborn" => SpeciesCode::Dragonborn,
                 _ => panic!("set_random_species result: [{result}]"),
             };
-
         }
 
         fn roll_from_table(psv_file_contents: Vec<(i16, String)>) -> String {
@@ -254,11 +253,7 @@ pub mod Build {
                 high = low + line.0 - 1;
                 let result = line.1;
 
-                let to_push: RollTable = RollTable {
-                    low,
-                    high,
-                    result,
-                };
+                let to_push: RollTable = RollTable { low, high, result };
                 println!("roll_from_table::to_push:[{:#?}]", to_push);
                 result_table.push(to_push);
             }
@@ -310,7 +305,6 @@ pub mod Build {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             self.task_description = Self::roll_from_table(psv_file_contents);
-
         }
     }
 
@@ -435,7 +429,6 @@ pub mod Build {
         NoticeableWineStain,
         SubstantialWineStain,
     }
-
 } //pub mod NPC
 mod lib;
 #[cfg(test)]

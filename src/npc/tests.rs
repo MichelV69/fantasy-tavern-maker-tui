@@ -7,9 +7,11 @@ mod suite {
     use crate::{
         dice_bag::Tower::{self, RollDice},
         npc::{
-            lib::fnset::read_psv_file, Build::{
-                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode
-            }
+            Build::{
+                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile,
+                QuirkEmotional, QuirkPhysical, SpeciesCode,
+            },
+            lib::fnset::read_psv_file,
         },
         tavern::structs::List::App,
     };
@@ -30,7 +32,7 @@ mod suite {
         debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
         debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
         debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
-        debug_assert_eq!(new_npc.quirk_physical,  QuirkPhysical::SubstantialWineStain);
+        debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
         debug_assert_eq!(new_npc.notable_attribute_positive, "nothing interesting");
         debug_assert_eq!(new_npc.notable_attribute_negative, "nothing interesting");
         debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
@@ -125,7 +127,7 @@ mod suite {
     }
 
     #[test]
-    fn set_random_build_desc () {
+    fn set_random_build_desc() {
         let mut new_npc: Profile = Profile::new();
         new_npc.set_random_build_desc();
 
@@ -199,11 +201,14 @@ mod suite {
             new_npc.set_random_quirk_emotional(app.clone());
         }
 
-        event!(Level::INFO, "new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
+        event!(
+            Level::INFO,
+            "new_npc.quirk_emotional[{:#?}]",
+            new_npc.quirk_emotional
+        );
         println!("new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
         debug_assert_ne!(new_npc.quirk_emotional, QuirkEmotional::Manic);
     }
-
 
     #[test]
     fn set_random_quirk_physical() {
@@ -218,11 +223,13 @@ mod suite {
             new_npc.set_random_quirk_physical(app.clone());
         }
 
-        event!(Level::INFO, "new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
+        event!(
+            Level::INFO,
+            "new_npc.quirk_physical[{:#?}]",
+            new_npc.quirk_physical
+        );
         println!("new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
         debug_assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
     }
-
-
 } // mod tests
 // ---- end of file ----

@@ -39,16 +39,12 @@ fn main() {
     let mut siv = cursive::default();
 
     siv.add_layer(
-        Dialog::text(format!(
-            "Welcome to {} ({})",
-            &app.name,
-            &app.get_version()
-        ))
-        .title(&app.name)
-        .button("Create a new P&B House?", move |s| {
-            get_new_pbhouse(s, app.clone())
-        })
-        .button("Quit", |s| s.quit()),
+        Dialog::text(format!("Welcome to {} ({})", &app.name, &app.get_version()))
+            .title(&app.name)
+            .button("Create a new P&B House?", move |s| {
+                get_new_pbhouse(s, app.clone())
+            })
+            .button("Quit", |s| s.quit()),
     );
 
     siv.run()
