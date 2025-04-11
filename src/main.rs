@@ -41,8 +41,8 @@ fn main() {
     app.name = "fantasy-tavern-maker-tui".into();
     app.version_build = 116;
     app.version_major = 0;
-    app.version_minor = 8;
-    app.version_fix = 1;
+    app.version_minor = 9;
+    app.version_fix = 0;
 
     let mut siv = cursive::default();
 
