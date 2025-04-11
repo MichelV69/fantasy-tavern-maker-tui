@@ -7,11 +7,9 @@ mod suite {
     use crate::{
         dice_bag::Tower::{self, RollDice},
         npc::{
-            Build::{
-                self, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile,
-                QuirkEmotional, QuirkPhysical, SpeciesCode,
-            },
-            lib::fnset::read_psv_file,
+            lib::fnset::read_psv_file, Build::{
+                self, Attribute, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode
+            }
         },
         tavern::structs::List::App,
     };
@@ -20,6 +18,7 @@ mod suite {
     #[test]
     fn profile_new() {
         let new_npc: Profile = Profile::new();
+        let default_attr = Attribute {description:  "nothing interesting".into(), modifier: -13};
 
         debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
         debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
@@ -33,8 +32,8 @@ mod suite {
         debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
         debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
         debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
-        debug_assert_eq!(new_npc.notable_attribute_positive, "nothing interesting");
-        debug_assert_eq!(new_npc.notable_attribute_negative, "nothing interesting");
+        debug_assert_eq!(new_npc.notable_attribute_positive,default_attr);
+        debug_assert_eq!(new_npc.notable_attribute_negative,default_attr);
         debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
     }
 
@@ -238,11 +237,12 @@ mod suite {
     fn set_notable_attribute_positive() {
         let mut app: App = App::new();
         app.name = "fantasy-tavern-maker-tui".into();
+        let default_attr = Attribute {description:  "nothing interesting".into(), modifier: -13};
 
         let mut new_npc: Profile = Profile::new();
 
         let mut counter: i8 = 0;
-        while (new_npc.notable_attribute_positive == QuirkPhysical::SubstantialWineStain) && counter < 7 {
+        while (new_npc.notable_attribute_positive == default_attr) && counter < 7 {
             counter += 1;
             new_npc.set_notable_attribute_positive(&app);
         }
@@ -253,7 +253,7 @@ mod suite {
             new_npc.notable_attribute_positive
         );
         println!("new_npc.quirk_physical[{:#?}]", new_npc.notable_attribute_positive);
-        debug_assert_ne!(new_npc.notable_attribute_positive, QuirkPhysical::SubstantialWineStain);
+        debug_assert_ne!(new_npc.notable_attribute_positive, default_attr);
     }
 
 

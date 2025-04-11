@@ -36,6 +36,7 @@ pub mod Build {
         pub schtick_ability_description: String,
     }
 
+    #[derive(Debug, PartialEq)]
     pub struct Attribute {
         pub description: String,
         pub modifier: i8,

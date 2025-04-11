@@ -478,7 +478,7 @@ dependencies = [
 
 [[package]]
 name = "fantasy-tavern-maker-tui"
-version = "0.8.0-96"
+version = "0.8.1-116"
 dependencies = [
  "Inflector",
  "cursive",
