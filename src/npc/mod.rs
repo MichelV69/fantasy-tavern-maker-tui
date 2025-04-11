@@ -31,9 +31,14 @@ pub mod Build {
         pub eye_color: EyeColorCode,
         pub quirk_emotional: QuirkEmotional,
         pub quirk_physical: QuirkPhysical,
-        pub notable_attribute_positive: String,
-        pub notable_attribute_negative: String,
+        pub notable_attribute_positive: Attribute,
+        pub notable_attribute_negative: Attribute,
         pub schtick_ability_description: String,
+    }
+
+    pub struct Attribute {
+        pub description: String,
+        pub modifier: i8,
     }
 
     ///
@@ -72,10 +77,14 @@ pub mod Build {
                 eye_color: EyeColorCode::Red,
                 quirk_emotional: QuirkEmotional::Manic,
                 quirk_physical: QuirkPhysical::SubstantialWineStain,
-                notable_attribute_positive: "nothing interesting".into(),
-                notable_attribute_negative: "nothing interesting".into(),
+                notable_attribute_positive: Attribute {description: "nothing interesting".into(), modifier: -13},
+                notable_attribute_negative: Attribute {description: "nothing interesting".into(), modifier: -13},
                 schtick_ability_description: "nothing interesting".into(),
             }
+        }
+
+        pub fn set_random_schticks_attributes(&mut self, app: &App) {
+            self.set_notable_attribute_positive(&app);
         }
 
         pub fn random_appearance(&mut self, app: &App) {
@@ -87,6 +96,9 @@ pub mod Build {
             self.set_random_hair_style(&app);
             self.set_random_eye_color(&app);
             self.set_random_quirk_physical(&app);
+        }
+
+        pub fn set_notable_attribute_positive(&mut self, app: &App) {
         }
 
         pub fn set_random_quirk_physical(&mut self, app: &App) {
