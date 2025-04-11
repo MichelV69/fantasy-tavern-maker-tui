@@ -231,5 +231,31 @@ mod suite {
         println!("new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
         debug_assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
     }
+
+
+
+    #[test]
+    fn set_notable_attribute_positive() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+
+        let mut new_npc: Profile = Profile::new();
+
+        let mut counter: i8 = 0;
+        while (new_npc.notable_attribute_positive == QuirkPhysical::SubstantialWineStain) && counter < 7 {
+            counter += 1;
+            new_npc.set_notable_attribute_positive(&app);
+        }
+
+        event!(
+            Level::INFO,
+            "new_npc.notable_attribute_positive[{:#?}]",
+            new_npc.notable_attribute_positive
+        );
+        println!("new_npc.quirk_physical[{:#?}]", new_npc.notable_attribute_positive);
+        debug_assert_ne!(new_npc.notable_attribute_positive, QuirkPhysical::SubstantialWineStain);
+    }
+
+
 } // mod tests
 // ---- end of file ----
