@@ -1,0 +1,25 @@
+146 | None
+ 98 | (Var) Trade Skill
+ 10 | (Str) Athletics
+ 10 | (Dex) Acrobatics
+ 10 | (Dex) Sleight of Hand
+ 10 | (Dex) Stealth
+ 10 | (Int) Arcana
+ 10 | (Int) History
+ 10 | (Int) Investigation
+ 10 | (Int) Nature
+ 10 | (Int) Religion
+ 10 | (Wis) Animal Handling
+ 10 | (Wis) Insight
+ 10 | (Wis) Medicine
+ 10 | (Wis) Perception
+ 10 | (Wis) Survival
+ 10 | (Chr) Deception
+ 10 | (Chr) Intimidation
+ 10 | (Chr) Performance
+ 10 | (Chr) Persuasion
+  3 | (Str) All
+  3 | (Dex) All
+  3 | (Int) All
+  3 | (Wis) All
+  3 | (Chr) All
