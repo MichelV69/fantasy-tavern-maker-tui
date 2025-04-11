@@ -88,7 +88,7 @@ pub mod Build {
             self.set_notable_attribute_positive(&app);
         }
 
-        pub fn random_appearance(&mut self, app: &App) {
+        pub fn random_appearance(&mut self, app: &App){
             self.set_random_gender();
             self.set_random_species(&app);
             self.set_random_height_desc();
@@ -99,8 +99,21 @@ pub mod Build {
             self.set_random_quirk_physical(&app);
         }
 
-        pub fn set_notable_attribute_positive(&mut self, app: &App) {
+        pub fn get_random_notable_attribute(&mut self, app: &App)  -> Attribute  {
+            let mut test_file = "table-RandomNotableAttributeStat.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let description = Self::roll_from_table(psv_file_contents);
+
+            test_file = "table-RandomNotableAttributeBonus.psv";
+            let psv_file_contents = read_psv_file(test_file, &app);
+            let bonus = Self::roll_from_table(psv_file_contents).parse::<i8>().expect("Should have gotten an integer here!");
+
+            Attribute {description: description, modifier: bonus.into()}
         }
+
+        pub fn set_notable_attribute_positive(&mut self, app: &App) {
+            self.notable_attribute_positive = self.get_random_notable_attribute(app);
+            }
 
         pub fn set_random_quirk_physical(&mut self, app: &App) {
             let test_file = "table-RandomQuirkPhysical.psv";
