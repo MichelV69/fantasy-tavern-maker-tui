@@ -29,8 +29,6 @@ mod dice_bag;
 mod npc;
 mod tavern;
 
-// todo!("add types of mead to the drink list");
-
 // --- local cli code
 fn main() {
     let mut app: App = App::new();

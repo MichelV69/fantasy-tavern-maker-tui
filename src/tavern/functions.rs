@@ -321,6 +321,8 @@ pub fn get_house_drink(eql: EstablishmentQualityLevel) -> HouseDrink {
     let cost_of_goods_value = max(cost_of_goods.1, roll_value);
     let price: String = format!("{} {}", cost_of_goods_value, cost_of_goods.0);
 
+    // todo!("add types of mead to the drink list");
+
     HouseDrink { desc, price }
 }
 

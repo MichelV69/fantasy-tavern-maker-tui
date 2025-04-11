@@ -93,6 +93,7 @@ pub mod Build {
         pub fn set_random_schticks_attributes(&mut self, app: &App) {
             self.set_notable_attribute_positive(&app);
             self.set_notable_attribute_negative(&app);
+            // todo!("schtick_ability_description");
         }
 
         pub fn random_appearance(&mut self, app: &App) {
