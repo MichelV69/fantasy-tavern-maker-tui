@@ -126,6 +126,11 @@ pub mod Tower {
             // human_readable expect to find "there are [5d12+6] bad guys"
             // break out the dice string and encapsulate into new_roll_request
             let buffer1: Vec<String> = human_readable.split('[').map(|s| s.to_string()).collect();
+
+            if buffer1.len()== 1 {
+                return human_readable.to_string();
+            };
+
             // "there are [","5d12+6] bad guys"
             let buffer2: Vec<String> = buffer1[1].split(']').map(|s| s.to_string()).collect();
             // "5d12+6"," bad guys"
