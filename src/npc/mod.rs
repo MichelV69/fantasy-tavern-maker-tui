@@ -350,6 +350,7 @@ pub mod Build {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             self.task_description = Self::roll_from_table(psv_file_contents);
+            self.task_description = <DiceResult as RollDice>::inline_replace(&self.task_description);
         }
     }
 

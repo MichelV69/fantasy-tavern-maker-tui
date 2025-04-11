@@ -44,7 +44,7 @@ fn main() {
     app.version_build = 126;
     app.version_major = 0;
     app.version_minor = 9;
-    app.version_fix = 1;
+    app.version_fix = 2;
 
     let mut siv = cursive::default();
 
@@ -195,10 +195,18 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         npc_notable_patrons_list.push(npc_patron);
     }
 
-    // redlight_services ?? "specific" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??
+    //todo!("redlight_services ?? \"specific\" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??")
 
     let mut npc_text_set : String = "".into();
     for npc in npc_staff_list  {
+        npc_text_set += &format!("({}) {} {}\n", npc.npc_type.to_string(),
+        npc.species.to_string(),
+        npc.task_description);
+    }
+
+    npc_text_set += "  \n";
+
+    for npc in npc_notable_patrons_list  {
         npc_text_set += &format!("({}) {} {}\n", npc.npc_type.to_string(),
         npc.species.to_string(),
         npc.task_description);

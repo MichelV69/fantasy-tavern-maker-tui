@@ -89,5 +89,15 @@ mod suite {
         println!("resulting_text [{}]", resulting_text);
         debug_assert!(request != resulting_text);
     }
+
+    #[test]
+    fn rolls_inline_nothing_to_do() {
+        let request: &str = "rolls_inline_nothing_to_do. Still nothing. ";
+        let resulting_text = <DiceResult as RollDice>::inline_replace(request);
+
+        println!("resulting_text [{}]", resulting_text);
+        assert_eq!(request, resulting_text);
+    }
+
 } // mod suite
 // ---- end of file ----
