@@ -14,7 +14,6 @@ mod implementations;
 pub(crate) mod structs;
 pub(crate) mod traits;
 
-
 pub fn get_pbhouse_plain_text() -> String {
     let pub_and_bed_house = PBHouse::new();
     format!("\n \n {} \n \n", pub_and_bed_house)

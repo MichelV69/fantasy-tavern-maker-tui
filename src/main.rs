@@ -143,15 +143,15 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
     // notablePatronsList ... #dice based on Establishment.size
     let mut npc_notable_patrons_list: Vec<npc_Profile> = vec![];
-    let mut die_size:String  = match pbh.size.size_description {
+    let mut die_size: String = match pbh.size.size_description {
         SizeList::Tiny => "1d4 - 1".into(),
         SizeList::Small => "1d4 + 1".into(),
         SizeList::Modest => "1d4 + 2".into(),
-        SizeList::Large =>  "1d4 + 3".into(),
-        SizeList::Massive =>  "1d4 + 4".into(),
+        SizeList::Large => "1d4 + 3".into(),
+        SizeList::Massive => "1d4 + 4".into(),
     };
 
-    die_size  += match pbh.establishment_quality.level  {
+    die_size += match pbh.establishment_quality.level {
         EstablishmentQualityLevel::Squalid => " -2".into(),
         EstablishmentQualityLevel::Poor => " -1".into(),
         EstablishmentQualityLevel::Modest => "".into(),
@@ -160,7 +160,8 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         EstablishmentQualityLevel::Aristocratic => " +3".into(),
     };
 
-    let npc_notable_patrons_count: i16 = <DiceResult as RollDice>::from_string(&die_size).get_total();
+    let npc_notable_patrons_count: i16 =
+        <DiceResult as RollDice>::from_string(&die_size).get_total();
     for c in 1..npc_notable_patrons_count {
         let mut npc_patron: npc_Profile = npc_Profile::new();
         npc_patron.npc_type = NpcTypeCode::Patron;
