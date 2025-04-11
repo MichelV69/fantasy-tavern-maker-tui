@@ -53,7 +53,7 @@ pub fn l1_heading(s: String) -> String {
         underline_len = 42
     }
     let underline = "=".repeat(underline_len);
-    format!("\n\n {}\n {} \n\n",s, underline)
+    format!("\n\n {}\n {} \n\n", s, underline)
 }
 
 // ---

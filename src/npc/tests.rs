@@ -7,9 +7,11 @@ mod suite {
     use crate::{
         dice_bag::Tower::{self, RollDice},
         npc::{
-            lib::fnset::read_psv_file, Build::{
-                self, Attribute, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode
-            }
+            Build::{
+                self, Attribute, EyeColorCode, GenderCode, HairColorCode, HairStyleCode,
+                NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode,
+            },
+            lib::fnset::read_psv_file,
         },
         tavern::structs::List::App,
     };
@@ -18,7 +20,10 @@ mod suite {
     #[test]
     fn profile_new() {
         let new_npc: Profile = Profile::new();
-        let default_attr = Attribute {description:  "nothing interesting".into(), modifier: -13};
+        let default_attr = Attribute {
+            description: "nothing interesting".into(),
+            modifier: -13,
+        };
 
         debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
         debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
@@ -32,8 +37,8 @@ mod suite {
         debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
         debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
         debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
-        debug_assert_eq!(new_npc.notable_attribute_positive,default_attr);
-        debug_assert_eq!(new_npc.notable_attribute_negative,default_attr);
+        debug_assert_eq!(new_npc.notable_attribute_positive, default_attr);
+        debug_assert_eq!(new_npc.notable_attribute_negative, default_attr);
         debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
     }
 
@@ -231,31 +236,52 @@ mod suite {
         debug_assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
     }
 
-
-
     #[test]
     fn set_notable_attribute_positive() {
         let mut app: App = App::new();
         app.name = "fantasy-tavern-maker-tui".into();
-        let default_attr = Attribute {description:  "nothing interesting".into(), modifier: -13};
+        let default_attr = Attribute {
+            description: "nothing interesting".into(),
+            modifier: -13,
+        };
 
         let mut new_npc: Profile = Profile::new();
-
-        let mut counter: i8 = 0;
-        while (new_npc.notable_attribute_positive == default_attr) && counter < 7 {
-            counter += 1;
-            new_npc.set_notable_attribute_positive(&app);
-        }
+        new_npc.set_notable_attribute_positive(&app);
 
         event!(
             Level::INFO,
             "new_npc.notable_attribute_positive[{:#?}]",
             new_npc.notable_attribute_positive
         );
-        println!("new_npc.quirk_physical[{:#?}]", new_npc.notable_attribute_positive);
+        println!(
+            "new_npc.quirk_physical[{:#?}]",
+            new_npc.notable_attribute_positive
+        );
         debug_assert_ne!(new_npc.notable_attribute_positive, default_attr);
     }
 
+    #[test]
+    fn set_notable_attribute_negative() {
+        let mut app: App = App::new();
+        app.name = "fantasy-tavern-maker-tui".into();
+        let default_attr = Attribute {
+            description: "nothing interesting".into(),
+            modifier: -13,
+        };
 
+        let mut new_npc: Profile = Profile::new();
+        new_npc.set_notable_attribute_negative(&app);
+
+        event!(
+            Level::INFO,
+            "new_npc.notable_attribute_negative[{:#?}]",
+            new_npc.notable_attribute_negative
+        );
+        println!(
+            "new_npc.quirk_physical[{:#?}]",
+            new_npc.notable_attribute_negative
+        );
+        debug_assert_ne!(new_npc.notable_attribute_negative, default_attr);
+    }
 } // mod tests
 // ---- end of file ----

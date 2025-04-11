@@ -78,17 +78,24 @@ pub mod Build {
                 eye_color: EyeColorCode::Red,
                 quirk_emotional: QuirkEmotional::Manic,
                 quirk_physical: QuirkPhysical::SubstantialWineStain,
-                notable_attribute_positive: Attribute {description: "nothing interesting".into(), modifier: -13},
-                notable_attribute_negative: Attribute {description: "nothing interesting".into(), modifier: -13},
+                notable_attribute_positive: Attribute {
+                    description: "nothing interesting".into(),
+                    modifier: -13,
+                },
+                notable_attribute_negative: Attribute {
+                    description: "nothing interesting".into(),
+                    modifier: -13,
+                },
                 schtick_ability_description: "nothing interesting".into(),
             }
         }
 
         pub fn set_random_schticks_attributes(&mut self, app: &App) {
             self.set_notable_attribute_positive(&app);
+            self.set_notable_attribute_negative(&app);
         }
 
-        pub fn random_appearance(&mut self, app: &App){
+        pub fn random_appearance(&mut self, app: &App) {
             self.set_random_gender();
             self.set_random_species(&app);
             self.set_random_height_desc();
@@ -99,21 +106,32 @@ pub mod Build {
             self.set_random_quirk_physical(&app);
         }
 
-        pub fn get_random_notable_attribute(&mut self, app: &App)  -> Attribute  {
+        pub fn get_random_notable_attribute(&mut self, app: &App) -> Attribute {
             let mut test_file = "table-RandomNotableAttributeStat.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             let description = Self::roll_from_table(psv_file_contents);
 
             test_file = "table-RandomNotableAttributeBonus.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
-            let bonus = Self::roll_from_table(psv_file_contents).parse::<i8>().expect("Should have gotten an integer here!");
+            let bonus = Self::roll_from_table(psv_file_contents)
+                .parse::<i8>()
+                .expect("Should have gotten an integer here!");
 
-            Attribute {description: description, modifier: bonus.into()}
+            Attribute {
+                description: description,
+                modifier: bonus.into(),
+            }
         }
 
         pub fn set_notable_attribute_positive(&mut self, app: &App) {
             self.notable_attribute_positive = self.get_random_notable_attribute(app);
-            }
+        }
+
+        pub fn set_notable_attribute_negative(&mut self, app: &App) {
+            let mut temp_attr = self.get_random_notable_attribute(app);
+            temp_attr.modifier = temp_attr.modifier * -1;
+            self.notable_attribute_negative = temp_attr;
+        }
 
         pub fn set_random_quirk_physical(&mut self, app: &App) {
             let test_file = "table-RandomQuirkPhysical.psv";
