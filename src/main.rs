@@ -29,6 +29,8 @@ use tavern::functions::l1_heading;
 use std::fmt::format;
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::absolute;
+use std::process::Child;
 
 // --- my stuff ---
 mod dice_bag;
@@ -143,25 +145,44 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
     // notablePatronsList ... #dice based on Establishment.size
     let mut npc_notable_patrons_list: Vec<npc_Profile> = vec![];
-    let mut die_size: String = match pbh.size.size_description {
-        SizeList::Tiny => "1d4 - 1".into(),
-        SizeList::Small => "1d4 + 1".into(),
-        SizeList::Modest => "1d4 + 2".into(),
-        SizeList::Large => "1d4 + 3".into(),
-        SizeList::Massive => "1d4 + 4".into(),
+    let die_size: String = "1d4".into();
+    //println!("\n --- \n die_size [{die_size}]");
+
+    let mut roll_mod: i8 = match pbh.size.size_description {
+        SizeList::Tiny => -1,
+        SizeList::Small => 1,
+        SizeList::Modest => 2,
+        SizeList::Large => 3,
+        SizeList::Massive => 4,
     };
 
-    die_size += match pbh.establishment_quality.level {
-        EstablishmentQualityLevel::Squalid => " -2".into(),
-        EstablishmentQualityLevel::Poor => " -1".into(),
-        EstablishmentQualityLevel::Modest => "".into(),
-        EstablishmentQualityLevel::Comfortable => " +1".into(),
-        EstablishmentQualityLevel::Wealthy => " +2".into(),
-        EstablishmentQualityLevel::Aristocratic => " +3".into(),
+    //println!("roll_mod [{roll_mod}]");
+
+    roll_mod += match pbh.establishment_quality.level {
+        EstablishmentQualityLevel::Squalid => -2,
+        EstablishmentQualityLevel::Poor => -1,
+        EstablishmentQualityLevel::Modest => 0,
+        EstablishmentQualityLevel::Comfortable => 1,
+        EstablishmentQualityLevel::Wealthy => 2,
+        EstablishmentQualityLevel::Aristocratic => 3,
     };
+
+    // println!("roll_mod [{roll_mod}]");
+    let mut math_func: &str = "+";
+    if roll_mod != roll_mod.abs() {
+        math_func = "";
+    }
+
+    let mut roll_string: String = "blank".into();
+    // println!("roll_string [{roll_string}]");
+
+    roll_string = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
+    //println!("roll_string [{roll_string}]");
 
     let npc_notable_patrons_count: i16 =
-        <DiceResult as RollDice>::from_string(&die_size).get_total();
+        <DiceResult as RollDice>::from_string(&roll_string).get_total();
+    //println!("npc_notable_patrons_count [{npc_notable_patrons_count}]");
+
     for c in 1..npc_notable_patrons_count {
         let mut npc_patron: npc_Profile = npc_Profile::new();
         npc_patron.npc_type = NpcTypeCode::Patron;
@@ -184,11 +205,18 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
             .title(dialog_title)
             .content(
                 LinearLayout::horizontal()
-                    .child(Dialog::text(gm_text).title("GM Notes").fixed_width(42))
+                    .child(Dialog::text(gm_text).title("GM Notes").fixed_width(32))
                     .child(
                         Dialog::text(player_text)
                             .title("Player Notes")
-                            .fixed_width(42)
+                            .fixed_width(48)
+                            .scrollable()
+                            .scroll_y(true),
+                    )
+                    .child(
+                        Dialog::text(npc_notable_patrons_list.len().to_string())
+                            .title("Notable Individuals")
+                            .fixed_width(32)
                             .scrollable()
                             .scroll_y(true),
                     ),
