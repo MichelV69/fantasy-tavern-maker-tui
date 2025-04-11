@@ -8,7 +8,7 @@ use structs::List::PBHouse;
 use tracing::info;
 
 // --- my stuff ---
-mod enums;
+pub(crate) mod enums;
 pub(crate) mod functions;
 mod implementations;
 pub(crate) mod structs;

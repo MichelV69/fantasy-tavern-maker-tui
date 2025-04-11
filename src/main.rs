@@ -10,11 +10,17 @@ use cursive::view::Scrollable;
 use cursive::views::Dialog;
 use cursive::views::LinearLayout;
 use cursive::views::TextView;
+use dice_bag::Tower::DiceResult;
+use dice_bag::Tower::RollDice;
 use dirs::download_dir;
 use npc::Build::NpcTypeCode;
 use npc::Build::Profile as npc_Profile;
+use tavern::enums::List::EstablishmentQualityLevel;
+use tavern::enums::List::SizeList;
 use tavern::structs::List::App;
+use tavern::structs::List::EstablishmentQuality;
 use tavern::structs::List::PBHouse;
+use tavern::structs::List::PBHouseSize;
 use tavern::traits::List::AppFn;
 use tracing::info;
 
@@ -79,19 +85,92 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     }
 
     //--- NPCs present
-    // ("Staff", "Owner")
-    let mut npc_list: Vec<npc_Profile> = vec![];
-    let mut new_npc: npc_Profile = npc_Profile::new();
-    new_npc.npc_type = NpcTypeCode::Staff;
-    new_npc.task_description = "Owner".into();
-    new_npc.random_appearance(&app);
-    new_npc.set_random_quirk_emotional(&app);
-    new_npc.set_random_schticks_attributes(&app);
+    let mut npc_staff_list: Vec<npc_Profile> = vec![];
+    let mut npc_owner: npc_Profile = npc_Profile::new();
+    npc_owner.npc_type = NpcTypeCode::Staff;
+    npc_owner.task_description = "Owner".into();
+    npc_owner.random_appearance(&app);
+    npc_owner.set_random_quirk_emotional(&app);
+    npc_owner.set_random_schticks_attributes(&app);
+    npc_staff_list.push(npc_owner);
 
-    // modest || large || massive => ("Staff", "Cook")
-    // large || massive => ("Staff", "Head Server")
-    // massive => ("Staff", "Bouncer")
+    if [SizeList::Modest, SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
+        let mut npc_cook: npc_Profile = npc_Profile::new();
+        npc_cook.task_description = "Cook".into();
+        npc_cook.random_appearance(&app);
+        npc_cook.set_random_quirk_emotional(&app);
+        npc_cook.set_random_schticks_attributes(&app);
+        npc_staff_list.push(npc_cook);
+
+        if [SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
+            let mut npc_server: npc_Profile = npc_Profile::new();
+            npc_server.task_description = "Server".into();
+            npc_server.random_appearance(&app);
+            npc_server.set_random_quirk_emotional(&app);
+            npc_server.set_random_schticks_attributes(&app);
+            npc_staff_list.push(npc_server);
+
+            if [SizeList::Massive].contains(&pbh.size.size_description) {
+                let request: &str = "1d6";
+
+                if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
+                    let mut npc_cook: npc_Profile = npc_Profile::new();
+                    npc_cook.task_description = "Cook Helper".into();
+                    npc_cook.random_appearance(&app);
+                    npc_cook.set_random_quirk_emotional(&app);
+                    npc_cook.set_random_schticks_attributes(&app);
+                    npc_staff_list.push(npc_cook);
+                }
+
+                if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
+                    let mut npc_server: npc_Profile = npc_Profile::new();
+                    npc_server.task_description = "Server Helper".into();
+                    npc_server.random_appearance(&app);
+                    npc_server.set_random_quirk_emotional(&app);
+                    npc_server.set_random_schticks_attributes(&app);
+                    npc_staff_list.push(npc_server);
+                }
+
+                let mut npc_bouncer: npc_Profile = npc_Profile::new();
+                npc_bouncer.task_description = "Bouncer".into();
+                npc_bouncer.random_appearance(&app);
+                npc_bouncer.set_random_quirk_emotional(&app);
+                npc_bouncer.set_random_schticks_attributes(&app);
+                npc_staff_list.push(npc_bouncer);
+            }
+        }
+    }
+
     // notablePatronsList ... #dice based on Establishment.size
+    let mut npc_notable_patrons_list: Vec<npc_Profile> = vec![];
+    let mut die_size:String  = match pbh.size.size_description {
+        SizeList::Tiny => "1d4 - 1".into(),
+        SizeList::Small => "1d4 + 1".into(),
+        SizeList::Modest => "1d4 + 2".into(),
+        SizeList::Large =>  "1d4 + 3".into(),
+        SizeList::Massive =>  "1d4 + 4".into(),
+    };
+
+    die_size  += match pbh.establishment_quality.level  {
+        EstablishmentQualityLevel::Squalid => " -2".into(),
+        EstablishmentQualityLevel::Poor => " -1".into(),
+        EstablishmentQualityLevel::Modest => "".into(),
+        EstablishmentQualityLevel::Comfortable => " +1".into(),
+        EstablishmentQualityLevel::Wealthy => " +2".into(),
+        EstablishmentQualityLevel::Aristocratic => " +3".into(),
+    };
+
+    let npc_notable_patrons_count: i16 = <DiceResult as RollDice>::from_string(&die_size).get_total();
+    for c in 1..npc_notable_patrons_count {
+        let mut npc_patron: npc_Profile = npc_Profile::new();
+        npc_patron.npc_type = NpcTypeCode::Patron;
+        npc_patron.set_random_task_description(&app);
+        npc_patron.random_appearance(&app);
+        npc_patron.set_random_quirk_emotional(&app);
+        npc_patron.set_random_schticks_attributes(&app);
+        npc_notable_patrons_list.push(npc_patron);
+    }
+
     // redlight_services ?? "specific" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??
 
     //---

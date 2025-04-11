@@ -122,7 +122,7 @@ pub mod List {
         Wealthy,
     }
     // ---
-    #[derive(Debug, Display, Clone)]
+    #[derive(Debug, Display, Clone, PartialEq)]
     pub enum SizeList {
         Large,
         Massive,
