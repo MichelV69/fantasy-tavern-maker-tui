@@ -9,6 +9,7 @@ pub mod Build {
         Rng,
         distr::{Distribution, StandardUniform},
     };
+    use strum::Display;
     use tracing::{Level, event};
 
     use super::lib::fnset::{RollTable, read_psv_file};
@@ -410,7 +411,7 @@ pub mod Build {
         White,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Display)]
     pub enum SpeciesCode {
         Dragonborn,
         Dwarf,
@@ -421,7 +422,7 @@ pub mod Build {
         Tiefling,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Display)]
     pub enum NpcTypeCode {
         Patron,
         Staff,

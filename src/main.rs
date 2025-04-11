@@ -41,10 +41,10 @@ mod tavern;
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 116;
+    app.version_build = 126;
     app.version_major = 0;
     app.version_minor = 9;
-    app.version_fix = 0;
+    app.version_fix = 1;
 
     let mut siv = cursive::default();
 
@@ -98,6 +98,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
     if [SizeList::Modest, SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
         let mut npc_cook: npc_Profile = npc_Profile::new();
+        npc_cook.npc_type = NpcTypeCode::Staff;
         npc_cook.task_description = "Cook".into();
         npc_cook.random_appearance(&app);
         npc_cook.set_random_quirk_emotional(&app);
@@ -107,6 +108,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         if [SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
             let mut npc_server: npc_Profile = npc_Profile::new();
             npc_server.task_description = "Server".into();
+            npc_server.npc_type = NpcTypeCode::Staff;
             npc_server.random_appearance(&app);
             npc_server.set_random_quirk_emotional(&app);
             npc_server.set_random_schticks_attributes(&app);
@@ -117,6 +119,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
                 if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
                     let mut npc_cook: npc_Profile = npc_Profile::new();
+                    npc_cook.npc_type = NpcTypeCode::Staff;
                     npc_cook.task_description = "Cook Helper".into();
                     npc_cook.random_appearance(&app);
                     npc_cook.set_random_quirk_emotional(&app);
@@ -126,6 +129,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
                 if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
                     let mut npc_server: npc_Profile = npc_Profile::new();
+                    npc_server.npc_type = NpcTypeCode::Staff;
                     npc_server.task_description = "Server Helper".into();
                     npc_server.random_appearance(&app);
                     npc_server.set_random_quirk_emotional(&app);
@@ -135,6 +139,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
 
                 let mut npc_bouncer: npc_Profile = npc_Profile::new();
                 npc_bouncer.task_description = "Bouncer".into();
+                npc_bouncer.npc_type = NpcTypeCode::Staff;
                 npc_bouncer.random_appearance(&app);
                 npc_bouncer.set_random_quirk_emotional(&app);
                 npc_bouncer.set_random_schticks_attributes(&app);
@@ -173,10 +178,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         math_func = "";
     }
 
-    let mut roll_string: String = "blank".into();
-    // println!("roll_string [{roll_string}]");
-
-    roll_string = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
+    let mut roll_string: String = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
     //println!("roll_string [{roll_string}]");
 
     let npc_notable_patrons_count: i16 =
@@ -194,6 +196,13 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     }
 
     // redlight_services ?? "specific" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??
+
+    let mut npc_text_set : String = "".into();
+    for npc in npc_staff_list  {
+        npc_text_set += &format!("({}) {} {}\n", npc.npc_type.to_string(),
+        npc.species.to_string(),
+        npc.task_description);
+    }
 
     //---
     s.pop_layer();
@@ -214,7 +223,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
                             .scroll_y(true),
                     )
                     .child(
-                        Dialog::text(npc_notable_patrons_list.len().to_string())
+                        Dialog::text(npc_text_set)
                             .title("Notable Individuals")
                             .fixed_width(32)
                             .scrollable()
