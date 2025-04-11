@@ -254,7 +254,7 @@ mod suite {
             new_npc.notable_attribute_positive
         );
         println!(
-            "new_npc.quirk_physical[{:#?}]",
+            "new_npc.notable_attribute_positive[{:#?}]",
             new_npc.notable_attribute_positive
         );
         debug_assert_ne!(new_npc.notable_attribute_positive, default_attr);
@@ -278,7 +278,7 @@ mod suite {
             new_npc.notable_attribute_negative
         );
         println!(
-            "new_npc.quirk_physical[{:#?}]",
+            "new_npc.notable_attribute_negative[{:#?}]",
             new_npc.notable_attribute_negative
         );
         debug_assert_ne!(new_npc.notable_attribute_negative, default_attr);
