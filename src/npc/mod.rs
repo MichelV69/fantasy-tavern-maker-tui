@@ -279,13 +279,13 @@ pub mod Build {
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
             self.species = match result {
-                val if val == "human" => SpeciesCode::Human,
-                val if val == "dwarf" => SpeciesCode::Dwarf,
-                val if val == "halfling" => SpeciesCode::Halfling,
-                val if val == "elf" => SpeciesCode::Elf,
-                val if val == "gnome" => SpeciesCode::Gnome,
-                val if val == "tiefling" => SpeciesCode::Tiefling,
-                val if val == "dragonborn" => SpeciesCode::Dragonborn,
+                val if val == "Human" => SpeciesCode::Human,
+                val if val == "Dwarf" => SpeciesCode::Dwarf,
+                val if val == "Halfling" => SpeciesCode::Halfling,
+                val if val == "Elf" => SpeciesCode::Elf,
+                val if val == "Gnome" => SpeciesCode::Gnome,
+                val if val == "Tiefling" => SpeciesCode::Tiefling,
+                val if val == "Dragonborn" => SpeciesCode::Dragonborn,
                 _ => panic!("set_random_species result: [{result}]"),
             };
         }
@@ -298,7 +298,7 @@ pub mod Build {
             let mut high: i16 = 0;
             for line in psv_file_contents {
                 let mut low: i16 = 1;
-                if result_table.len() > 1 {
+                if result_table.len() > 0 {
                     low = result_table[result_table.len() - 1].high + 1;
                 }
                 high = low + line.0 - 1;
