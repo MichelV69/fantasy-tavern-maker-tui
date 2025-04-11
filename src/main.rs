@@ -88,11 +88,12 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     new_npc.task_description = "Owner".into();
     new_npc.random_appearance(&app);
     new_npc.set_random_quirk_emotional(&app);
+    new_npc.set_random_schticks_attributes(&app);
 
-    // notablePatronsList ... #dice based on Establishment.size
     // modest || large || massive => ("Staff", "Cook")
     // large || massive => ("Staff", "Head Server")
     // massive => ("Staff", "Bouncer")
+    // notablePatronsList ... #dice based on Establishment.size
     // redlight_services ?? "specific" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??
 
     //---
