@@ -1,40 +1,26 @@
 // ---- implementations  ----
-pub mod List {
+pub mod list {
     use inflector::string::singularize::to_singular;
-    use is_vowel::{self, IsRomanceVowel};
-    use rand::distr::{Distribution, StandardUniform};
-    use rand::{Rng, prelude};
-    use std::fmt;
-    use strum::{EnumString, IntoEnumIterator, VariantArray, VariantMetadata};
 
-    use crate::tavern::enums::List::{
+
+    use rand::Rng;
+    use rand::distr::{Distribution, StandardUniform};
+    use std::fmt;
+
+    use crate::tavern::enums::list::{
         DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkRumsDetail, DrinkWhiskeysDetail,
         DrinkWinesDetail, EstablishmentQualityLevel, FirstSmell, HouseDishHowCooked,
         HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
         MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
     };
     use crate::tavern::functions::{
-        enum_string_to_phase, get_establishment_history_notes, get_establishment_quality,
+        get_establishment_history_notes, get_establishment_quality,
         get_house_dish, get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size,
-        get_posted_sign, get_redlight_services, get_smells, tidy, trim_whitespace,
+        get_posted_sign, get_redlight_services, get_smells,
     };
-    use crate::tavern::structs::List::{App, PBHouse};
+    use crate::tavern::structs::list::{App, PBHouse};
     use crate::tavern::traits::List::{AppFn, ToCapitalized};
-
-    /*
-    impl Distribution<LightingSources> for StandardUniform {
-        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> LightingSources {
-            let index: u8 = rng.random_range(0..=3);
-            match index {
-                0 => LightingSources::AFireplace,
-                1 => LightingSources::Candles,
-                2 => LightingSources::MagicOrbsAndCrystals,
-                3 => LightingSources::OilLamps,
-                _ => unreachable!(),
-            }
-        }
-    }
-    */
+    use crate::text_postproc::tpp::{enum_string_to_phrase, is_a_an, tidy, trim_whitespace};
 
     impl Distribution<HouseDishWhatSide> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishWhatSide {
@@ -456,26 +442,22 @@ pub mod List {
         pub fn general_info(&self) -> Vec<String> {
             let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
             // ---
-            let mut first_char = self
+            let first_char = self
                 .mood
                 .to_string()
                 .chars()
                 .nth(0)
                 .expect("This should be a single character");
 
-            let prep = if first_char.is_romance_vowel() {
-                "an"
-            } else {
-                "a"
-            };
+            let prep = is_a_an(first_char);
 
             let para1: String = format!(
                 "'*The {}*' is the local Pub and Bed House for travellers in this area. The {}-quality establishment would be considered {}-sized, with {} tables.\n\n",
                 self.name,
-                trim_whitespace(enum_string_to_phase(
+                trim_whitespace(enum_string_to_phrase(
                     self.establishment_quality.level.to_string()
                 )),
-                trim_whitespace(enum_string_to_phase(self.size.size_description.to_string())),
+                trim_whitespace(enum_string_to_phrase(self.size.size_description.to_string())),
                 self.size.table_count
             );
             pb_house_desc.push(para1);
