@@ -211,8 +211,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
             {npc_type} {task}
 
             {height_desc} {build_desc} {gender:?} {species:?}
-            {eye_color:?} eyes,
-            {hair_color:?} hair in {hair_style:?}
+            with {eye_color:?} eyes, {hair_color} hair in {hair_style:?}
 
             Quirks: {quirk_emotional} {quirk_physical}
             Notable Attributes:
@@ -223,7 +222,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
             npc_type = npc.npc_type,
             task = npc.task_description,
             eye_color = npc.eye_color,
-            hair_color = npc.hair_color,
+            hair_color = npc.hair_color.to_string(),
             gender = npc.gender,
             species = npc.species,
             height_desc = npc.height_desc,
