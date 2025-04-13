@@ -12,7 +12,7 @@ pub mod build {
     use super::lib::fnset::{RollTable, read_psv_file};
     use crate::{
         dice_bag::tower::{self, DiceResult, RollDice},
-        tavern::structs::List::App,
+        tavern::structs::list::App, text_postproc::tpp::enum_string_to_phrase,
     };
 
     pub struct Profile {
@@ -358,6 +358,50 @@ pub mod build {
                 2 => NpcTypeCode::StoryCharacter,
                 _ => unreachable!(),
             }
+        }
+    }
+
+    // ---
+    impl ToString for Attribute {
+        fn to_string(&self) -> String {
+            if self.description == "None" {
+                return "".to_string();
+            };
+            let mut mod_sign = "";
+            if self.modifier > -1 {
+                mod_sign = "+"
+            }
+            format!("{}{}{}", self.description, mod_sign, self.modifier)
+        }
+    }
+
+    impl ToString for QuirkPhysical {
+        fn to_string(&self) -> String {
+            let qp_string =  match self {
+                QuirkPhysical::ConstantSquint => enum_string_to_phrase("ConstantSquint".to_string()),
+                QuirkPhysical::FrequentSquint => enum_string_to_phrase("FrequentSquint".to_string()),
+                QuirkPhysical::InfrequentSquint => enum_string_to_phrase("InfrequentSquint".to_string()),
+                QuirkPhysical::None => "".to_string(),
+                QuirkPhysical::SlightScar => enum_string_to_phrase("SlightScar".to_string()),
+                QuirkPhysical::NoticeableScar => enum_string_to_phrase("NoticeableScar".to_string()),
+                QuirkPhysical::SubstantialScar => enum_string_to_phrase("SubstantialScar".to_string()),
+                QuirkPhysical::SmallTattoo => enum_string_to_phrase("SmallTattoo".to_string()),
+                QuirkPhysical::NoticeableTattoo => enum_string_to_phrase("NoticeableTattoo".to_string()),
+                QuirkPhysical::SubstantialTattoo => enum_string_to_phrase("SubstantialTattoo".to_string()),
+                QuirkPhysical::MinorScarification => enum_string_to_phrase("MinorScarification".to_string()),
+                QuirkPhysical::NoticeableScarification => enum_string_to_phrase("NoticeableScarification".to_string()),
+                QuirkPhysical::SubstantialScarification => enum_string_to_phrase("SubstantialScarification".to_string()),
+                QuirkPhysical::SlightWineStain => enum_string_to_phrase("SlightWineStain".to_string()),
+                QuirkPhysical::NoticeableWineStain => enum_string_to_phrase("NoticeableWineStain".to_string()),
+                QuirkPhysical::SubstantialWineStain => enum_string_to_phrase("SubstantialWineStain".to_string()),
+            };
+
+            if qp_string.is_empty() {
+                return qp_string;
+            } else {
+                return "a {qp_string}".to_string();
+            }
+
         }
     }
 

@@ -1,60 +1,25 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-#![allow(unused_mut)]
-
 use inflector::string::singularize::to_singular;
+use rand::SeedableRng;
+use rand::distr::Distribution;
 use rand::distr::weighted::WeightedIndex;
-use rand::distr::{Distribution, StandardUniform};
 use rand::seq::IndexedRandom;
-use rand::{SeedableRng, prelude};
 use rand_chacha::ChaCha20Rng;
-use std::{cmp::*, fmt};
+use std::cmp::*;
 use strum::IntoEnumIterator;
-use strum_macros::{Display, EnumString};
 
 use crate::dice_bag::tower::{self, RollDice};
-use crate::tavern::enums::List::{NameNoun, NameVerb};
+use crate::tavern::enums::list::{NameNoun, NameVerb};
 use crate::tavern::traits::List::ToCapitalized;
+use crate::text_postproc::tpp::tidy;
 
-use super::enums::List::{
+use super::enums::list::{
     BedTypeList, DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkMade, DrinkRumsDetail,
     DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentAppearance, EstablishmentHistoryAge,
     EstablishmentQualityLevel, EstablishmentReputuation, FirstSmell, HouseDishHowCooked,
     HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
     MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
 };
-use super::structs::List::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
-
-pub fn trim_whitespace(s: String) -> String {
-    let words: Vec<_> = s.split_whitespace().collect();
-    words.join(" ")
-}
-
-pub fn enum_string_to_phase(s: String) -> String {
-    let mut result = "".to_string();
-    for c in s.chars() {
-        result = if c.to_string() == c.to_lowercase().to_string() {
-            format!("{}{}", result, c)
-        } else {
-            format!("{} {}", result, c.to_lowercase())
-        };
-    }
-    result
-}
-
-pub fn tidy(s: String) -> String {
-    trim_whitespace(enum_string_to_phase(s))
-}
-
-pub fn l1_heading(s: String) -> String {
-    let mut underline_len: usize = s.len();
-    if underline_len > 42 {
-        underline_len = 42
-    }
-    let underline = "=".repeat(underline_len);
-    format!("\n\n {}\n {} \n\n", s, underline)
-}
+use super::structs::list::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
 
 // ---
 pub fn get_name() -> String {
@@ -482,7 +447,7 @@ pub fn get_red_light_services_list() -> Option<String> {
     let mut red_light_services_list: String = "".into();
     let mut rng = ChaCha20Rng::from_os_rng();
 
-    for i in 1..=how_many_services {
+    for _ in 1..=how_many_services {
         let result = &possible_services_table[table_weights.sample(&mut rng)];
         let new_service: String = tower::DiceResult::inline_replace(&format!(
             " * {} (DC [{}]) \n",
@@ -524,19 +489,7 @@ pub fn get_redlight_services() -> Vec<String> {
 }
 
 pub fn get_staff_and_customers() -> Vec<String> {
-    let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
-    /*
-      -----                  Notable Staff & Patrons                  -----
-    Staff : (Character) is the Owner. They are a male human; average height (3%) and
-    stout (+13%). They are hazel-eyed, with their white hair kept in long curls.
-    [GM Notes: They consider themselves hetro.  (Quirks:  They have a slight scar on
-    their right shoulder.  They are often distrustful of adventurers. ) Particularly
-    Good At: [(Int) Arcana: +2] Particularly Bad At: [(Wis) Animal Handling: -3]]
-
-    pb_house_desc.push(format!(" lore ipsum: {}", "Muspi erol");
-    */
-
-    // ---
+    let pb_house_desc: Vec<String> = Vec::with_capacity(22);
     pb_house_desc
 }
 

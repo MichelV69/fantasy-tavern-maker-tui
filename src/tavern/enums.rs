@@ -1,15 +1,9 @@
 // ---- start of file ----
-pub mod List {
+pub mod list {
 
-    use strum::IntoEnumIterator;
     use strum_macros::Display;
     use strum_macros::EnumIter;
     use strum_macros::EnumString;
-
-    use is_vowel;
-    use rand::prelude;
-    use rand_derive2::RandGen;
-    use std::fmt;
 
     extern crate variant_count;
     use variant_count::VariantCount;

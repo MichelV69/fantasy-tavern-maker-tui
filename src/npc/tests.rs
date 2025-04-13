@@ -10,7 +10,7 @@ mod suite {
             },
             lib::fnset::read_psv_file,
         },
-        tavern::structs::List::App,
+        tavern::structs::list::App,
     };
     use tracing::{Level, event};
 

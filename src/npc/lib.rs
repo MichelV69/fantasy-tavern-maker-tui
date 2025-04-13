@@ -7,7 +7,7 @@ pub mod fnset {
         path::PathBuf,
     };
 
-    use crate::tavern::structs::List::App;
+    use crate::tavern::structs::list::App;
     use dirs::document_dir;
 
     #[derive(Debug)]
@@ -35,7 +35,7 @@ pub mod fnset {
         .into();
 
         let read_result = fs::read_to_string(&psv_file_path);
-        let mut file_content = match read_result {
+        let file_content = match read_result {
             Ok(file) => file,
             Err(error) => panic!("Problem opening the file: [{error:?} : {psv_file_path:?}]"),
         };

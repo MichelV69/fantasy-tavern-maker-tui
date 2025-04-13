@@ -1,11 +1,4 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-#![allow(unused_mut)]
-#![allow(non_snake_case)]
-
-use structs::List::PBHouse;
-use tracing::info;
+use structs::list::PBHouse;
 
 // --- my stuff ---
 pub(crate) mod enums;
