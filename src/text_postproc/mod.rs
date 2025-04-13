@@ -31,12 +31,12 @@ pub mod tpp {
         format!("\n\n {}\n {} \n\n", s, underline)
     }
 
-    pub fn is_a_an(test : char) -> String {
+    pub fn is_a_an(test: char) -> String {
         use ::is_vowel::IsRomanceVowel;
         if test.is_romance_vowel() {
-            return "an".to_string()
+            return "an".to_string();
         } else {
-            return "a".to_string()
+            return "a".to_string();
         };
     }
 }
