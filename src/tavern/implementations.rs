@@ -18,7 +18,7 @@ pub mod list {
         get_redlight_services, get_smells,
     };
     use crate::tavern::structs::list::{App, PBHouse};
-    use crate::tavern::traits::List::{AppFn, ToCapitalized};
+    use crate::tavern::traits::list::{AppFn, ToCapitalized};
     use crate::text_postproc::tpp::{enum_string_to_phrase, is_a_an, tidy, trim_whitespace};
 
     impl Distribution<HouseDishWhatSide> for StandardUniform {

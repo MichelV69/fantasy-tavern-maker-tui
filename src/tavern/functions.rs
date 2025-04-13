@@ -9,7 +9,7 @@ use strum::IntoEnumIterator;
 
 use crate::dice_bag::tower::{self, RollDice};
 use crate::tavern::enums::list::{NameNoun, NameVerb};
-use crate::tavern::traits::List::ToCapitalized;
+use crate::tavern::traits::list::ToCapitalized;
 use crate::text_postproc::tpp::tidy;
 
 use super::enums::list::{
@@ -485,11 +485,6 @@ pub fn get_redlight_services() -> Vec<String> {
         )
     }
     // ---
-    pb_house_desc
-}
-
-pub fn get_staff_and_customers() -> Vec<String> {
-    let pb_house_desc: Vec<String> = Vec::with_capacity(22);
     pb_house_desc
 }
 

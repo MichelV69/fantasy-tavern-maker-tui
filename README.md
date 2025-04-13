@@ -3,7 +3,7 @@
 ***For Fantasy Worlds Settings such as Dungeons & Dragons 5th Edition***
 
 ## Current Version
-0.10.0-131
+0.10.1-138
 
 [![forthebadge made-with-rust](http://ForTheBadge.com/images/badges/made-with-rust.svg)](https://www.rust-lang.org/)
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
@@ -28,7 +28,7 @@ more what I was hoping to achieve.
 
 ## Sample Output
 
-![screenshot of example TUI output](content/2025-mar-14-example.png)
+![screenshot of example TUI output](content/2025-apr-13-example.png)
 
 # user requirements
 Ensure that you have a folder called "fantasy-tavern-maker-tui" in your "Documents" folder.

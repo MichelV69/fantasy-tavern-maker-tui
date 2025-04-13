@@ -228,13 +228,13 @@ pub mod build {
             let psv_file_contents = read_psv_file(test_file, &app);
             let result = Self::roll_from_table(psv_file_contents);
             self.hair_color = match result {
-                val if val == "Dark" => HairColorCode::Brown,
+                val if val == "Dark" => HairColorCode::Dark,
                 val if val == "Brown" => HairColorCode::Brown,
                 val if val == "Blonde" => HairColorCode::Blonde,
                 val if val == "White" => HairColorCode::White,
                 val if val == "Silver-Grey" => HairColorCode::SilverGrey,
                 val if val == "Red" => HairColorCode::Red,
-                val if val == "Green" => HairColorCode::Red,
+                val if val == "Green" => HairColorCode::Green,
                 val if val == "Blue" => HairColorCode::Blue,
                 val if val == "Purple" => HairColorCode::Purple,
                 _ => panic!("set_random_hair_color result: [{result}]"),
@@ -426,8 +426,39 @@ pub mod build {
             if qp_string.is_empty() {
                 return qp_string;
             } else {
-                return "a {qp_string}".to_string();
+                return format!("a {}", qp_string.to_string());
             }
+        }
+    }
+
+    impl ToString for QuirkEmotional {
+        fn to_string(&self) -> String {
+            let qe_string = match self {
+                QuirkEmotional::Belligerent => "Belligerent".to_string(),
+                QuirkEmotional::CheerfulToAdventurers => {
+                    enum_string_to_phrase("CheerfulToAdventurers".to_string())
+                }
+                QuirkEmotional::Depressive => "Depressive".to_string(),
+                QuirkEmotional::DistrustfulOfAdventurers => {
+                    enum_string_to_phrase("DistrustfulOfAdventurers".to_string())
+                }
+                QuirkEmotional::EasilyDistracted => {
+                    enum_string_to_phrase("EasilyDistracted".to_string())
+                }
+                QuirkEmotional::Generous => "Generous".to_string(),
+                QuirkEmotional::Hyperfocused => "Hyperfocused".to_string(),
+                QuirkEmotional::Grumpy => "Grumpy".to_string(),
+                QuirkEmotional::Loud => "Loud".to_string(),
+                QuirkEmotional::Manic => "Manic".to_string(),
+                QuirkEmotional::None => "".to_string(),
+                QuirkEmotional::PhysicallyAffectionate => {
+                    enum_string_to_phrase("PhysicallyAffectionate".to_string())
+                }
+                QuirkEmotional::Miserly => "Miserly".to_string(),
+                QuirkEmotional::Playful => "Playful".to_string(),
+                QuirkEmotional::Shy => "Shy".to_string(),
+            };
+            format!("{}", qe_string.to_lowercase())
         }
     }
 

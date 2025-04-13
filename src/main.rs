@@ -24,17 +24,17 @@ use tavern::enums::list::EstablishmentQualityLevel;
 use tavern::enums::list::SizeList;
 use tavern::structs::list::App;
 use tavern::structs::list::PBHouse;
-use tavern::traits::List::AppFn;
+use tavern::traits::list::AppFn;
 use text_postproc::tpp::l1_heading;
 
 // --- local cli code
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 131;
     app.version_major = 0;
     app.version_minor = 10;
-    app.version_fix = 0;
+    app.version_fix = 1;
+    app.version_build = 138;
 
     let mut siv = cursive::default();
 
@@ -229,8 +229,8 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
             height_desc = npc.height_desc,
             build_desc = npc.build_desc,
             hair_style = npc.hair_style,
-            quirk_emotional = npc.quirk_emotional,
-            quirk_physical = npc.quirk_physical,
+            quirk_emotional = npc.quirk_emotional.to_string(),
+            quirk_physical = npc.quirk_physical.to_string(),
             notable_attribute_positive = npc.notable_attribute_positive.to_string(),
             notable_attribute_negative = npc.notable_attribute_negative.to_string()
         );
