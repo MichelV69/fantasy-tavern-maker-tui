@@ -1,15 +1,12 @@
 // ---- start of tests ----
 
 mod suite {
-    use std::path::Path;
 
-    use super::*;
     use crate::{
-        dice_bag::Tower::{self, RollDice},
         npc::{
-            Build::{
-                self, Attribute, EyeColorCode, GenderCode, HairColorCode, HairStyleCode,
-                NpcTypeCode, Profile, QuirkEmotional, QuirkPhysical, SpeciesCode,
+            build::{
+                Attribute, EyeColorCode, GenderCode, HairColorCode, HairStyleCode, NpcTypeCode,
+                Profile, QuirkEmotional, QuirkPhysical, SpeciesCode,
             },
             lib::fnset::read_psv_file,
         },
@@ -27,7 +24,6 @@ mod suite {
 
         debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
         debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
-        debug_assert_eq!(new_npc.public_name, "New NPC");
         debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
         debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
         debug_assert_eq!(new_npc.height_desc, "about average");
@@ -39,7 +35,7 @@ mod suite {
         debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
         debug_assert_eq!(new_npc.notable_attribute_positive, default_attr);
         debug_assert_eq!(new_npc.notable_attribute_negative, default_attr);
-        debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
+        //debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
     }
 
     #[test]

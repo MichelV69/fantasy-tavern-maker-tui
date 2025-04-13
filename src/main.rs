@@ -1,50 +1,38 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-#![allow(unused_mut)]
-#![allow(non_snake_case)]
-
+use cursive::views::TextView;
+// ---- all the uses all the time
 use cursive::Cursive;
 use cursive::view::Resizable;
 use cursive::view::Scrollable;
 use cursive::views::Dialog;
 use cursive::views::LinearLayout;
-use cursive::views::TextView;
-use dice_bag::Tower::DiceResult;
-use dice_bag::Tower::RollDice;
-use dirs::download_dir;
-use npc::Build::NpcTypeCode;
-use npc::Build::Profile as npc_Profile;
-use tavern::enums::List::EstablishmentQualityLevel;
-use tavern::enums::List::SizeList;
-use tavern::structs::List::App;
-use tavern::structs::List::EstablishmentQuality;
-use tavern::structs::List::PBHouse;
-use tavern::structs::List::PBHouseSize;
-use tavern::traits::List::AppFn;
-use tracing::info;
-
-use tavern::functions::l1_heading;
-
-use std::fmt::format;
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::absolute;
-use std::process::Child;
 
 // --- my stuff ---
 mod dice_bag;
 mod npc;
 mod tavern;
 
+use dice_bag::tower::DiceResult;
+use dice_bag::tower::RollDice;
+use dirs::download_dir;
+use npc::build::NpcTypeCode;
+use npc::build::Profile as npc_Profile;
+use tavern::enums::List::EstablishmentQualityLevel;
+use tavern::enums::List::SizeList;
+use tavern::functions::l1_heading;
+use tavern::structs::List::App;
+use tavern::structs::List::PBHouse;
+use tavern::traits::List::AppFn;
+
 // --- local cli code
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_build = 126;
+    app.version_build = 131;
     app.version_major = 0;
-    app.version_minor = 9;
-    app.version_fix = 2;
+    app.version_minor = 10;
+    app.version_fix = 0;
 
     let mut siv = cursive::default();
 
@@ -178,14 +166,14 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         math_func = "";
     }
 
-    let mut roll_string: String = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
+    let roll_string: String = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
     //println!("roll_string [{roll_string}]");
 
     let npc_notable_patrons_count: i16 =
         <DiceResult as RollDice>::from_string(&roll_string).get_total();
     //println!("npc_notable_patrons_count [{npc_notable_patrons_count}]");
 
-    for c in 1..npc_notable_patrons_count {
+    for _c in 1..npc_notable_patrons_count {
         let mut npc_patron: npc_Profile = npc_Profile::new();
         npc_patron.npc_type = NpcTypeCode::Patron;
         npc_patron.set_random_task_description(&app);
@@ -196,26 +184,36 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     }
 
     //todo!("redlight_services ?? \"specific\" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??")
+    use crate::npc::build::Profile;
+    let mut npc_select = cursive::views::SelectView::new();
 
-    let mut npc_text_set : String = "".into();
-    for npc in npc_staff_list  {
-        npc_text_set += &format!("({}) {} {}\n", npc.npc_type.to_string(),
-        npc.species.to_string(),
-        npc.task_description);
-    }
-
-    npc_text_set += "  \n";
-
-    for npc in npc_notable_patrons_list  {
-        npc_text_set += &format!("({}) {} {}\n", npc.npc_type.to_string(),
-        npc.species.to_string(),
-        npc.task_description);
+    let mut index = 0;
+    let mut npc_full_list: Vec<Profile> = vec![];
+    npc_full_list.append(&mut npc_staff_list);
+    npc_full_list.append(&mut npc_notable_patrons_list);
+    for npc in npc_full_list {
+        let select_item = &format!(
+            "({}) {} {}\n",
+            npc.npc_type.to_string(),
+            npc.species.to_string(),
+            npc.task_description
+        );
+        npc_select.add_item(select_item, index);
+        index += 1;
     }
 
     //---
     s.pop_layer();
     let app1 = app.clone();
     let app2 = app.clone();
+    let pbh1 = pbh.clone();
+
+    npc_select.set_on_submit(|s, index| {
+        let text = format!("NPC #{} ", index);
+        s.add_layer(Dialog::around(TextView::new(text)).button("Done", |s| {
+            s.pop_layer();
+        }));
+    });
 
     s.add_layer(
         Dialog::new()
@@ -231,7 +229,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
                             .scroll_y(true),
                     )
                     .child(
-                        Dialog::text(npc_text_set)
+                        Dialog::around(npc_select)
                             .title("Notable Individuals")
                             .fixed_width(32)
                             .scrollable()
@@ -239,11 +237,11 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
                     ),
             )
             .button("Save to file", move |s| {
-                save_pbhouse_to_file(s, pbh.clone(), app1.clone())
+                save_pbhouse_to_file(s, pbh1.clone(), app1.clone())
             })
             .button("Roll another", move |s| get_new_pbhouse(s, app2.clone()))
-            .h_align(cursive::align::HAlign::Center)
-            .button("Quit", |s| s.quit()),
+            .button("Quit", |s| s.quit())
+            .h_align(cursive::align::HAlign::Center),
     );
 }
 

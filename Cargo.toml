@@ -1,6 +1,6 @@
 [package]
 name = "fantasy-tavern-maker-tui"
-version = "0.9.2-126"
+version = "0.10.0-131"
 edition = "2024"
 
 [dev-dependencies]

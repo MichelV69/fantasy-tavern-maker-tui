@@ -1,10 +1,7 @@
 // ---- start of file ----
 /// Provides structs and functions required to generate simple
 /// fantasy Dnd5e Non-Player Characters
-pub mod Build {
-
-    use std::default;
-
+pub mod build {
     use rand::{
         Rng,
         distr::{Distribution, StandardUniform},
@@ -14,15 +11,13 @@ pub mod Build {
 
     use super::lib::fnset::{RollTable, read_psv_file};
     use crate::{
-        dice_bag::Tower::{self, DiceResult, RollDice},
+        dice_bag::tower::{self, DiceResult, RollDice},
         tavern::structs::List::App,
     };
-    use rand::prelude;
 
     pub struct Profile {
         pub npc_type: NpcTypeCode,
         pub gender: GenderCode,
-        pub public_name: String,
         pub task_description: String,
         pub species: SpeciesCode,
         pub height_desc: String,
@@ -34,7 +29,7 @@ pub mod Build {
         pub quirk_physical: QuirkPhysical,
         pub notable_attribute_positive: Attribute,
         pub notable_attribute_negative: Attribute,
-        pub schtick_ability_description: String,
+        // pub schtick_ability_description: String,
     }
 
     #[derive(Debug, PartialEq)]
@@ -69,7 +64,6 @@ pub mod Build {
             Profile {
                 npc_type: NpcTypeCode::Patron,
                 gender: GenderCode::Androgynous,
-                public_name: "New NPC".into(),
                 task_description: "Realm's Most Interesting Person".into(),
                 species: SpeciesCode::Dragonborn,
                 height_desc: "about average".into(),
@@ -87,7 +81,7 @@ pub mod Build {
                     description: "nothing interesting".into(),
                     modifier: -13,
                 },
-                schtick_ability_description: "nothing interesting".into(),
+                //schtick_ability_description: "nothing interesting".into(),
             }
         }
 
@@ -247,29 +241,29 @@ pub mod Build {
         }
 
         pub fn set_random_build_desc(&mut self) {
-            let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
+            let roll_2d6: i16 = <tower::DiceResult>::from_string("2d6").get_total();
             self.build_desc = match roll_2d6 {
-                2 => <Tower::DiceResult>::inline_replace("gaunt (-[3d8+6]%)"),
-                3 => <Tower::DiceResult>::inline_replace("lean (-[2d8+3]%)"),
-                4..=5 => <Tower::DiceResult>::inline_replace("slightly angular (-[1d8+1]%)"),
-                6..=8 => <Tower::DiceResult>::inline_replace("medium build ([2d4-4]%)"),
-                9..=10 => <Tower::DiceResult>::inline_replace("slightly husky (+[1d8+1]%)"),
-                11 => <Tower::DiceResult>::inline_replace("stout (+[2d8+3]%)"),
-                12 => <Tower::DiceResult>::inline_replace("portly (+[3d8+6]%)"),
+                2 => <tower::DiceResult>::inline_replace("gaunt (-[3d8+6]%)"),
+                3 => <tower::DiceResult>::inline_replace("lean (-[2d8+3]%)"),
+                4..=5 => <tower::DiceResult>::inline_replace("slightly angular (-[1d8+1]%)"),
+                6..=8 => <tower::DiceResult>::inline_replace("medium build ([2d4-4]%)"),
+                9..=10 => <tower::DiceResult>::inline_replace("slightly husky (+[1d8+1]%)"),
+                11 => <tower::DiceResult>::inline_replace("stout (+[2d8+3]%)"),
+                12 => <tower::DiceResult>::inline_replace("portly (+[3d8+6]%)"),
                 _ => panic!("Rolled weird on 2d6 : [{roll_2d6}] "),
             };
         }
 
         pub fn set_random_height_desc(&mut self) {
-            let roll_2d6: i16 = <Tower::DiceResult>::from_string("2d6").get_total();
+            let roll_2d6: i16 = <tower::DiceResult>::from_string("2d6").get_total();
             self.height_desc = match roll_2d6 {
-                2 => <Tower::DiceResult>::inline_replace("very short (-[3d8+6]%)"),
-                3 => <Tower::DiceResult>::inline_replace("short (-[2d8+3]%)"),
-                4..=5 => <Tower::DiceResult>::inline_replace("short-ish (-[1d8+1]%)"),
-                6..=8 => <Tower::DiceResult>::inline_replace("average height ([2d4-4]%)"),
-                9..=10 => <Tower::DiceResult>::inline_replace("tall-ish (+[1d8+1]%)"),
-                11 => <Tower::DiceResult>::inline_replace("tall (+[2d8+3]%)"),
-                12 => <Tower::DiceResult>::inline_replace("very tall (+[3d8+6]%)"),
+                2 => <tower::DiceResult>::inline_replace("very short (-[3d8+6]%)"),
+                3 => <tower::DiceResult>::inline_replace("short (-[2d8+3]%)"),
+                4..=5 => <tower::DiceResult>::inline_replace("short-ish (-[1d8+1]%)"),
+                6..=8 => <tower::DiceResult>::inline_replace("average height ([2d4-4]%)"),
+                9..=10 => <tower::DiceResult>::inline_replace("tall-ish (+[1d8+1]%)"),
+                11 => <tower::DiceResult>::inline_replace("tall (+[2d8+3]%)"),
+                12 => <tower::DiceResult>::inline_replace("very tall (+[3d8+6]%)"),
                 _ => panic!("Rolled weird on 2d6 : [{roll_2d6}] "),
             };
         }
@@ -294,7 +288,6 @@ pub mod Build {
             // build the table
             let mut result_table: Vec<RollTable> = Vec::with_capacity(42);
 
-            let mut ptr: usize = 0;
             let mut high: i16 = 0;
             for line in psv_file_contents {
                 let mut low: i16 = 1;
@@ -331,14 +324,14 @@ pub mod Build {
         }
 
         pub fn set_random_gender(&mut self) {
-            let set_of_rolls = Tower::DiceResult::from_string("1d10");
+            let set_of_rolls = tower::DiceResult::from_string("1d10");
             let total_of_rolls = set_of_rolls.get_total();
 
             self.gender = match total_of_rolls {
                 1..=5 => GenderCode::Male,
                 6..=8 => GenderCode::Female,
                 9..=10 => GenderCode::Androgynous,
-                default => panic!(
+                _ => panic!(
                     "Unexpected roll out of bounds {}:{}",
                     set_of_rolls.get_request(),
                     total_of_rolls
@@ -350,7 +343,8 @@ pub mod Build {
             let test_file = "table-RandomTaskDesc.psv";
             let psv_file_contents = read_psv_file(test_file, &app);
             self.task_description = Self::roll_from_table(psv_file_contents);
-            self.task_description = <DiceResult as RollDice>::inline_replace(&self.task_description);
+            self.task_description =
+                <DiceResult as RollDice>::inline_replace(&self.task_description);
         }
     }
 

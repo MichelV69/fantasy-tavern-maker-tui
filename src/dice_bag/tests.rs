@@ -1,7 +1,7 @@
 // ---- start of tests ----
 
 mod suite {
-    use crate::dice_bag::Tower::{self, DiceResult, RollDice};
+    use crate::dice_bag::tower::{DiceResult, RollDice};
     use tracing::{Level, event};
 
     #[test]
@@ -44,7 +44,7 @@ mod suite {
     fn rolls_respect_pos_modifiers() {
         let request: &str = "1d6+3";
 
-        for i in 1..99 {
+        for _ in 1..99 {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value: i16 = resulting_roll.get_total();
             let mod_total: i16 = resulting_roll.get_mod_total();
@@ -60,7 +60,7 @@ mod suite {
     fn rolls_respect_neg_modifiers() {
         let request: &str = "1d6-3";
 
-        for i in 1..99 {
+        for _ in 1..99 {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value: i16 = resulting_roll.get_total();
             let mod_total: i16 = resulting_roll.get_mod_total();
@@ -98,6 +98,5 @@ mod suite {
         println!("resulting_text [{}]", resulting_text);
         assert_eq!(request, resulting_text);
     }
-
 } // mod suite
 // ---- end of file ----

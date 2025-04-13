@@ -3,14 +3,12 @@
 ///
 pub mod fnset {
     use std::{
-        fs::{self, File, read_to_string},
-        io::Read,
-        path::{Path, PathBuf},
+        fs::{self},
+        path::PathBuf,
     };
 
     use crate::tavern::structs::List::App;
     use dirs::document_dir;
-    use tracing::{Level, event};
 
     #[derive(Debug)]
     pub struct RollTable {

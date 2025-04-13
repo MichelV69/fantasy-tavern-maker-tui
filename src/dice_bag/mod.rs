@@ -1,7 +1,5 @@
 // ---- start of file ----
-pub mod Tower {
-    use rand::prelude;
-    use std::str::Split;
+pub mod tower {
     use tracing::{Level, event};
 
     pub struct DiceResult {
@@ -96,7 +94,7 @@ pub mod Tower {
                 mod_list
             );
 
-            let mut panic_reason = format!(
+            let panic_reason = format!(
                 "Unsupported die-size description c{} d{}  m'{:#?}'.",
                 die_count, die_size, mod_list
             );
@@ -127,7 +125,7 @@ pub mod Tower {
             // break out the dice string and encapsulate into new_roll_request
             let buffer1: Vec<String> = human_readable.split('[').map(|s| s.to_string()).collect();
 
-            if buffer1.len()== 1 {
+            if buffer1.len() == 1 {
                 return human_readable.to_string();
             };
 
@@ -200,9 +198,10 @@ pub mod Tower {
         let mut rng = rand::rng();
         let mut roll_list: Vec<i16> = [].to_vec();
 
-        for index in 0..request.number_rolls {
+        for _ in 0..request.number_rolls {
             let roll_val: i16 = match request.die_requested {
-                DiceBag::Coin | DiceBag::D2 => rng.random_range(1..=2),
+                DiceBag::Coin => rng.random_range(1..=2),
+                DiceBag::D2 => rng.random_range(1..=2),
                 DiceBag::D4 => rng.random_range(1..=4),
                 DiceBag::D6 => rng.random_range(1..=6),
                 DiceBag::D8 => rng.random_range(1..=8),
