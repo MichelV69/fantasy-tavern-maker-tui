@@ -5,6 +5,7 @@ use cursive::view::Resizable;
 use cursive::view::Scrollable;
 use cursive::views::Dialog;
 use cursive::views::LinearLayout;
+use indoc::formatdoc;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -12,18 +13,19 @@ use std::io::prelude::*;
 mod dice_bag;
 mod npc;
 mod tavern;
+mod text_postproc;
 
 use dice_bag::tower::DiceResult;
 use dice_bag::tower::RollDice;
 use dirs::download_dir;
 use npc::build::NpcTypeCode;
 use npc::build::Profile as npc_Profile;
-use tavern::enums::List::EstablishmentQualityLevel;
-use tavern::enums::List::SizeList;
-use tavern::functions::l1_heading;
-use tavern::structs::List::App;
-use tavern::structs::List::PBHouse;
+use tavern::enums::list::EstablishmentQualityLevel;
+use tavern::enums::list::SizeList;
+use tavern::structs::list::App;
+use tavern::structs::list::PBHouse;
 use tavern::traits::List::AppFn;
+use text_postproc::tpp::l1_heading;
 
 // --- local cli code
 fn main() {
@@ -150,7 +152,6 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     };
 
     //println!("roll_mod [{roll_mod}]");
-
     roll_mod += match pbh.establishment_quality.level {
         EstablishmentQualityLevel::Squalid => -2,
         EstablishmentQualityLevel::Poor => -1,
@@ -187,19 +188,15 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     use crate::npc::build::Profile;
     let mut npc_select = cursive::views::SelectView::new();
 
-    let mut index = 0;
     let mut npc_full_list: Vec<Profile> = vec![];
     npc_full_list.append(&mut npc_staff_list);
     npc_full_list.append(&mut npc_notable_patrons_list);
     for npc in npc_full_list {
         let select_item = &format!(
             "({}) {} {}\n",
-            npc.npc_type.to_string(),
-            npc.species.to_string(),
-            npc.task_description
+            npc.npc_type, npc.species, npc.task_description
         );
-        npc_select.add_item(select_item, index);
-        index += 1;
+        npc_select.add_item(select_item, npc);
     }
 
     //---
@@ -208,8 +205,36 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
     let app2 = app.clone();
     let pbh1 = pbh.clone();
 
-    npc_select.set_on_submit(|s, index| {
-        let text = format!("NPC #{} ", index);
+    npc_select.set_on_submit(|s, npc| {
+        let text = formatdoc!(
+            r#"
+            {npc_type} {task}
+
+            {height_desc} {build_desc} {gender:?} {species:?}
+            {eye_color:?} eyes,
+            {hair_color:?} hair in {hair_style:?}
+
+            Quirks: {quirk_emotional} {quirk_physical}
+            Notable Attributes:
+                {notable_attribute_positive}
+                {notable_attribute_negative}
+
+        "#,
+            npc_type = npc.npc_type,
+            task = npc.task_description,
+            eye_color = npc.eye_color,
+            hair_color = npc.hair_color,
+            gender = npc.gender,
+            species = npc.species,
+            height_desc = npc.height_desc,
+            build_desc = npc.build_desc,
+            hair_style = npc.hair_style,
+            quirk_emotional = npc.quirk_emotional,
+            quirk_physical = npc.quirk_physical,
+            notable_attribute_positive = npc.notable_attribute_positive.to_string(),
+            notable_attribute_negative = npc.notable_attribute_negative.to_string()
+        );
+
         s.add_layer(Dialog::around(TextView::new(text)).button("Done", |s| {
             s.pop_layer();
         }));
