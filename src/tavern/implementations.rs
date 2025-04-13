@@ -2,7 +2,6 @@
 pub mod list {
     use inflector::string::singularize::to_singular;
 
-
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
     use std::fmt;
@@ -14,9 +13,9 @@ pub mod list {
         MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
     };
     use crate::tavern::functions::{
-        get_establishment_history_notes, get_establishment_quality,
-        get_house_dish, get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size,
-        get_posted_sign, get_redlight_services, get_smells,
+        get_establishment_history_notes, get_establishment_quality, get_house_dish,
+        get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size, get_posted_sign,
+        get_redlight_services, get_smells,
     };
     use crate::tavern::structs::list::{App, PBHouse};
     use crate::tavern::traits::List::{AppFn, ToCapitalized};
@@ -457,7 +456,9 @@ pub mod list {
                 trim_whitespace(enum_string_to_phrase(
                     self.establishment_quality.level.to_string()
                 )),
-                trim_whitespace(enum_string_to_phrase(self.size.size_description.to_string())),
+                trim_whitespace(enum_string_to_phrase(
+                    self.size.size_description.to_string()
+                )),
                 self.size.table_count
             );
             pb_house_desc.push(para1);
