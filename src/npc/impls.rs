@@ -12,7 +12,7 @@ use super::lib::fnset::{RollTable, read_psv_file};
 use crate::{
     dice_bag::tower::{self, DiceResult, RollDice},
     tavern::structs::list::App,
-    text_postproc::tpp::enum_string_to_phrase,
+    text_postproc::tpp::{enum_string_to_phrase, is_a_an},
 };
 
 impl Profile {
@@ -368,7 +368,7 @@ impl ToString for QuirkPhysical {
         if qp_string.is_empty() {
             return qp_string;
         } else {
-            return format!("a {}", qp_string.to_string());
+            return format!("a {}", qp_string.to_string().trim());
         }
     }
 }
@@ -400,7 +400,7 @@ impl ToString for QuirkEmotional {
             QuirkEmotional::Playful => "Playful".to_string(),
             QuirkEmotional::Shy => "Shy".to_string(),
         };
-        format!("{}", qe_string.to_lowercase())
+        format!("{}", qe_string.to_lowercase().trim())
     }
 }
 
@@ -419,9 +419,34 @@ impl ToString for HairColorCode {
         };
         format!(
             "{}",
-            enum_string_to_phrase(hcc_string.to_string()).to_lowercase()
+            enum_string_to_phrase(hcc_string.to_string()).to_lowercase().trim()
         )
     }
 }
 
+impl ToString for HairStyleCode {
+    fn to_string(&self) -> String {
+        let hsc_string = match self {
+            HairStyleCode::BeadedBraided => "BeadedBraided",
+            HairStyleCode::CrewCut => "CrewCut",
+            HairStyleCode::CroppedMohawk => "CroppedMohawk",
+            HairStyleCode::LongBraided => "LongBraided",
+            HairStyleCode::LongCurls => "LongCurls",
+            HairStyleCode::LongLoose => "LongLoose",
+            HairStyleCode::LongPonytail => "LongPonytail",
+            HairStyleCode::ShavedClean => "ShavedClean",
+            HairStyleCode::ShortBraided => "ShortBraided",
+            HairStyleCode::ShortCurls => "ShortCurls",
+            HairStyleCode::ShortLoose => "ShortLoose",
+            HairStyleCode::TallMohawk => "TallMohawk",
+            HairStyleCode::ShortMohawk => "ShortMohawk",
+            HairStyleCode::ShortPonytail => "ShortPonytail",
+            HairStyleCode::TopKnot => "TopKnot",
+        };
+        format!(
+            "{} {}", is_a_an(hsc_string),
+            enum_string_to_phrase(hsc_string.to_string()).to_lowercase().trim()
+        )
+    }
+}
 // ---- end of file ----

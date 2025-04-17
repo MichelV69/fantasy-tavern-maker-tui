@@ -441,14 +441,7 @@ pub mod list {
         pub fn general_info(&self) -> Vec<String> {
             let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
             // ---
-            let first_char = self
-                .mood
-                .to_string()
-                .chars()
-                .nth(0)
-                .expect("This should be a single character");
-
-            let prep = is_a_an(first_char);
+            let prep = is_a_an(&self.mood);
 
             let para1: String = format!(
                 "'*The {}*' is the local Pub and Bed House for travellers in this area. The {}-quality establishment would be considered {}-sized, with {} tables.\n\n",
