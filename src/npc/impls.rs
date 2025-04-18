@@ -419,7 +419,9 @@ impl ToString for HairColorCode {
         };
         format!(
             "{}",
-            enum_string_to_phrase(hcc_string.to_string()).to_lowercase().trim()
+            enum_string_to_phrase(hcc_string.to_string())
+                .to_lowercase()
+                .trim()
         )
     }
 }
@@ -444,14 +446,16 @@ impl ToString for HairStyleCode {
             HairStyleCode::TopKnot => "TopKnot",
         };
         format!(
-            "{} {}", is_a_an(hsc_string),
-            enum_string_to_phrase(hsc_string.to_string()).to_lowercase().trim()
+            "{} {}",
+            is_a_an(hsc_string),
+            enum_string_to_phrase(hsc_string.to_string())
+                .to_lowercase()
+                .trim()
         )
     }
 }
 
-
-impl ToString for EyeColorCode  {
+impl ToString for EyeColorCode {
     fn to_string(&self) -> String {
         let ecc_string = match self {
             EyeColorCode::Amber => "Amber",
@@ -464,8 +468,7 @@ impl ToString for EyeColorCode  {
             EyeColorCode::Red => "Red",
         };
 
-        format!("{}",ecc_string.to_lowercase().trim())
+        format!("{}", ecc_string.to_lowercase().trim())
     }
-
 }
 // ---- end of file ----

@@ -33,7 +33,12 @@ pub mod tpp {
 
     pub fn is_a_an(test: &str) -> String {
         use ::is_vowel::IsRomanceVowel;
-        if test.chars().nth(0).expect("Expected string input").is_romance_vowel() {
+        if test
+            .chars()
+            .nth(0)
+            .expect("Expected string input")
+            .is_romance_vowel()
+        {
             return "an".to_string();
         } else {
             return "a".to_string();
