@@ -1,8 +1,10 @@
 
 # Fantasy Tavern Maker
+
 ***For Fantasy Worlds Settings such as Dungeons & Dragons 5th Edition***
 
 ## Current Version
+
 0.10.2-144
 
 [![forthebadge made-with-rust](http://ForTheBadge.com/images/badges/made-with-rust.svg)](https://www.rust-lang.org/)
@@ -17,6 +19,7 @@
 [![Dependabot Updates](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/MichelV69/fantasy-tavern-maker-tui/actions/workflows/dependabot/dependabot-updates)
 
 ## Purpose
+
 Most Games Masters or Authors are aware that they need to unique and
 interesting Pubs, Taverns, Inns, Wayhouses and the like as part of the
 adventure-travel narrative. However, it can be awkward to do so easily
@@ -31,6 +34,7 @@ more what I was hoping to achieve.
 ![screenshot of example TUI output](content/2025-apr-13-example.png)
 
 # user requirements
+
 Ensure that you have a folder called "fantasy-tavern-maker-tui" in your "Documents" folder.
 This is where you will have to unzip the provided PSV data tables.
 
