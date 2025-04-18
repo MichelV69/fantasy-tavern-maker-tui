@@ -368,7 +368,7 @@ impl ToString for QuirkPhysical {
         if qp_string.is_empty() {
             return qp_string;
         } else {
-            return format!("a {}", qp_string.to_string().trim());
+            return format!("{}", qp_string.to_string().trim());
         }
     }
 }
