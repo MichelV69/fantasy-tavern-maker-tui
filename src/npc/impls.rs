@@ -471,4 +471,17 @@ impl ToString for EyeColorCode {
         format!("{}", ecc_string.to_lowercase().trim())
     }
 }
+
+impl ToString for GenderCode {
+    fn to_string(&self) -> String {
+        let gc_string = match self {
+            GenderCode::Androgynous => "Androgynous",
+            GenderCode::Female => "Female",
+            GenderCode::Male => "Male",
+        };
+
+        format!("{}", gc_string.to_lowercase().trim())
+    }
+}
+
 // ---- end of file ----
