@@ -449,4 +449,23 @@ impl ToString for HairStyleCode {
         )
     }
 }
+
+
+impl ToString for EyeColorCode  {
+    fn to_string(&self) -> String {
+        let ecc_string = match self {
+            EyeColorCode::Amber => "Amber",
+            EyeColorCode::Brown => "Brown",
+            EyeColorCode::Blue => "Blue",
+            EyeColorCode::Hazel => "Hazel",
+            EyeColorCode::Green => "Green",
+            EyeColorCode::Grey => "Grey",
+            EyeColorCode::Purple => "Purple",
+            EyeColorCode::Red => "Red",
+        };
+
+        format!("{}",ecc_string.to_lowercase().trim())
+    }
+
+}
 // ---- end of file ----

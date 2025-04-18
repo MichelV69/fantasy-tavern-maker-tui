@@ -33,8 +33,8 @@ fn main() {
     app.name = "fantasy-tavern-maker-tui".into();
     app.version_major = 0;
     app.version_minor = 10;
-    app.version_fix = 1;
-    app.version_build = 138;
+    app.version_fix = 2;
+    app.version_build = 144;
 
     let mut siv = cursive::default();
 
@@ -211,7 +211,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
             {npc_type} {task}
 
             {height_desc} {build_desc} {gender:?} {species:?}
-            with {eye_color:?} eyes, and {hair_color} hair in {hair_style} style
+            with {eye_color} eyes, and {hair_color} hair in {hair_style} style
 
             Quirks:
                 + {quirk_emotional}
@@ -223,7 +223,7 @@ fn get_new_pbhouse(s: &mut Cursive, app: App) {
         "#,
             npc_type = npc.npc_type,
             task = npc.task_description,
-            eye_color = npc.eye_color,
+            eye_color = npc.eye_color.to_string(),
             height_desc = npc.height_desc,
             build_desc = npc.build_desc,
             gender = npc.gender,
