@@ -5,6 +5,7 @@ use cursive::views::Dialog;
 mod dice_bag;
 mod fn_make_pbhouse;
 mod fn_save_pbhouse_to_file;
+mod fn_view_npc_block;
 mod npc;
 mod tavern;
 mod text_postproc;
@@ -19,8 +20,8 @@ fn main() {
     app.name = "fantasy-tavern-maker-tui".into();
     app.version_major = 0;
     app.version_minor = 11;
-    app.version_fix = 1;
-    app.version_build = 149;
+    app.version_fix = 2;
+    app.version_build = 151;
 
     let mut siv = cursive::default();
 

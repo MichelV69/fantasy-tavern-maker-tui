@@ -7,10 +7,11 @@ use std::io::Write;
 // --- my stuff ---
 use crate::{
     fn_make_pbhouse::make_pbhouse,
+    npc::build::Profile,
     tavern::structs::list::{App, PBHouse},
 };
 
-pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App) {
+pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App, npc_list: Vec<Profile>) {
     s.pop_layer();
 
     let path_name = match download_dir() {

@@ -5,6 +5,7 @@ pub(crate) mod impls;
 pub mod build {
     use strum::Display;
 
+    #[derive(Clone)]
     pub struct Profile {
         pub npc_type: NpcTypeCode,
         pub gender: GenderCode,
@@ -22,7 +23,7 @@ pub mod build {
         // pub schtick_ability_description: String,
     }
 
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Clone)]
     pub struct Attribute {
         pub description: String,
         pub modifier: i8,
@@ -51,7 +52,7 @@ pub mod build {
     /// ```
 
     // ---
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum EyeColorCode {
         Brown,
         Hazel,
@@ -63,7 +64,7 @@ pub mod build {
         Red,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum HairStyleCode {
         BeadedBraided,
         CrewCut,
@@ -82,7 +83,7 @@ pub mod build {
         TopKnot,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum HairColorCode {
         Blonde,
         Blue,
@@ -95,7 +96,7 @@ pub mod build {
         White,
     }
 
-    #[derive(PartialEq, Debug, Display)]
+    #[derive(PartialEq, Debug, Display, Clone)]
     pub enum SpeciesCode {
         Dragonborn,
         Dwarf,
@@ -106,21 +107,21 @@ pub mod build {
         Tiefling,
     }
 
-    #[derive(PartialEq, Debug, Display)]
+    #[derive(PartialEq, Debug, Display, Clone)]
     pub enum NpcTypeCode {
         Patron,
         Staff,
         StoryCharacter,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum GenderCode {
         Androgynous,
         Female,
         Male,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum QuirkEmotional {
         Belligerent,
         CheerfulToAdventurers,
@@ -139,7 +140,7 @@ pub mod build {
         Shy,
     }
 
-    #[derive(PartialEq, Debug)]
+    #[derive(PartialEq, Debug, Clone)]
     pub enum QuirkPhysical {
         None,
         SlightScar,

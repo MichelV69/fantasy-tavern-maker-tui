@@ -5,7 +5,6 @@ use cursive::view::Scrollable;
 use cursive::views::Dialog;
 use cursive::views::LinearLayout;
 use cursive::views::TextView;
-use indoc::formatdoc;
 
 // --- my stuff ---
 use dice_bag::tower::DiceResult;
@@ -18,6 +17,7 @@ use text_postproc::tpp::l1_heading;
 
 use crate::dice_bag;
 use crate::fn_save_pbhouse_to_file::save_pbhouse_to_file;
+use crate::fn_view_npc_block::view_npc_block;
 use crate::npc;
 use crate::tavern;
 use crate::tavern::structs::list::App;
@@ -165,6 +165,8 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     let mut npc_full_list: Vec<Profile> = vec![];
     npc_full_list.append(&mut npc_staff_list);
     npc_full_list.append(&mut npc_notable_patrons_list);
+    let npc_list1 = npc_full_list.clone();
+
     for npc in npc_full_list {
         let select_item = &format!(
             "({}) {} {}\n",
@@ -179,35 +181,7 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     let pbh1 = pbh.clone();
 
     npc_select.set_on_submit(|s, npc| {
-        let text = formatdoc!(
-            r#"
-            {npc_type} {task}
-
-            {height_desc} {build_desc} {gender} {species:?}
-            with {eye_color} eyes and {hair_color} hair in {hair_style} style
-
-            Quirks:
-                + {quirk_emotional}
-                + {quirk_physical}
-            Notable Attributes:
-                + {notable_attribute_positive}
-                + {notable_attribute_negative}
-
-        "#,
-            npc_type = npc.npc_type,
-            task = npc.task_description,
-            eye_color = npc.eye_color.to_string(),
-            height_desc = npc.height_desc,
-            build_desc = npc.build_desc,
-            gender = npc.gender.to_string(),
-            species = npc.species,
-            hair_color = npc.hair_color.to_string(),
-            hair_style = npc.hair_style.to_string(),
-            quirk_emotional = npc.quirk_emotional.to_string(),
-            quirk_physical = npc.quirk_physical.to_string(),
-            notable_attribute_positive = npc.notable_attribute_positive.to_string(),
-            notable_attribute_negative = npc.notable_attribute_negative.to_string()
-        );
+        let text = view_npc_block(npc);
 
         s.add_layer(Dialog::around(TextView::new(text)).button("Done", |s| {
             s.pop_layer();
@@ -236,7 +210,7 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
                     ),
             )
             .button("Save to file", move |s| {
-                save_pbhouse_to_file(s, pbh1.clone(), app1.clone())
+                save_pbhouse_to_file(s, pbh1.clone(), app1.clone(), npc_list1.clone())
             })
             .button("Roll another", move |s| {
                 s.pop_layer();
