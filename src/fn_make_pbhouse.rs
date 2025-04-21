@@ -18,6 +18,7 @@ use text_postproc::tpp::l1_heading;
 
 use crate::dice_bag;
 use crate::fn_save_pbhouse_to_file::save_pbhouse_to_file;
+use crate::main;
 use crate::npc;
 use crate::tavern;
 use crate::tavern::structs::list::App;
@@ -174,7 +175,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     }
 
     //---
-    s.pop_layer();
     let app1 = app.clone();
     let app2 = app.clone();
     let pbh1 = pbh.clone();
@@ -239,8 +239,13 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
             .button("Save to file", move |s| {
                 save_pbhouse_to_file(s, pbh1.clone(), app1.clone())
             })
-            .button("Roll another", move |s| make_pbhouse(s, app2.clone()))
-            .button("Quit", |s| s.quit())
+            .button("Roll another", move |s| {
+                s.pop_layer();
+                make_pbhouse(s, app2.clone())
+            })
+            .button("Menu", |s| {
+                s.pop_layer();
+            })
             .h_align(cursive::align::HAlign::Center),
     );
 }
