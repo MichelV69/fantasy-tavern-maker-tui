@@ -7,8 +7,10 @@ use std::io::Write;
 // --- my stuff ---
 use crate::{
     fn_make_pbhouse::make_pbhouse,
+    fn_view_npc_block::view_npc_block,
     npc::build::Profile,
     tavern::structs::list::{App, PBHouse},
+    text_postproc::tpp::l1_heading,
 };
 
 pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App, npc_list: Vec<Profile>) {
@@ -32,8 +34,23 @@ pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App, npc_list: V
         Err(error) => panic!("Problem opening the file: {error:?}"),
     };
 
-    let file_write_result = write!(file_handle, "{}", format_args!("\n \n {} \n \n", pbh));
-    match file_write_result {
+    let file_write1 = write!(file_handle, "{}", format_args!("\n \n {} \n \n", pbh));
+    match file_write1 {
+        Ok(file) => file,
+        Err(error) => panic!("Problem writing to the file: {error:?}"),
+    };
+
+    let mut npc_block: String = l1_heading(" Notable Staff and Patrons".to_string());
+    npc_block += "\n";
+
+    for this_npc in npc_list {
+        npc_block += "\n";
+        npc_block += &view_npc_block(&this_npc);
+        npc_block += "\n";
+    }
+
+    let file_write2 = write!(file_handle, "{}", format_args!("{} \n \n", npc_block));
+    match file_write2 {
         Ok(file) => file,
         Err(error) => panic!("Problem writing to the file: {error:?}"),
     };
@@ -41,8 +58,9 @@ pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App, npc_list: V
     s.add_layer(
         Dialog::text(format!("{} - saved {} to disk", &app.name, pbh.name))
             .title(&app.name)
-            .button("Roll another", move |s| make_pbhouse(s, app.clone()))
-            .button("Finish", |s| s.quit()),
+            .button("Back", |s| {
+                s.pop_layer();
+            }),
     );
 }
 // --- eof ---

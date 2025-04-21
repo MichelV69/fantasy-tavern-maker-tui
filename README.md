@@ -5,7 +5,7 @@
 
 ## Current Version
 
-0.11.2-151
+0.11.3-154
 
 [![forthebadge made-with-rust](http://ForTheBadge.com/images/badges/made-with-rust.svg)](https://www.rust-lang.org/)
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
@@ -33,6 +33,8 @@ more what I was hoping to achieve.
 
 ![screenshot of example TUI output](content/2025-apr-13-example.png)
 
+Check the [demo file](content/fantasy-tavern-maker-tui-spring_ice.md) for an example of saved [Markdown](https://commonmark.org/help/) output.
+
 # user requirements
 
 Ensure that you have a folder called "fantasy-tavern-maker-tui" in your "Documents" folder.
@@ -42,6 +44,6 @@ This is where you will have to unzip the provided PSV data tables.
 
 # libraries in use
 
-https://rust-random.github.io/book/quick-start.html -- RAND functions
+<https://rust-random.github.io/book/quick-start.html> -- RAND functions
 
-https://docs.rs/cursive/0.21.1/cursive/ -- cursive
+<https://docs.rs/cursive/0.21.1/cursive/> -- cursive
