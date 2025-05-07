@@ -1,6 +1,6 @@
 [package]
 name = "fantasy-tavern-maker-tui"
-version = "0.11.3-154"
+version = "0.12.0-155"
 edition = "2024"
 
 [dev-dependencies]
@@ -11,7 +11,7 @@ Inflector = "0.11.4"
 cursive = { version = "0.21.1" , features = ["crossterm-backend", "markdown", "ansi"] }
 inquire = "0.7.5"
 is-vowel = "0.1.0"
-markdown = "=1.0.0-alpha.23"
+markdown = "1.0.0"
 rand = "0.9.1"
 rand_chacha = "0.9.0"
 rand_derive2 = "0.1.21"

@@ -279,5 +279,5 @@ mod suite {
         );
         debug_assert_ne!(new_npc.notable_attribute_negative, default_attr);
     }
-} // mod tests
+} // mod suite
 // ---- end of file ----
