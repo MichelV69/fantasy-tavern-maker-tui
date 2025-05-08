@@ -3,8 +3,16 @@
 /// description and plot sequences.
 pub mod ntm {
 
-    pub enum hour  [00...23];
-    pub enum slot_names [Twilight, Dawn, 
+    #[derive(Clone, Copy)]
+    pub enum Hour {H00, H01, H02, H03,
+        H04, H05, H06, H07,
+        H08, H09, H10, H11,
+        H12, H13, H14, H15,
+        H16, H17, H18, H19,
+        H21, H22, H23}
+
+    #[derive(Clone, Copy, Debug, PartialEq)]
+    pub enum SlotNames {Twilight, Dawn,
         EarlyMorning, MidMorning, LateMorning,
         Midday,
         EarlyAfternoon, MidAfternoon, LateAfternoon,
@@ -12,49 +20,50 @@ pub mod ntm {
         EarlyEvening, MidEvening,
         Night, Midnight,
         LateNight, LongDark
-        ]
+        }
 
-    #[derive]
+    #[derive(Clone, Copy)]
     pub struct TimeSlot {
-        pub start: hour;
-        pub duration: i8;
-        pub name: slot_names;
+        pub start: Hour,
+        pub duration: i8,
+        pub name: SlotNames,
     }
 
-    pub fn load -> Vec<TimeSlot> {
-        let mut data Vec<TimeSlot> = {};
-        let mut record TimeSlot = {};
-        
-        record.start = hour::5;
-        record.duration = 1;
-        record.name = slot_names::Twilight;
-        data.append(record);
+    pub fn load() -> Vec<TimeSlot> {
+        let mut data: Vec<TimeSlot> = Vec::with_capacity(24);
+        let mut record: TimeSlot = TimeSlot{start: Hour::H00, duration: 0, name: SlotNames::Midnight};
 
-        record.start = hour::6;
+        record.start = Hour::H05;
         record.duration = 1;
-        record.name = slot_names::Dawn;
-        data.append(record);
+        record.name = SlotNames::Twilight;
+        data.push(record);
 
-        record.start = hour::7
+        record.start = Hour::H06;
+        record.duration = 1;
+        record.name = SlotNames::Dawn;
+        data.push(record);
+
+        record.start = Hour::H07;
         record.duration = 2;
-        record.name = slot_names::EarlyMorning;
-        data.append(record);
+        record.name = SlotNames::EarlyMorning;
+        data.push(record);
 
-        record.start = hour::9
+        record.start = Hour::H09;
         record.duration = 2;
-        record.name = slot_names::MidMorning;
-        data.append(record);
+        record.name = SlotNames::MidMorning;
+        data.push(record);
 
-        record.start = hour::11
+        record.start = Hour::H11;
         record.duration = 1;
-        record.name = slot_names::LateMorning;
-        data.append(record);
+        record.name = SlotNames::LateMorning;
+        data.push(record);
 
-
+        // send the result up the line
+        data
 
     }
 
 } //pub mod ntm
-mod lib;
+
 #[cfg(test)]
 mod tests;
