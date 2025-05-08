@@ -20,7 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: cargo build --verbose
+      run: | 
+            rustup override set nightly
+            cargo build --verbose
     - name: copy user psv
       run: |
           mkdir -p C:\\Users\\runneradmin\\Documents/fantasy-tavern-maker-tui/mod_npc/
