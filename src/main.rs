@@ -1,4 +1,5 @@
 // ---- all the uses all the time
+#![feature(variant_count)]
 use cursive::views::Dialog;
 
 // --- my stuff ---

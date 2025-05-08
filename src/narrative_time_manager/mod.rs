@@ -58,6 +58,36 @@ pub mod ntm {
         record.name = SlotNames::LateMorning;
         data.push(record);
 
+        record.start = Hour::H12;
+        record.duration = 1;
+        record.name = SlotNames::Midday;
+        data.push(record);
+
+        record.start = Hour::H13;
+        record.duration = 2;
+        record.name = SlotNames::EarlyAfternoon;
+        data.push(record);
+
+        record.start = Hour::H15;
+        record.duration = 2;
+        record.name = SlotNames::MidAfternoon;
+        data.push(record);
+
+        record.start = Hour::H17;
+        record.duration = 1;
+        record.name = SlotNames::LateAfternoon;
+        data.push(record);
+
+        record.start = Hour::H18;
+        record.duration = 1;
+        record.name = SlotNames::Dusk;
+        data.push(record);
+
+        record.start = Hour::H19;
+        record.duration = 1;
+        record.name = SlotNames::Sunset;
+        data.push(record);
+
         // send the result up the line
         data
 
@@ -67,3 +97,4 @@ pub mod ntm {
 
 #[cfg(test)]
 mod tests;
+// ----- end of file -----

@@ -1,4 +1,5 @@
 mod suite {
+
     use std::mem;
 
     use tracing::{Level, event};
@@ -7,12 +8,22 @@ mod suite {
 
     #[test]
     fn number_of_timeslots() {
-        debug_assert_eq!(11, mem::variant_count::<SlotNames>);
+        let target_value : usize = 17;
+        assert_eq!(target_value, mem::variant_count::<SlotNames>());
     }
 
+    #[test]
     fn check_noon() {
         let test_data = ntm::load();
-        debug_assert_eq!(test_data[1].name, SlotNames::Midday);
+        let test_pointer = 5;
+        assert_eq!(test_data[test_pointer].name, SlotNames::Midday);
+    }
+
+    #[test]
+    fn check_sunset() {
+        let test_data = ntm::load();
+        let test_pointer = 10;
+        assert_eq!(test_data[test_pointer].name, SlotNames::Sunset);
     }
 } // mod suite
 // ---- end of file ----
