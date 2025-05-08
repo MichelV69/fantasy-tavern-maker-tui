@@ -33,6 +33,21 @@ pub mod ntm {
         let mut data: Vec<TimeSlot> = Vec::with_capacity(24);
         let mut record: TimeSlot = TimeSlot{start: Hour::H00, duration: 0, name: SlotNames::Midnight};
 
+        record.start = Hour::H00;
+        record.duration = 1;
+        record.name = SlotNames::Midnight;
+        data.push(record);
+
+        record.start = Hour::H01;
+        record.duration = 2;
+        record.name = SlotNames::LateNight;
+        data.push(record);
+
+        record.start = Hour::H03;
+        record.duration = 2;
+        record.name = SlotNames::LongDark;
+        data.push(record);        
+
         record.start = Hour::H05;
         record.duration = 1;
         record.name = SlotNames::Twilight;
@@ -86,6 +101,26 @@ pub mod ntm {
         record.start = Hour::H19;
         record.duration = 1;
         record.name = SlotNames::Sunset;
+        data.push(record);
+
+        record.start = Hour::H20;
+        record.duration = 1;
+        record.name = SlotNames::EarlyEvening;
+        data.push(record);
+
+        record.start = Hour::H21;
+        record.duration = 1;
+        record.name = SlotNames::MidEvening;
+        data.push(record);
+
+        record.start = Hour::H22;
+        record.duration = 1;
+        record.name = SlotNames::LateEvening;
+        data.push(record);
+
+        record.start = Hour::H23;
+        record.duration = 1;
+        record.name = SlotNames::Night;
         data.push(record);
 
         // send the result up the line
