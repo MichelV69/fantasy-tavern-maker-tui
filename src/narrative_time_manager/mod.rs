@@ -131,30 +131,29 @@ pub mod ntm {
 
     }
 
-    impl Distribution<TimeSlot> for StandardUniform {
-        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> TimeSlot {
+    impl Distribution<SlotNames> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> SlotNames {
             let index: u8 = rng.random_range(0..=17);
             match index {
-                0 => TimeSlot::Midnight,
-                1 => TimeSlot::LateNight,
-                2 => TimeSlot::LongDark,
-                3 => TimeSlot::Twilight,
-                4 => TimeSlot::Dawn,
-                5 => TimeSlot::EarlyMorning,
-                6 => TimeSlot::MidMorning,
-                7 => TimeSlot::LateMorning,
-                8 => TimeSlot::Midday,
-                9 => TimeSlot::EarlyAfternoon,
-                10 => TimeSlot::MidAfternoon,
-                11 => TimeSlot::LateAfternoon,
-                12 => TimeSlot::Dusk,
-                13 => TimeSlot::Sunset,
-                14 => TimeSlot::EarlyEvening,
-                15 => TimeSlot::MidEvening,
-                16 => TimeSlot::LateEvening,
-                17 => TimeSlot::Night,
-                                
-                //_ => unreachable!(),
+                0 => SlotNames::Midnight,
+                1 => SlotNames::LateNight,
+                2 => SlotNames::LongDark,
+                3 => SlotNames::Twilight,
+                4 => SlotNames::Dawn,
+                5 => SlotNames::EarlyMorning,
+                6 => SlotNames::MidMorning,
+                7 => SlotNames::LateMorning,
+                8 => SlotNames::Midday,
+                9 => SlotNames::EarlyAfternoon,
+                10 => SlotNames::MidAfternoon,
+                11 => SlotNames::LateAfternoon,
+                12 => SlotNames::Dusk,
+                13 => SlotNames::Sunset,
+                14 => SlotNames::EarlyEvening,
+                15 => SlotNames::MidEvening,
+                16 => SlotNames::LateEvening,
+                17 => SlotNames::Night,                               
+                _ => unreachable!(),
             }
         }
     }
