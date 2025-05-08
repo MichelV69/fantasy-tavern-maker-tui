@@ -11,8 +11,8 @@ pub mod ntm {
         H16, H17, H18, H19,
         H21, H22, H23}
 
-    #[derive(Clone, Copy, Debug, PartialEq)]
-    pub enum SlotNames {Twilight, Dawn,
+    #[derive(Clone, Copy, Debug, PartialEq, EnumString, strum_macros::VariantNames)]
+    pub enum SlotNames {Twilight, Sunrise,
         EarlyMorning, MidMorning, LateMorning,
         Midday,
         EarlyAfternoon, MidAfternoon, LateAfternoon,

@@ -1,5 +1,7 @@
-// ---- all the uses all the time
+// ---- enabled features for the project
 #![feature(variant_count)]
+
+// ---- all the uses all the time
 use cursive::views::Dialog;
 
 // --- my stuff ---
