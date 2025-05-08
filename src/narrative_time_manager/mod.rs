@@ -5,6 +5,7 @@ pub mod ntm {
 
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
+    use strum::EnumString;
 
     #[derive(Clone, Copy)]
     pub enum Hour {H00, H01, H02, H03,
@@ -12,15 +13,16 @@ pub mod ntm {
         H08, H09, H10, H11,
         H12, H13, H14, H15,
         H16, H17, H18, H19,
-        H21, H22, H23}
+        H20, H21, H22, H23}
 
     #[derive(Clone, Copy, Debug, PartialEq, EnumString, strum_macros::VariantNames)]
-    pub enum SlotNames {Twilight, Sunrise,
+    pub enum SlotNames {
+        Twilight, Sunrise,
         EarlyMorning, MidMorning, LateMorning,
         Midday,
         EarlyAfternoon, MidAfternoon, LateAfternoon,
         Dusk, Sunset,
-        EarlyEvening, MidEvening,
+        LateEvening, EarlyEvening, MidEvening,
         Night, Midnight,
         LateNight, LongDark
         }
@@ -58,7 +60,7 @@ pub mod ntm {
 
         record.start = Hour::H06;
         record.duration = 1;
-        record.name = SlotNames::Dawn;
+        record.name = SlotNames::Sunrise;
         data.push(record);
 
         record.start = Hour::H07;
