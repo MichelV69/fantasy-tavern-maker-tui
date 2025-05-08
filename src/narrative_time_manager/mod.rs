@@ -141,7 +141,7 @@ pub mod ntm {
                 1 => SlotNames::LateNight,
                 2 => SlotNames::LongDark,
                 3 => SlotNames::Twilight,
-                4 => SlotNames::Dawn,
+                4 => SlotNames::Sunrise,
                 5 => SlotNames::EarlyMorning,
                 6 => SlotNames::MidMorning,
                 7 => SlotNames::LateMorning,
