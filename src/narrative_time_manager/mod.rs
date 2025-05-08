@@ -3,6 +3,9 @@
 /// description and plot sequences.
 pub mod ntm {
 
+    use rand::Rng;
+    use rand::distr::{Distribution, StandardUniform};
+
     #[derive(Clone, Copy)]
     pub enum Hour {H00, H01, H02, H03,
         H04, H05, H06, H07,
@@ -64,12 +67,12 @@ pub mod ntm {
         data.push(record);
 
         record.start = Hour::H09;
-        record.duration = 2;
+        record.duration = 1;
         record.name = SlotNames::MidMorning;
         data.push(record);
 
-        record.start = Hour::H11;
-        record.duration = 1;
+        record.start = Hour::H10;
+        record.duration = 2;
         record.name = SlotNames::LateMorning;
         data.push(record);
 
@@ -84,12 +87,12 @@ pub mod ntm {
         data.push(record);
 
         record.start = Hour::H15;
-        record.duration = 2;
+        record.duration = 1;
         record.name = SlotNames::MidAfternoon;
         data.push(record);
 
-        record.start = Hour::H17;
-        record.duration = 1;
+        record.start = Hour::H16;
+        record.duration = 2;
         record.name = SlotNames::LateAfternoon;
         data.push(record);
 
@@ -128,6 +131,33 @@ pub mod ntm {
 
     }
 
+    impl Distribution<TimeSlot> for StandardUniform {
+        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> TimeSlot {
+            let index: u8 = rng.random_range(0..=17);
+            match index {
+                0 => TimeSlot::Midnight,
+                1 => TimeSlot::LateNight,
+                2 => TimeSlot::LongDark,
+                3 => TimeSlot::Twilight,
+                4 => TimeSlot::Dawn,
+                5 => TimeSlot::EarlyMorning,
+                6 => TimeSlot::MidMorning,
+                7 => TimeSlot::LateMorning,
+                8 => TimeSlot::Midday,
+                9 => TimeSlot::EarlyAfternoon,
+                10 => TimeSlot::MidAfternoon,
+                11 => TimeSlot::LateAfternoon,
+                12 => TimeSlot::Dusk,
+                13 => TimeSlot::Sunset,
+                14 => TimeSlot::EarlyEvening,
+                15 => TimeSlot::MidEvening,
+                16 => TimeSlot::LateEvening,
+                17 => TimeSlot::Night,
+                                
+                //_ => unreachable!(),
+            }
+        }
+    }
 } //pub mod ntm
 
 #[cfg(test)]

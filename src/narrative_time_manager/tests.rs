@@ -39,5 +39,20 @@ mod suite {
         }
         assert!(found);
     }
+
+    #[test]
+    fn get_random_timeslot() {
+        let first_result SlotNames  = rand::random();
+        let mut next_result SlotNames  = rand::random();
+        let mut ptr = 0;
+
+        while (first_result == next_result && ptr < 7)
+        {
+            ptr +=;
+            next_result SlotNames  = rand::random();
+        }
+
+        assert_neq!(first_result, next_result);
+    }
 } // mod suite
 // ---- end of file ----
