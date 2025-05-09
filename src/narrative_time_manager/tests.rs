@@ -6,7 +6,7 @@ mod suite {
 
     #[test]
     fn number_of_timeslots() {
-        let target_value : usize = 17;
+        let target_value : usize = 18;
         assert_eq!(target_value, mem::variant_count::<SlotNames>());
     }
 
@@ -25,7 +25,7 @@ mod suite {
     #[test]
     fn check_noon() {
         let test_data = ntm::load();
-        let test_pointer = 5;
+        let test_pointer = 8;
         assert_eq!(test_data[test_pointer].name, SlotNames::Midday);
     }
 
