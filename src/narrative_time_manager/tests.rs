@@ -2,7 +2,7 @@ mod suite {
 
     use std::mem;
     use crate::narrative_time_manager::ntm::{self, SlotNames};
-    
+
 
     #[test]
     fn number_of_timeslots() {
@@ -14,9 +14,9 @@ mod suite {
     fn check_sunrise() {
         let haystack = ntm::load();
         let needle = SlotNames::Sunrise;
-        let found = false;
-        for variant in haystack::iter() {
-            if need == variant {found == true};
+        let mut found = false;
+        for variant in haystack.iter() {
+            if needle == variant.name {found = true};
         }
         assert!(found);
 
@@ -33,26 +33,26 @@ mod suite {
     fn check_sunset() {
         let haystack = ntm::load();
         let needle = SlotNames::Sunset;
-        let found = false;
-        for variant in haystack::iter() {
-            if need == variant {found == true};
+        let mut found = false;
+        for variant in haystack.iter() {
+            if needle == variant.name {found = true};
         }
         assert!(found);
     }
 
     #[test]
     fn get_random_timeslot() {
-        let first_result SlotNames  = rand::random();
-        let mut next_result SlotNames  = rand::random();
-        let mut ptr = 0;
+        let first_result: SlotNames  = rand::random();
+        let mut next_result: SlotNames  = rand::random();
+        let mut ptr: i8 = 0;
 
-        while (first_result == next_result && ptr < 7)
+        while first_result == next_result && ptr < 7
         {
-            ptr +=;
-            next_result SlotNames  = rand::random();
+            ptr += 1;
+            next_result  = rand::random();
         }
 
-        assert_neq!(first_result, next_result);
+        assert_ne!(first_result, next_result);
     }
 } // mod suite
 // ---- end of file ----
