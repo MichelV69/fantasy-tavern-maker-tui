@@ -5,6 +5,8 @@ pub(crate) mod impls;
 pub mod build {
     use strum::Display;
 
+    use crate::narrative_time_manager::ntm::TimeSlot;
+
     #[derive(Clone)]
     pub struct Profile {
         pub npc_type: NpcTypeCode,
@@ -20,6 +22,7 @@ pub mod build {
         pub quirk_physical: QuirkPhysical,
         pub notable_attribute_positive: Attribute,
         pub notable_attribute_negative: Attribute,
+        pub encounter_slots: Vec<TimeSlot>,
         // pub schtick_ability_description: String,
     }
 

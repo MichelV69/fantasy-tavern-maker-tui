@@ -10,9 +10,7 @@ use tracing::{Level, event};
 
 use super::lib::fnset::{RollTable, read_psv_file};
 use crate::{
-    dice_bag::tower::{self, DiceResult, RollDice},
-    tavern::structs::list::App,
-    text_postproc::tpp::{enum_string_to_phrase, is_a_an},
+    dice_bag::tower::{self, DiceResult, RollDice}, narrative_time_manager::ntm::TimeSlot, tavern::structs::list::App, text_postproc::tpp::{enum_string_to_phrase, is_a_an}
 };
 
 impl Profile {
@@ -37,8 +35,15 @@ impl Profile {
                 description: "nothing interesting".into(),
                 modifier: -13,
             },
+            encounter_slots: Self::get_default_timeslots(),
             //schtick_ability_description: "nothing interesting".into(),
         }
+    }
+
+    fn get_default_timeslots() -> Vec<TimeSlot> {
+        let all_slots: Vec<TimeSlot> = crate::narrative_time_manager::ntm::load();
+
+        vec![all_slots[7], all_slots[8], all_slots[9]]
     }
 
     pub fn set_random_schticks_attributes(&mut self, app: &App) {

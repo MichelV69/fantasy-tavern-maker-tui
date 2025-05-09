@@ -35,6 +35,7 @@ mod suite {
         debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
         debug_assert_eq!(new_npc.notable_attribute_positive, default_attr);
         debug_assert_eq!(new_npc.notable_attribute_negative, default_attr);
+        debug_assert_eq!(new_npc.encounter_slots.iter().count(), 3);
         //debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
     }
 
