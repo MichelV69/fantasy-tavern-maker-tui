@@ -10,7 +10,7 @@ use tracing::{Level, event};
 
 use super::lib::fnset::{RollTable, read_psv_file};
 use crate::{
-    dice_bag::tower::{self, DiceResult, RollDice}, narrative_time_manager::ntm::TimeSlot, tavern::structs::list::App, text_postproc::tpp::{enum_string_to_phrase, is_a_an}
+    dice_bag::tower::{self, DiceResult, RollDice}, narrative_time_manager::ntm::{SlotNames, TimeSlot}, tavern::structs::list::App, text_postproc::tpp::{enum_string_to_phrase, is_a_an}
 };
 
 impl Profile {
@@ -44,6 +44,33 @@ impl Profile {
         let all_slots: Vec<TimeSlot> = crate::narrative_time_manager::ntm::load();
 
         vec![all_slots[7], all_slots[8], all_slots[9]]
+    }
+
+    fn get_random_encounter_chance_timeslots() -> Vec<TimeSlot> {
+        let all_slots: Vec<TimeSlot> = crate::narrative_time_manager::ntm::load();
+        let mut encounter_chance_timeslots: Vec<TimeSlot> = vec![];
+
+        let center_slot_name: SlotNames = rand::random();
+        let mut slot_index = 0;
+        for this_slot in all_slots.iter() {
+            if this_slot.name == center_slot_name {
+                // wrap-around calcs for start of and end of day
+                let mut this_slot_pointer = slot_index -1;
+                if this_slot_pointer < 0 {this_slot_pointer = all_slots.iter().count()-1};
+                let early_slot = all_slots[this_slot_pointer];
+
+                let normal_slot = all_slots[slot_index];
+
+                this_slot_pointer = slot_index +1;
+                if this_slot_pointer > all_slots.iter().count()-1 {this_slot_pointer = 0};
+                let late_slot = all_slots[this_slot_pointer];
+
+                encounter_chance_timeslots = vec![early_slot, normal_slot, late_slot];
+            }
+            slot_index +=1;
+        }
+
+        encounter_chance_timeslots
     }
 
     pub fn set_random_schticks_attributes(&mut self, app: &App) {
