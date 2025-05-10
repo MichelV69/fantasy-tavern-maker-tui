@@ -300,7 +300,7 @@ pub mod list {
     }
     impl Distribution<MoodData> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> MoodData {
-            let index: u8 = rng.random_range(0..=14);
+            let index: u8 = rng.random_range(0..=15);
             match index {
                 0 => MoodData::Busy,
                 1 => MoodData::Dour,
@@ -317,6 +317,7 @@ pub mod list {
                 12 => MoodData::Seedy,
                 13 => MoodData::Shady,
                 14 => MoodData::Smoky,
+                15 => MoodData::Lonely,
                 _ => unreachable!(),
             }
         }
@@ -324,7 +325,7 @@ pub mod list {
 
     impl Distribution<NameNoun> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> NameNoun {
-            let index: u8 = rng.random_range(0..=22);
+            let index: u8 = rng.random_range(0..=24);
             match index {
                 0 => NameNoun::Bard,
                 1 => NameNoun::Chalice,
@@ -349,6 +350,8 @@ pub mod list {
                 20 => NameNoun::Waves,
                 21 => NameNoun::Wench,
                 22 => NameNoun::Werebear,
+                23 => NameNoun::Oak,
+                24 => NameNoun::Pines,
                 _ => unreachable!(),
             }
         }
