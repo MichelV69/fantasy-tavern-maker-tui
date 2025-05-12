@@ -38,7 +38,7 @@ pub mod ntm {
         H23,
     }
 
-    #[derive(Clone, Copy, Debug, PartialEq, EnumString, strum_macros::VariantNames)]
+    #[derive(Clone, Copy, Debug, PartialEq)]
     pub enum SlotNames {
         Twilight,
         Sunrise,
@@ -58,14 +58,6 @@ pub mod ntm {
         Midnight,
         LateNight,
         LongDark,
-    }
-
-    impl fmt::Display for SlotNames {
-        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-            let sn_text = enum_string_to_phrase(self.to_string());
-            write!(f, "{}", sn_text)?;
-            Ok(())
-        }
     }
 
     #[derive(Clone, Copy)]
@@ -201,6 +193,33 @@ pub mod ntm {
                 17 => SlotNames::Night,
                 _ => unreachable!(),
             }
+        }
+    }
+
+    impl ToString for SlotNames {
+        fn to_string(&self) -> String {
+            let sn_string = match self {
+                SlotNames::Midnight => "Midnight",
+                SlotNames::LateNight => "LateNight",
+                SlotNames::LongDark => "LateNight",
+                SlotNames::Twilight => "Twilight",
+                SlotNames::Sunrise => "Sunrise",
+                SlotNames::EarlyMorning => "EarlyMorning",
+                SlotNames::MidMorning => "Mid-Morning",
+                SlotNames::LateMorning => "LateMorning",
+                SlotNames::Midday => "Midday",
+                SlotNames::EarlyAfternoon => "EarlyAfternoon",
+                SlotNames::MidAfternoon => "MidAfternoon",
+                SlotNames::LateAfternoon => "LateAfternoon",
+                SlotNames::Dusk => "Dusk",
+                SlotNames::Sunset => "Sunset",
+                SlotNames::EarlyEvening => "EarlyEvening",
+                SlotNames::MidEvening => "MidEvening",
+                SlotNames::LateEvening => "LateEvening",
+                SlotNames::Night => "Night",
+            };
+
+            format!("{}", enum_string_to_phrase(sn_string.into()))
         }
     }
 } //pub mod ntm

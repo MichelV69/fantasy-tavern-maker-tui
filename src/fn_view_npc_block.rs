@@ -15,9 +15,21 @@ pub fn view_npc_block(npc_data: &Profile) -> String {
     let notable_attribute_positive = npc_data.notable_attribute_positive.to_string();
     let notable_attribute_negative = npc_data.notable_attribute_negative.to_string();
 
-    let mut text_block = format!("{npc_type} {task}");
-    text_block += &format!("\n {height_desc} {build_desc} {gender} {species:?}");
-    text_block += &format!("\n with {eye_color} eyes and {hair_color} hair in {hair_style} style");
+    let mut text_block = format!("{npc_type} {task} \n");
+
+    // --- calc and print encounter_chance_timeslots
+    let ect: Vec<crate::narrative_time_manager::ntm::TimeSlot> = npc_data.encounter_slots.clone();
+    text_block += &format!(
+        "_[chance of being at currently present (2d6): 10+ {:?} | 8+ {:?} | 9+ {:?}]_",
+        ect[0].name, ect[1].name, ect[3].name
+    );
+
+    // --- end calc and print encounter_chance_timeslots
+
+    text_block += &format!(
+        "\n {species:?} with {eye_color} eyes and {hair_color} hair in {hair_style} style."
+    );
+    text_block += &format!("\n They are {height_desc} {build_desc} {gender}.");
     text_block += "\n ";
     text_block += "\n Quirks:";
     if quirk_emotional.is_empty() && quirk_physical.is_empty() {

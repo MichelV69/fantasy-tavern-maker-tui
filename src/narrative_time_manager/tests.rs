@@ -1,12 +1,11 @@
 mod suite {
 
-    use std::mem;
     use crate::narrative_time_manager::ntm::{self, SlotNames};
-
+    use std::mem;
 
     #[test]
     fn number_of_timeslots() {
-        let target_value : usize = 18;
+        let target_value: usize = 18;
         assert_eq!(target_value, mem::variant_count::<SlotNames>());
     }
 
@@ -16,10 +15,11 @@ mod suite {
         let needle = SlotNames::Sunrise;
         let mut found = false;
         for variant in haystack.iter() {
-            if needle == variant.name {found = true};
+            if needle == variant.name {
+                found = true
+            };
         }
         assert!(found);
-
     }
 
     #[test]
@@ -35,24 +35,34 @@ mod suite {
         let needle = SlotNames::Sunset;
         let mut found = false;
         for variant in haystack.iter() {
-            if needle == variant.name {found = true};
+            if needle == variant.name {
+                found = true
+            };
         }
         assert!(found);
     }
 
     #[test]
     fn get_random_timeslot() {
-        let first_result: SlotNames  = rand::random();
-        let mut next_result: SlotNames  = rand::random();
+        let first_result: SlotNames = rand::random();
+        let mut next_result: SlotNames = rand::random();
         let mut ptr: i8 = 0;
 
-        while first_result == next_result && ptr < 7
-        {
+        while first_result == next_result && ptr < 7 {
             ptr += 1;
-            next_result  = rand::random();
+            next_result = rand::random();
         }
 
         assert_ne!(first_result, next_result);
+    }
+
+    #[test]
+    fn get_english_for_slotname() {
+        let mut slotname_enum: SlotNames = SlotNames::EarlyMorning;
+        assert_eq!(slotname_enum.to_string(), "early morning");
+
+        slotname_enum = SlotNames::MidMorning;
+        assert_eq!(slotname_enum.to_string(), "mid-morning");
     }
 } // mod suite
 // ---- end of file ----

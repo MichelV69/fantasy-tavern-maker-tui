@@ -15,7 +15,8 @@ pub mod tpp {
                 format!("{} {}", result, c.to_lowercase())
             };
         }
-        result
+        result = result.replace("- ", "-");
+        result.trim().to_owned()
     }
 
     pub fn tidy(s: String) -> String {
