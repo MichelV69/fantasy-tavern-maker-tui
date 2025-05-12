@@ -14,7 +14,6 @@ mod npc;
 mod tavern;
 mod text_postproc;
 
-
 use fn_make_pbhouse::make_pbhouse;
 use tavern::structs::list::App;
 use tavern::traits::list::AppFn;

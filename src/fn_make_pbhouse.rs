@@ -155,6 +155,7 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
         npc_patron.random_appearance(&app);
         npc_patron.set_random_quirk_emotional(&app);
         npc_patron.set_random_schticks_attributes(&app);
+        npc_patron.set_random_encounter_chance_timeslots();
         npc_notable_patrons_list.push(npc_patron);
     }
 

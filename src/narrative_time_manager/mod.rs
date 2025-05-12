@@ -5,27 +5,68 @@ pub mod ntm {
 
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
+    use std::fmt;
     use strum::EnumString;
 
+    use crate::text_postproc::tpp::enum_string_to_phrase;
+
     #[derive(Clone, Copy)]
-    pub enum Hour {H00, H01, H02, H03,
-        H04, H05, H06, H07,
-        H08, H09, H10, H11,
-        H12, H13, H14, H15,
-        H16, H17, H18, H19,
-        H20, H21, H22, H23}
+    pub enum Hour {
+        H00,
+        H01,
+        H02,
+        H03,
+        H04,
+        H05,
+        H06,
+        H07,
+        H08,
+        H09,
+        H10,
+        H11,
+        H12,
+        H13,
+        H14,
+        H15,
+        H16,
+        H17,
+        H18,
+        H19,
+        H20,
+        H21,
+        H22,
+        H23,
+    }
 
     #[derive(Clone, Copy, Debug, PartialEq, EnumString, strum_macros::VariantNames)]
     pub enum SlotNames {
-        Twilight, Sunrise,
-        EarlyMorning, MidMorning, LateMorning,
+        Twilight,
+        Sunrise,
+        EarlyMorning,
+        MidMorning,
+        LateMorning,
         Midday,
-        EarlyAfternoon, MidAfternoon, LateAfternoon,
-        Dusk, Sunset,
-        LateEvening, EarlyEvening, MidEvening,
-        Night, Midnight,
-        LateNight, LongDark
+        EarlyAfternoon,
+        MidAfternoon,
+        LateAfternoon,
+        Dusk,
+        Sunset,
+        LateEvening,
+        EarlyEvening,
+        MidEvening,
+        Night,
+        Midnight,
+        LateNight,
+        LongDark,
+    }
+
+    impl fmt::Display for SlotNames {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            let sn_text = enum_string_to_phrase(self.to_string());
+            write!(f, "{}", sn_text)?;
+            Ok(())
         }
+    }
 
     #[derive(Clone, Copy)]
     pub struct TimeSlot {
@@ -36,7 +77,11 @@ pub mod ntm {
 
     pub fn load() -> Vec<TimeSlot> {
         let mut data: Vec<TimeSlot> = Vec::with_capacity(24);
-        let mut record: TimeSlot = TimeSlot{start: Hour::H00, duration: 0, name: SlotNames::Midnight};
+        let mut record: TimeSlot = TimeSlot {
+            start: Hour::H00,
+            duration: 0,
+            name: SlotNames::Midnight,
+        };
 
         record.start = Hour::H00;
         record.duration = 1;
@@ -51,7 +96,7 @@ pub mod ntm {
         record.start = Hour::H03;
         record.duration = 2;
         record.name = SlotNames::LongDark;
-        data.push(record);        
+        data.push(record);
 
         record.start = Hour::H05;
         record.duration = 1;
@@ -130,7 +175,6 @@ pub mod ntm {
 
         // send the result up the line
         data
-
     }
 
     impl Distribution<SlotNames> for StandardUniform {
@@ -154,7 +198,7 @@ pub mod ntm {
                 14 => SlotNames::EarlyEvening,
                 15 => SlotNames::MidEvening,
                 16 => SlotNames::LateEvening,
-                17 => SlotNames::Night,                               
+                17 => SlotNames::Night,
                 _ => unreachable!(),
             }
         }
