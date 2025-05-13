@@ -29,7 +29,16 @@ pub mod tpp {
             underline_len = 42
         }
         let underline = "=".repeat(underline_len);
-        format!("\n\n {}\n {} \n\n", s, underline)
+        format!("\n\n{}\n{}\n\n", s, underline).trim().to_string()
+    }
+
+    pub fn l2_heading(s: String) -> String {
+        let mut underline_len: usize = s.len();
+        if underline_len > 42 {
+            underline_len = 42
+        }
+        let underline = "-".repeat(underline_len);
+        format!("\n{}\n{}\n", s, underline).trim().to_string()
     }
 
     pub fn is_a_an(test: &str) -> String {

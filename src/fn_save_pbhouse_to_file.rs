@@ -6,7 +6,6 @@ use std::io::Write;
 
 // --- my stuff ---
 use crate::{
-    fn_make_pbhouse::make_pbhouse,
     fn_view_npc_block::view_npc_block,
     npc::build::Profile,
     tavern::structs::list::{App, PBHouse},
@@ -40,7 +39,7 @@ pub fn save_pbhouse_to_file(s: &mut Cursive, pbh: PBHouse, app: App, npc_list: V
         Err(error) => panic!("Problem writing to the file: {error:?}"),
     };
 
-    let mut npc_block: String = l1_heading(" Notable Staff and Patrons".to_string());
+    let mut npc_block: String = l1_heading("Notable Staff and Patrons".to_string());
     npc_block += "\n";
 
     for this_npc in npc_list {

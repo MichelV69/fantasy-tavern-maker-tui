@@ -58,7 +58,7 @@ impl Profile {
         for this_slot in all_slots.iter() {
             if this_slot.name == center_slot_name {
                 // check if night before
-                let mut early_index  = (middle_index as i8) - 1;
+                let mut early_index = (middle_index as i8) - 1;
                 if early_index <= 0 && all_slots.get(early_index as usize).is_none() {
                     early_index = all_slots.iter().count() as i8 - 1;
                 };
@@ -69,7 +69,7 @@ impl Profile {
                     late_index = 0
                 };
 
-                let early_slot = all_slots[early_index  as usize];
+                let early_slot = all_slots[early_index as usize];
                 let normal_slot = all_slots[middle_index];
                 let late_slot = all_slots[late_index];
 

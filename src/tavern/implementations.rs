@@ -501,7 +501,7 @@ pub mod list {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             write!(
                 f,
-                "\n *-----                        **Player Blurb**                        -----* \n"
+                "\n *-----                        **Player Blurb**                        -----* \n\n"
             )?;
             for line in &self.general_info() {
                 write!(f, "{}", line)?;
@@ -518,10 +518,6 @@ pub mod list {
             for line in &self.redlight_services {
                 write!(f, "{}", line)?;
             }
-
-            // for line in &self.staff_and_customers() {
-            //     write!(f, "{}", line)?;
-            // }
 
             Ok(())
         }
