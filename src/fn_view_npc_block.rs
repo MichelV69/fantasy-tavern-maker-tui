@@ -18,10 +18,12 @@ pub fn view_npc_block(npc_data: &Profile) -> String {
     let mut text_block = format!("{npc_type} {task} \n");
 
     // --- calc and print encounter_chance_timeslots
-    let ect: Vec<crate::narrative_time_manager::ntm::TimeSlot> = npc_data.encounter_slots.clone();
+    let ects = &npc_data.encounter_slots;
     text_block += &format!(
-        "_[chance of being at currently present (2d6): 10+ {:?} | 8+ {:?} | 9+ {:?}]_",
-        ect[0].name, ect[1].name, ect[3].name
+        "_[chance of being at currently present (2d6): 10+ {} | 8+ {} | 9+ {}]_",
+        ects[0].name.to_string(),
+        ects[1].name.to_string(),
+        ects[2].name.to_string()
     );
 
     // --- end calc and print encounter_chance_timeslots

@@ -43,7 +43,7 @@ impl Profile {
         }
     }
 
-    fn get_default_timeslots() -> Vec<TimeSlot> {
+    pub fn get_default_timeslots() -> Vec<TimeSlot> {
         let all_slots: Vec<TimeSlot> = crate::narrative_time_manager::ntm::load();
 
         vec![all_slots[7], all_slots[8], all_slots[9]]
@@ -54,27 +54,28 @@ impl Profile {
         let mut encounter_chance_timeslots: Vec<TimeSlot> = vec![];
 
         let center_slot_name: SlotNames = rand::random();
-        let mut slot_index = 0;
+        let mut middle_index: usize = 0;
         for this_slot in all_slots.iter() {
             if this_slot.name == center_slot_name {
-                // wrap-around calcs for start of and end of day
-                let mut this_slot_pointer = slot_index - 1;
-                if this_slot_pointer < 1 {
-                    this_slot_pointer = all_slots.iter().count()
+                // check if night before
+                let mut early_index  = (middle_index as i8) - 1;
+                if early_index <= 0 && all_slots.get(early_index as usize).is_none() {
+                    early_index = all_slots.iter().count() as i8 - 1;
                 };
-                let early_slot = all_slots[this_slot_pointer];
 
-                let normal_slot = all_slots[slot_index];
-
-                this_slot_pointer = slot_index + 1;
-                if this_slot_pointer > all_slots.iter().count() - 1 {
-                    this_slot_pointer = 0
+                // check if runs into next morning
+                let mut late_index: usize = middle_index + 1;
+                if all_slots.get(late_index).is_none() {
+                    late_index = 0
                 };
-                let late_slot = all_slots[this_slot_pointer];
+
+                let early_slot = all_slots[early_index  as usize];
+                let normal_slot = all_slots[middle_index];
+                let late_slot = all_slots[late_index];
 
                 encounter_chance_timeslots = vec![early_slot, normal_slot, late_slot];
             }
-            slot_index += 1;
+            middle_index += 1;
         }
 
         self.encounter_slots = encounter_chance_timeslots;

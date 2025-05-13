@@ -1,6 +1,9 @@
 mod suite {
 
-    use crate::narrative_time_manager::ntm::{self, SlotNames};
+    use crate::{
+        narrative_time_manager::ntm::{self, SlotNames, TimeSlot},
+        npc::build::Profile,
+    };
     use std::mem;
 
     #[test]
@@ -63,6 +66,23 @@ mod suite {
 
         slotname_enum = SlotNames::MidMorning;
         assert_eq!(slotname_enum.to_string(), "mid-morning");
+    }
+
+    #[test]
+    fn check_can_access_random_slotname() {
+        let test = Profile::get_default_timeslots();
+
+        assert!(!test[0].name.to_string().is_empty());
+        println!(
+            "{} | {} | {}",
+            test[0].name.to_string(),
+            test[1].name.to_string(),
+            test[2].name.to_string()
+        );
+
+        assert_eq!(test[0].name.to_string(), "late morning");
+        assert_eq!(test[1].name.to_string(), "midday");
+        assert_eq!(test[2].name.to_string(), "early afternoon");
     }
 } // mod suite
 // ---- end of file ----

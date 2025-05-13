@@ -3,12 +3,9 @@
 /// description and plot sequences.
 pub mod ntm {
 
+    use crate::text_postproc::tpp::enum_string_to_phrase;
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
-    use std::fmt;
-    use strum::EnumString;
-
-    use crate::text_postproc::tpp::enum_string_to_phrase;
 
     #[derive(Clone, Copy)]
     pub enum Hour {
