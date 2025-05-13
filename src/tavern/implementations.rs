@@ -498,11 +498,15 @@ pub mod list {
     }
 
     impl fmt::Display for PBHouse {
-        // todo!("re-write this section to use L1 and L2 headers and bring into line with on-screen display.")
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             write!(
                 f,
-                "\n *-----                        **Player Blurb**                        -----* \n\n"
+                l1_heading("Narrative Information")
+            )?;
+
+            write!(
+                f,
+                l2_heading("For the Characters")
             )?;
             for line in &self.general_info() {
                 write!(f, "{}", line)?;
@@ -510,12 +514,20 @@ pub mod list {
 
             write!(
                 f,
-                "\n *-----                          **DM Notes**                          -----* \n"
+                l2_heading("GM Notes")
+            )?;
+            write!(
+                f,
+                l3_heading("Establishment History")
             )?;
             for line in &self.establishment_history_notes {
                 write!(f, "{}", line)?;
             }
 
+            write!(
+                f,
+                l3_heading("Redlight Services")
+            )?;            
             for line in &self.redlight_services {
                 write!(f, "\n{}", line)?;
             }

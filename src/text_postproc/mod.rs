@@ -41,6 +41,11 @@ pub mod tpp {
         format!("\n{}\n{}\n", s, underline).trim().to_string()
     }
 
+    pub fn l3_heading(s: String) -> String {
+        format!("\n==={}===\n", s).trim().to_string()
+    }
+
+
     pub fn is_a_an(test: &str) -> String {
         use ::is_vowel::IsRomanceVowel;
         if test
