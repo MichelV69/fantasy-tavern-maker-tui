@@ -32,22 +32,22 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     //---
     let dialog_title = format!("P&B House: the {}", &pbh.name);
     for line in &pbh.general_info() {
-        player_text += line;
+        player_text += &format!("\n{}", line);
     }
 
-    gm_text += &l1_heading("Establishment History Notes".to_string());
+    gm_text += &("\n\n".to_owned() + &l1_heading("Establishment History Notes".to_string()));
     for line in &pbh.establishment_history_notes {
-        gm_text += line;
+        gm_text += &format!("\n{}", line);
     }
 
-    gm_text += &l1_heading("Redlight Services".to_string());
+    gm_text += &("\n\n".to_owned() + &l1_heading("Redlight Services".to_string()));
 
-    if !pbh.redlight_services.is_empty() {
+    if pbh.redlight_services.iter().count() > 0 {
         for line in &pbh.redlight_services {
-            gm_text += line;
+            gm_text += &format!("\n{}", line);
         }
     } else {
-        gm_text += "_<none>_";
+        gm_text += "\n\n_<none>_";
     }
 
     //--- NPCs present

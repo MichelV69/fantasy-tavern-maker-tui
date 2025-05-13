@@ -498,6 +498,7 @@ pub mod list {
     }
 
     impl fmt::Display for PBHouse {
+        // todo!("re-write this section to use L1 and L2 headers and bring into line with on-screen display.")
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             write!(
                 f,
@@ -516,7 +517,7 @@ pub mod list {
             }
 
             for line in &self.redlight_services {
-                write!(f, "{}", line)?;
+                write!(f, "\n{}", line)?;
             }
 
             Ok(())
