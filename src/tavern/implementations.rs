@@ -19,7 +19,9 @@ pub mod list {
     };
     use crate::tavern::structs::list::{App, PBHouse};
     use crate::tavern::traits::list::{AppFn, ToCapitalized};
-    use crate::text_postproc::tpp::{enum_string_to_phrase, is_a_an, l1_heading, l2_heading, l3_heading, tidy, trim_whitespace};
+    use crate::text_postproc::tpp::{
+        enum_string_to_phrase, is_a_an, l1_heading, l2_heading, l3_heading, tidy, trim_whitespace,
+    };
 
     impl Distribution<HouseDishWhatSide> for StandardUniform {
         fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> HouseDishWhatSide {
@@ -498,42 +500,26 @@ pub mod list {
     }
 
     impl fmt::Display for PBHouse {
-
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-            writeln!(
-                f,
-                "{}", l1_heading("Narrative Information".to_string())
-            )?;
+            writeln!(f, "{}", l1_heading("Narrative Information".to_string()))?;
             writeln!(f, " ")?;
 
-            writeln!(
-                f,
-                "{}",  l2_heading("For the Characters".to_string())
-            )?;
+            writeln!(f, "{}", l2_heading("For the Characters".to_string()))?;
             writeln!(f, " ")?;
             for line in &self.general_info() {
-                write!(f, "{}",  line)?;
+                write!(f, "{}", line)?;
             }
 
-            writeln!(
-                f,
-                "{}", l2_heading("GM Notes".to_string())
-            )?;
+            writeln!(f, "{}", l2_heading("GM Notes".to_string()))?;
             writeln!(f, " ")?;
-            writeln!(
-                f,
-                "{}", l3_heading("Establishment History".to_string())
-            )?;
+            writeln!(f, "{}", l3_heading("Establishment History".to_string()))?;
             writeln!(f, " ")?;
             for line in &self.establishment_history_notes {
                 writeln!(f, "{}", line)?;
             }
             writeln!(f, " ")?;
 
-            writeln!(
-                f,
-                "{}", l3_heading("Redlight Services".to_string())
-            )?;
+            writeln!(f, "{}", l3_heading("Redlight Services".to_string()))?;
             for line in &self.redlight_services {
                 writeln!(f, "{}", line)?;
             }

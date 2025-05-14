@@ -53,29 +53,49 @@ impl Profile {
         let all_slots: Vec<TimeSlot> = crate::narrative_time_manager::ntm::load();
         let mut encounter_chance_timeslots: Vec<TimeSlot> = vec![];
 
-        let center_slot_name: SlotNames = rand::random();
-        let mut middle_index: usize = 0;
-        for this_slot in all_slots.iter() {
-            if this_slot.name == center_slot_name {
-                // check if night before
-                let mut early_index = (middle_index as i8) - 1;
-                if early_index <= 0 && all_slots.get(early_index as usize).is_none() {
-                    early_index = all_slots.iter().count() as i8 - 1;
-                };
+        if self.npc_type == NpcTypeCode::Staff {
+            let request: &str = "1d4";
+            let resulting_roll = <DiceResult as RollDice>::from_string(request);
 
-                // check if runs into next morning
-                let mut late_index: usize = middle_index + 1;
-                if all_slots.get(late_index).is_none() {
-                    late_index = 0
-                };
-
-                let early_slot = all_slots[early_index as usize];
-                let normal_slot = all_slots[middle_index];
-                let late_slot = all_slots[late_index];
-
-                encounter_chance_timeslots = vec![early_slot, normal_slot, late_slot];
+            let mut slot_list: Vec<i8> = vec![];
+            match resulting_roll.get_total() {
+                1 => slot_list = [1, 2, 3, 4, 5].to_vec(),
+                2 => slot_list = [4, 5, 6, 7, 8, 9].to_vec(),
+                3 => slot_list = [8, 9, 10, 11, 12, 13].to_vec(),
+                4 => slot_list = [12, 13, 14, 15, 16].to_vec(),
+                _ => slot_list = [3, 4, 5, 6, 7, 8].to_vec(),
             }
-            middle_index += 1;
+
+            for this_slot in slot_list.iter() {
+                encounter_chance_timeslots.push(all_slots[*this_slot as usize]);
+            }
+        }
+
+        if self.npc_type == NpcTypeCode::Patron {
+            let center_slot_name: SlotNames = rand::random();
+            let mut middle_index: usize = 0;
+            for this_slot in all_slots.iter() {
+                if this_slot.name == center_slot_name {
+                    // check if night before
+                    let mut early_index = (middle_index as i8) - 1;
+                    if early_index <= 0 && all_slots.get(early_index as usize).is_none() {
+                        early_index = all_slots.iter().count() as i8 - 1;
+                    };
+
+                    // check if runs into next morning
+                    let mut late_index: usize = middle_index + 1;
+                    if all_slots.get(late_index).is_none() {
+                        late_index = 0
+                    };
+
+                    let early_slot = all_slots[early_index as usize];
+                    let normal_slot = all_slots[middle_index];
+                    let late_slot = all_slots[late_index];
+
+                    encounter_chance_timeslots = vec![early_slot, normal_slot, late_slot];
+                }
+                middle_index += 1;
+            }
         }
 
         self.encounter_slots = encounter_chance_timeslots;

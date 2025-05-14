@@ -45,7 +45,6 @@ pub mod tpp {
         format!("\n==={}===\n", s).trim().to_string()
     }
 
-
     pub fn is_a_an(test: &str) -> String {
         use ::is_vowel::IsRomanceVowel;
         if test

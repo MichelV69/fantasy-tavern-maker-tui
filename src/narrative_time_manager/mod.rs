@@ -38,22 +38,22 @@ pub mod ntm {
     #[derive(Clone, Copy, Debug, PartialEq)]
     pub enum SlotNames {
         Twilight,
-        Sunrise,
-        EarlyMorning,
-        MidMorning,
-        LateMorning,
-        Midday,
-        EarlyAfternoon,
-        MidAfternoon,
-        LateAfternoon,
-        Dusk,
-        Sunset,
-        LateEvening,
-        EarlyEvening,
-        MidEvening,
-        Night,
-        Midnight,
-        LateNight,
+        Sunrise,        // 1 *
+        EarlyMorning,   // 2 *
+        MidMorning,     // 3 *
+        LateMorning,    // 4 * *
+        Midday,         // 5 * *
+        EarlyAfternoon, // 6   *
+        MidAfternoon,   // 7   *
+        LateAfternoon,  // 8   * *
+        Dusk,           // 9   * *
+        Sunset,         // 10    *
+        LateEvening,    // 11    *
+        EarlyEvening,   // 12 *  *
+        MidEvening,     // 13 *  *
+        Night,          // 14 *
+        Midnight,       // 15 *
+        LateNight,      // 16 *
         LongDark,
     }
 

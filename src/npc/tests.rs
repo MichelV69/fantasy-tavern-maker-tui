@@ -299,5 +299,14 @@ mod suite {
         assert!(!ects[1].name.to_string().is_empty());
         assert!(!ects[2].name.to_string().is_empty());
     }
+
+    #[test]
+    fn set_rect_for_staff() {
+        let mut new_npc: Profile = Profile::new();
+        new_npc.npc_type = NpcTypeCode::Staff;
+        new_npc.set_random_encounter_chance_timeslots();
+
+        assert_eq!(5, new_npc.encounter_slots.iter().count())
+    }
 } // mod suite
 // ---- end of file ----
