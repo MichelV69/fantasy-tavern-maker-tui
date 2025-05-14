@@ -19,7 +19,7 @@ pub fn view_npc_block(npc_data: &Profile) -> String {
 
     let ects = &npc_data.encounter_slots;
     text_block += &format!(
-        "\n _[chance of being currently present (2d6): 10+ {} | 8+ {} | 9+ {}]_",
+        "\n\n _[chance of being currently present (2d6): 10+ {} | 8+ {} | 9+ {}]_",
         ects[0].name.to_string(),
         ects[1].name.to_string(),
         ects[2].name.to_string()
