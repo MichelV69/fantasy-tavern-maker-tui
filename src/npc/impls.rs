@@ -54,17 +54,18 @@ impl Profile {
         let mut encounter_chance_timeslots: Vec<TimeSlot> = vec![];
 
         if self.npc_type == NpcTypeCode::Staff {
-            let request: &str = "1d4";
+            let request: &str = "1d6";
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
 
-            let mut slot_list: Vec<i8> = vec![];
-            match resulting_roll.get_total() {
-                1 => slot_list = [1, 2, 3, 4, 5].to_vec(),
-                2 => slot_list = [4, 5, 6, 7, 8, 9].to_vec(),
-                3 => slot_list = [8, 9, 10, 11, 12, 13].to_vec(),
-                4 => slot_list = [12, 13, 14, 15, 16].to_vec(),
-                _ => slot_list = [3, 4, 5, 6, 7, 8].to_vec(),
-            }
+            let slot_list: Vec<i8> = match resulting_roll.get_total() {
+                1 =>  [1, 2, 3, 4, 5].to_vec(),
+                2 =>  [4, 5, 6, 7, 8].to_vec(),
+                3 =>  [7, 8, 9, 10, 11].to_vec(),
+                4 =>  [10, 11, 12, 13, 14].to_vec(),
+                5 =>  [13, 14, 15, 16, 17].to_vec(),
+                6 =>  [3, 4, 5, 8, 9].to_vec(),
+                _ =>  [3, 4, 5, 6, 7].to_vec(),
+            };
 
             for this_slot in slot_list.iter() {
                 encounter_chance_timeslots.push(all_slots[*this_slot as usize]);

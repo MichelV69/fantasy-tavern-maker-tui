@@ -1,7 +1,7 @@
 mod suite {
 
     use crate::{
-        narrative_time_manager::ntm::{self, SlotNames, TimeSlot},
+        narrative_time_manager::ntm::{self, SlotNames},
         npc::build::Profile,
     };
     use std::mem;
