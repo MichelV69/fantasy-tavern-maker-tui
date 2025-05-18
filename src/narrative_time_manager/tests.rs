@@ -5,6 +5,7 @@ mod suite {
         npc::build::Profile,
     };
     use std::mem;
+    use pretty_assertions::{assert_eq, assert_ne};
 
     #[test]
     fn number_of_timeslots() {

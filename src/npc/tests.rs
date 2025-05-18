@@ -13,6 +13,7 @@ mod suite {
         tavern::structs::list::App,
     };
     use tracing::{Level, event};
+    use pretty_assertions::{assert_eq, assert_ne};
 
     #[test]
     fn profile_new() {
@@ -22,21 +23,20 @@ mod suite {
             modifier: -13,
         };
 
-        debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
-        debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
-        debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
-        debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
-        debug_assert_eq!(new_npc.height_desc, "about average");
-        debug_assert_eq!(new_npc.build_desc, "about average");
-        debug_assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
-        debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
-        debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
-        debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
-        debug_assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
-        debug_assert_eq!(new_npc.notable_attribute_positive, default_attr);
-        debug_assert_eq!(new_npc.notable_attribute_negative, default_attr);
-        debug_assert_eq!(new_npc.encounter_slots.iter().count(), 3);
-        //debug_assert_eq!(new_npc.schtick_ability_description, "nothing interesting");
+        assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
+        assert_eq!(new_npc.gender, GenderCode::Androgynous);
+        assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
+        assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
+        assert_eq!(new_npc.height_desc, "about average");
+        assert_eq!(new_npc.build_desc, "about average");
+        assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
+        assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
+        assert_eq!(new_npc.eye_color, EyeColorCode::Red);
+        assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
+        assert_eq!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
+        assert_eq!(new_npc.notable_attribute_positive, default_attr);
+        assert_eq!(new_npc.notable_attribute_negative, default_attr);
+        assert_eq!(new_npc.encounter_slots.iter().count(), 3);
     }
 
     #[test]
@@ -49,7 +49,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.npc_type[{:#?}]", new_npc.npc_type);
         println!("new_npc.npc_type[{:#?}]", new_npc.npc_type);
-        debug_assert_ne!(new_npc.npc_type, NpcTypeCode::Patron);
+        assert_ne!(new_npc.npc_type, NpcTypeCode::Patron);
     }
 
     #[test]
@@ -62,7 +62,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.gender[{:#?}]", new_npc.gender);
         println!("new_npc.gender[{:#?}]", new_npc.gender);
-        debug_assert_ne!(new_npc.gender, GenderCode::Androgynous);
+        assert_ne!(new_npc.gender, GenderCode::Androgynous);
     }
 
     #[test]
@@ -79,7 +79,7 @@ mod suite {
             new_npc.task_description
         );
         println!("new_npc.task_description[{:#?}]", new_npc.task_description);
-        debug_assert_ne!(new_npc.task_description, "Realm's Most Interesting Person");
+        assert_ne!(new_npc.task_description, "Realm's Most Interesting Person");
     }
 
     #[test]
@@ -97,8 +97,8 @@ mod suite {
         );
         println!("psv_file_contents[0].0[{:#?}]", psv_file_contents[0].0);
 
-        debug_assert_eq!(psv_file_contents[0].0, 40);
-        debug_assert_eq!(psv_file_contents[0].1, "Commonfolk");
+        assert_eq!(psv_file_contents[0].0, 40);
+        assert_eq!(psv_file_contents[0].1, "Commonfolk");
     }
 
     #[test]
@@ -116,7 +116,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.species[{:#?}]", new_npc.species);
         println!("new_npc.species[{:#?}]", new_npc.species);
-        debug_assert_ne!(new_npc.species, SpeciesCode::Dragonborn);
+        assert_ne!(new_npc.species, SpeciesCode::Dragonborn);
     }
 
     #[test]
@@ -124,7 +124,7 @@ mod suite {
         let mut new_npc: Profile = Profile::new();
         new_npc.set_random_height_desc();
 
-        debug_assert_ne!(new_npc.height_desc, "about average");
+        assert_ne!(new_npc.height_desc, "about average");
     }
 
     #[test]
@@ -132,7 +132,7 @@ mod suite {
         let mut new_npc: Profile = Profile::new();
         new_npc.set_random_build_desc();
 
-        debug_assert_ne!(new_npc.build_desc, "about average");
+        assert_ne!(new_npc.build_desc, "about average");
     }
 
     #[test]
@@ -150,7 +150,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.hair_color[{:#?}]", new_npc.hair_color);
         println!("new_npc.hair_color[{:#?}]", new_npc.hair_color);
-        debug_assert_ne!(new_npc.hair_color, HairColorCode::Blonde);
+        assert_ne!(new_npc.hair_color, HairColorCode::Blonde);
     }
 
     #[test]
@@ -168,7 +168,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.hair_style[{:#?}]", new_npc.hair_style);
         println!("new_npc.hair_style[{:#?}]", new_npc.hair_style);
-        debug_assert_ne!(new_npc.hair_style, HairStyleCode::BeadedBraided);
+        assert_ne!(new_npc.hair_style, HairStyleCode::BeadedBraided);
     }
 
     #[test]
@@ -186,7 +186,7 @@ mod suite {
 
         event!(Level::INFO, "new_npc.eye_color[{:#?}]", new_npc.eye_color);
         println!("new_npc.eye_color[{:#?}]", new_npc.eye_color);
-        debug_assert_ne!(new_npc.eye_color, EyeColorCode::Red);
+        assert_ne!(new_npc.eye_color, EyeColorCode::Red);
     }
 
     #[test]
@@ -208,7 +208,7 @@ mod suite {
             new_npc.quirk_emotional
         );
         println!("new_npc.quirk_emotional[{:#?}]", new_npc.quirk_emotional);
-        debug_assert_ne!(new_npc.quirk_emotional, QuirkEmotional::Manic);
+        assert_ne!(new_npc.quirk_emotional, QuirkEmotional::Manic);
     }
 
     #[test]
@@ -230,7 +230,7 @@ mod suite {
             new_npc.quirk_physical
         );
         println!("new_npc.quirk_physical[{:#?}]", new_npc.quirk_physical);
-        debug_assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
+        assert_ne!(new_npc.quirk_physical, QuirkPhysical::SubstantialWineStain);
     }
 
     #[test]
@@ -254,7 +254,7 @@ mod suite {
             "new_npc.notable_attribute_positive[{:#?}]",
             new_npc.notable_attribute_positive
         );
-        debug_assert_ne!(new_npc.notable_attribute_positive, default_attr);
+        assert_ne!(new_npc.notable_attribute_positive, default_attr);
     }
 
     #[test]
@@ -278,7 +278,7 @@ mod suite {
             "new_npc.notable_attribute_negative[{:#?}]",
             new_npc.notable_attribute_negative
         );
-        debug_assert_ne!(new_npc.notable_attribute_negative, default_attr);
+        assert_ne!(new_npc.notable_attribute_negative, default_attr);
     }
 
     #[test]

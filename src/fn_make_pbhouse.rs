@@ -1,5 +1,6 @@
 // ---- all the uses all the time
 use cursive::Cursive;
+use cursive::event::Key;
 use cursive::view::Resizable;
 use cursive::view::Scrollable;
 use cursive::views::Dialog;
@@ -96,11 +97,10 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
         staffer.set_random_schticks_attributes(&app);
         staffer.set_random_encounter_chance_timeslots();
     }
-    
+
     // notablePatronsList ... #dice based on Establishment.size
     let mut npc_notable_patrons_list: Vec<npc_Profile> = vec![];
     let die_size: String = "1d4".into();
-    //println!("\n --- \n die_size [{die_size}]");
 
     let mut roll_mod: i8 = match pbh.size.size_description {
         SizeList::Tiny => -1,
@@ -110,7 +110,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
         SizeList::Massive => 4,
     };
 
-    //println!("roll_mod [{roll_mod}]");
     roll_mod += match pbh.establishment_quality.level {
         EstablishmentQualityLevel::Squalid => -2,
         EstablishmentQualityLevel::Poor => -1,
@@ -127,7 +126,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     }
 
     let roll_string: String = format!("{}{}{}", die_size, math_func.to_string(), roll_mod);
-    //println!("roll_string [{roll_string}]");
 
     let npc_notable_patrons_count: i16 =
         <DiceResult as RollDice>::from_string(&roll_string).get_total();
@@ -168,7 +166,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
 
     npc_select.set_on_submit(|s, npc| {
         let text = view_npc_block(npc);
-
         s.add_layer(Dialog::around(TextView::new(text)).button("Done", |s| {
             s.pop_layer();
         }));

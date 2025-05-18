@@ -1,6 +1,7 @@
 // ---- enabled features for the project
 #![feature(variant_count)]
 
+use cursive::event::Key;
 // ---- all the uses all the time
 use cursive::views::Dialog;
 
@@ -22,10 +23,10 @@ use tavern::traits::list::AppFn;
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_major = 0; //0.12.3-184
+    app.version_major = 0; //0.12.4-185
     app.version_minor = 12;
-    app.version_fix = 3;
-    app.version_build = 184;
+    app.version_fix = 4;
+    app.version_build = 185;
 
     let mut siv = cursive::default();
 
@@ -37,6 +38,7 @@ fn main() {
             })
             .button("Quit", |s| s.quit()),
     );
+    siv.add_global_callback(Key::Esc , |s|{ s.pop_layer(); });
 
     siv.run()
 }

@@ -40,18 +40,18 @@ pub mod build {
     /// ```
     /// let new_npc: Profile = Profile::new();
     ///
-    ///  debug_assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
-    ///  debug_assert_eq!(new_npc.gender, GenderCode::Androgynous);
-    ///  debug_assert_eq!(new_npc.public_name, "New NPC");
-    ///  debug_assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
-    ///  debug_assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
-    ///  debug_assert_eq!(new_npc.height_desc, "about average");
-    ///  debug_assert_eq!(new_npc.build_desc, "about average");
-    ///  debug_assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
-    ///  debug_assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
-    ///  debug_assert_eq!(new_npc.eye_color, EyeColorCode::Red);
-    ///  debug_assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
-    ///  debug_assert_eq!(new_npc.quirk_physical,  QuirkPhysical::SubstantialWineStain);
+    ///  assert_eq!(new_npc.npc_type, NpcTypeCode::Patron);
+    ///  assert_eq!(new_npc.gender, GenderCode::Androgynous);
+    ///  assert_eq!(new_npc.public_name, "New NPC");
+    ///  assert_eq!(new_npc.task_description, "Realm's Most Interesting Person");
+    ///  assert_eq!(new_npc.species, SpeciesCode::Dragonborn);
+    ///  assert_eq!(new_npc.height_desc, "about average");
+    ///  assert_eq!(new_npc.build_desc, "about average");
+    ///  assert_eq!(new_npc.hair_color, HairColorCode::Blonde);
+    ///  assert_eq!(new_npc.hair_style, HairStyleCode::BeadedBraided);
+    ///  assert_eq!(new_npc.eye_color, EyeColorCode::Red);
+    ///  assert_eq!(new_npc.quirk_emotional, QuirkEmotional::Manic);
+    ///  assert_eq!(new_npc.quirk_physical,  QuirkPhysical::SubstantialWineStain);
     /// ```
 
     // ---
