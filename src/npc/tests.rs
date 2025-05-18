@@ -285,15 +285,7 @@ mod suite {
     fn set_random_encounter_chance_timeslots() {
         let mut new_npc: Profile = Profile::new();
         new_npc.set_random_encounter_chance_timeslots();
-
         let ects = new_npc.encounter_slots;
-
-        println!(
-            "{} | {} | {}",
-            ects[0].name.to_string(),
-            ects[1].name.to_string(),
-            ects[2].name.to_string()
-        );
 
         assert!(!ects[0].name.to_string().is_empty());
         assert!(!ects[1].name.to_string().is_empty());

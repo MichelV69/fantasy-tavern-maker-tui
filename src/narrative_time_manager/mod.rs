@@ -7,8 +7,9 @@ pub mod ntm {
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
 
-    #[derive(Clone, Copy)]
-    pub enum Hour {
+    #[derive(Clone, Copy, PartialEq)]
+    #[derive(Debug)]
+pub enum Hour {
         H00,
         H01,
         H02,
@@ -57,7 +58,7 @@ pub mod ntm {
         LongDark,
     }
 
-    #[derive(Clone, Copy)]
+    #[derive(Clone, Copy, PartialEq, Debug)]
     pub struct TimeSlot {
         pub start: Hour,
         pub duration: i8,

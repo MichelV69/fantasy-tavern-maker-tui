@@ -53,29 +53,17 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     //--- NPCs present
     let mut npc_staff_list: Vec<npc_Profile> = vec![];
     let mut npc_owner: npc_Profile = npc_Profile::new();
-    npc_owner.npc_type = NpcTypeCode::Staff;
     npc_owner.task_description = "Owner".into();
-    npc_owner.random_appearance(&app);
-    npc_owner.set_random_quirk_emotional(&app);
-    npc_owner.set_random_schticks_attributes(&app);
     npc_staff_list.push(npc_owner);
 
     if [SizeList::Modest, SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
         let mut npc_cook: npc_Profile = npc_Profile::new();
-        npc_cook.npc_type = NpcTypeCode::Staff;
         npc_cook.task_description = "Cook".into();
-        npc_cook.random_appearance(&app);
-        npc_cook.set_random_quirk_emotional(&app);
-        npc_cook.set_random_schticks_attributes(&app);
         npc_staff_list.push(npc_cook);
 
         if [SizeList::Large, SizeList::Massive].contains(&pbh.size.size_description) {
             let mut npc_server: npc_Profile = npc_Profile::new();
             npc_server.task_description = "Server".into();
-            npc_server.npc_type = NpcTypeCode::Staff;
-            npc_server.random_appearance(&app);
-            npc_server.set_random_quirk_emotional(&app);
-            npc_server.set_random_schticks_attributes(&app);
             npc_staff_list.push(npc_server);
 
             if [SizeList::Massive].contains(&pbh.size.size_description) {
@@ -83,35 +71,32 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
 
                 if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
                     let mut npc_cook: npc_Profile = npc_Profile::new();
-                    npc_cook.npc_type = NpcTypeCode::Staff;
                     npc_cook.task_description = "Cook Helper".into();
-                    npc_cook.random_appearance(&app);
-                    npc_cook.set_random_quirk_emotional(&app);
-                    npc_cook.set_random_schticks_attributes(&app);
                     npc_staff_list.push(npc_cook);
                 }
 
                 if <DiceResult as RollDice>::from_string(request).get_total() < 4 {
                     let mut npc_server: npc_Profile = npc_Profile::new();
-                    npc_server.npc_type = NpcTypeCode::Staff;
                     npc_server.task_description = "Server Helper".into();
-                    npc_server.random_appearance(&app);
-                    npc_server.set_random_quirk_emotional(&app);
-                    npc_server.set_random_schticks_attributes(&app);
                     npc_staff_list.push(npc_server);
                 }
 
                 let mut npc_bouncer: npc_Profile = npc_Profile::new();
                 npc_bouncer.task_description = "Bouncer".into();
                 npc_bouncer.npc_type = NpcTypeCode::Staff;
-                npc_bouncer.random_appearance(&app);
-                npc_bouncer.set_random_quirk_emotional(&app);
-                npc_bouncer.set_random_schticks_attributes(&app);
-                npc_staff_list.push(npc_bouncer);
+
             }
         }
     }
 
+    for staffer in &mut npc_staff_list {
+        staffer.npc_type = NpcTypeCode::Staff;
+        staffer.random_appearance(&app);
+        staffer.set_random_quirk_emotional(&app);
+        staffer.set_random_schticks_attributes(&app);
+        staffer.set_random_encounter_chance_timeslots();
+    }
+    
     // notablePatronsList ... #dice based on Establishment.size
     let mut npc_notable_patrons_list: Vec<npc_Profile> = vec![];
     let die_size: String = "1d4".into();
@@ -164,7 +149,7 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     let mut npc_select = cursive::views::SelectView::new();
 
     let mut npc_full_list: Vec<Profile> = vec![];
-    npc_full_list.append(&mut npc_staff_list);
+    npc_full_list.append(&mut npc_staff_list.clone());
     npc_full_list.append(&mut npc_notable_patrons_list);
     let npc_list1 = npc_full_list.clone();
 

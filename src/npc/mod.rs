@@ -7,7 +7,7 @@ pub mod build {
 
     use crate::narrative_time_manager::ntm::TimeSlot;
 
-    #[derive(Clone)]
+    #[derive(Clone, Debug, PartialEq)]
     pub struct Profile {
         pub npc_type: NpcTypeCode,
         pub gender: GenderCode,
@@ -55,7 +55,7 @@ pub mod build {
     /// ```
 
     // ---
-    #[derive(PartialEq, Debug, Clone)]
+    #[derive(PartialEq, Debug, Clone, Copy)]
     pub enum EyeColorCode {
         Brown,
         Hazel,
@@ -67,7 +67,7 @@ pub mod build {
         Red,
     }
 
-    #[derive(PartialEq, Debug, Clone)]
+    #[derive(PartialEq, Debug, Clone, Copy)]
     pub enum HairStyleCode {
         BeadedBraided,
         CrewCut,
@@ -99,7 +99,7 @@ pub mod build {
         White,
     }
 
-    #[derive(PartialEq, Debug, Display, Clone)]
+    #[derive(PartialEq, Debug, Display, Clone, Copy)]
     pub enum SpeciesCode {
         Dragonborn,
         Dwarf,
@@ -110,21 +110,21 @@ pub mod build {
         Tiefling,
     }
 
-    #[derive(PartialEq, Debug, Display, Clone)]
+    #[derive(PartialEq, Debug, Display, Clone, Copy)]
     pub enum NpcTypeCode {
         Patron,
         Staff,
         StoryCharacter,
     }
 
-    #[derive(PartialEq, Debug, Clone)]
+    #[derive(PartialEq, Debug, Clone, Copy)]
     pub enum GenderCode {
         Androgynous,
         Female,
         Male,
     }
 
-    #[derive(PartialEq, Debug, Clone)]
+    #[derive(PartialEq, Debug, Clone, Copy)]
     pub enum QuirkEmotional {
         Belligerent,
         CheerfulToAdventurers,
@@ -143,7 +143,7 @@ pub mod build {
         Shy,
     }
 
-    #[derive(PartialEq, Debug, Clone)]
+    #[derive(PartialEq, Debug, Clone, Copy)]
     pub enum QuirkPhysical {
         None,
         SlightScar,
