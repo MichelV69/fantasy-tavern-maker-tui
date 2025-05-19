@@ -51,4 +51,26 @@ mod suite {
 
         }
     }
+    
+    #[test]
+    fn test_rsl_list_sorted_by_dc(){
+        event!(Level::INFO, "test_rsl_list_sorted_by_dc");
+        let mut first: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
+        first.service = RSLCode::Brothel;
+        first.dc = 7;
+
+        let mut second: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
+        second.service = RSLCode::Gambling;
+        second.dc = 11;
+
+        let mut third: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
+        third.service = RSLCode::Gambling;
+        third.dc = 11;
+        
+        let mut rsl_list = vec![second, third, first ];
+        rsl_list.sort_by(|a, b| a.dc.cmp(&b.dc));
+        
+        assert!(rsl_list[0].dc <= rsl_list[1].dc);
+        assert!(rsl_list[1].dc <= rsl_list[2].dc);
+    }
 } // mod suite

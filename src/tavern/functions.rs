@@ -408,7 +408,7 @@ pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
     RSLCode::iter().for_each(|rsl_code| {
         let test_roll = random_range(1..=max_range);
         let mut rl_service: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
-      
+
         match rsl_code {
             RSLCode::None => {},
             _ => {
@@ -420,10 +420,11 @@ pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
             }
         }
         if rl_service.dc > 0 {
-            red_light_services_list.push(rl_service); 
+            red_light_services_list.push(rl_service);
         }
     });
 
+    red_light_services_list.sort_by(|a, b| a.dc.cmp(&b.dc));
     Some(red_light_services_list)
 }
 
