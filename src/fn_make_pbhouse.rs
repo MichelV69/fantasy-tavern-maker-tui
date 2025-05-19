@@ -44,12 +44,12 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     gm_text += &("\n\n".to_owned() + &l1_heading("Redlight Services".to_string()));
 
     if pbh.redlight_services.iter().count() > 0 {
-        for line in &pbh.redlight_services {
-            gm_text += &format!("\n{}", line);
-        }
+        &pbh.redlight_services.iter().for_each(|rsl| {
+            gm_text += &format!("\n{}", rsl.display());
+        });
     } else {
-        gm_text += "\n\n_<none>_";
-    }
+        gm_text += &("\n\n".to_owned() + "_<none>_");
+    };
 
     //--- NPCs present
     let mut npc_staff_list: Vec<npc_Profile> = vec![];

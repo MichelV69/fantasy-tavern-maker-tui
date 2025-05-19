@@ -1,5 +1,5 @@
 use inflector::string::singularize::to_singular;
-use rand::SeedableRng;
+use rand::{random_range, SeedableRng};
 use rand::distr::Distribution;
 use rand::distr::weighted::WeightedIndex;
 use rand::seq::IndexedRandom;
@@ -8,8 +8,8 @@ use std::cmp::*;
 use strum::IntoEnumIterator;
 
 use crate::dice_bag::tower::{self, RollDice};
-use crate::tavern::enums::list::{NameNoun, NameVerb};
-use crate::tavern::traits::list::ToCapitalized;
+use crate::tavern::enums::list::{NameNoun, NameVerb, RSLCode};
+use crate::tavern::traits::list::{DiceSize, ToCapitalized};
 use crate::text_postproc::tpp::tidy;
 
 use super::enums::list::{
@@ -19,7 +19,7 @@ use super::enums::list::{
     HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
     MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
 };
-use super::structs::list::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize};
+use super::structs::list::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize, RedlightService};
 
 // ---
 pub fn get_name() -> String {
@@ -397,64 +397,32 @@ pub fn get_establishment_reputation() -> String {
     result.into()
 }
 
-pub fn get_red_light_services_list() -> Option<String> {
+pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
     if tower::DiceResult::from_string("flip coin").get_total() == 2 {
         return None;
     }
+    let mut red_light_services_list:Vec<RedlightService > = vec![];
+    let max_range:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.5) as i16;
+    let mut current_roll_chance:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.0) as i16;
 
-    struct ServiceTableItem<'a> {
-        weight: i16,
-        description: &'a str,
-        dc_dice_roll: &'a str,
-    }
-
-    let mut possible_services_table = Vec::<ServiceTableItem>::with_capacity(8);
-    possible_services_table.push(ServiceTableItem {
-        weight: 5,
-        description: "Gambling",
-        dc_dice_roll: "1d4+8",
+    RSLCode::iter().for_each(|rsl_code| {
+        let test_roll = random_range(1..=max_range);
+        let mut rl_service: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
+      
+        match rsl_code {
+            RSLCode::None => {},
+            _ => {
+                if test_roll <= current_roll_chance {
+                    current_roll_chance -= 1;
+                    rl_service.service = rsl_code;
+                    rl_service.dc = RSLCode::get_dc(&rl_service.service);
+                }
+            }
+        }
+        if rl_service.dc > 0 {
+            red_light_services_list.push(rl_service); 
+        }
     });
-    possible_services_table.push(ServiceTableItem {
-        weight: 4,
-        description: "Brothel",
-        dc_dice_roll: "1d6+10",
-    });
-    possible_services_table.push(ServiceTableItem {
-        weight: 3,
-        description: "Smuggling",
-        dc_dice_roll: "2d4+11",
-    });
-    possible_services_table.push(ServiceTableItem {
-        weight: 2,
-        description: "Pit Fighting",
-        dc_dice_roll: "2d6+12",
-    });
-    possible_services_table.push(ServiceTableItem {
-        weight: 1,
-        description: "Sinfyre Den",
-        dc_dice_roll: "3d6+13",
-    });
-    possible_services_table.push(ServiceTableItem {
-        weight: 1,
-        description: "Thief / Assassin Guild (ADV w/Thieves Cant)",
-        dc_dice_roll: "3d8+16",
-    });
-    let table_weights =
-        WeightedIndex::new(possible_services_table.iter().map(|item| item.weight)).unwrap();
-
-    let die_pool_result = tower::DiceResult::from_pool("5d6|6");
-    let how_many_services: i16 = 1 + die_pool_result.get_total();
-    let mut red_light_services_list: String = "".into();
-    let mut rng = ChaCha20Rng::from_os_rng();
-
-    for _ in 1..=how_many_services {
-        let result = &possible_services_table[table_weights.sample(&mut rng)];
-        let new_service: String = tower::DiceResult::inline_replace(&format!(
-            " * {} (DC [{}]) \n",
-            result.description, result.dc_dice_roll
-        ));
-        red_light_services_list = format!("{} {}", red_light_services_list, new_service);
-    }
 
     Some(red_light_services_list)
 }
@@ -470,20 +438,6 @@ pub fn get_establishment_history_notes(est_name: &str) -> Vec<String> {
         get_establishment_reputation()
     ));
 
-    // ---
-    pb_house_desc
-}
-
-pub fn get_redlight_services() -> Vec<String> {
-    let mut pb_house_desc: Vec<String> = Vec::with_capacity(22);
-    let red_light_services_list = get_red_light_services_list();
-    if red_light_services_list.is_some() {
-        pb_house_desc.push(
-            red_light_services_list
-                .expect("Should always be String.")
-                .to_string(),
-        )
-    }
     // ---
     pb_house_desc
 }

@@ -2,7 +2,7 @@
 
 pub mod list {
 
-    use crate::tavern::enums::list::BedTypeList;
+    use crate::tavern::enums::list::{BedTypeList, RSLCode};
     use crate::tavern::enums::list::EstablishmentQualityLevel;
     use crate::tavern::enums::list::SizeList;
 
@@ -13,6 +13,12 @@ pub mod list {
         pub version_minor: i16,
         pub version_fix: i16,
         pub version_build: i16,
+    }
+
+    #[derive(Debug, Clone)]
+    pub struct RedlightService {
+        pub service: RSLCode,
+        pub dc: i16,
     }
 
     #[derive(Debug, Clone)]
@@ -27,7 +33,7 @@ pub mod list {
         pub house_dish: HouseDish,
         pub establishment_quality: EstablishmentQuality,
         pub establishment_history_notes: Vec<String>,
-        pub redlight_services: Vec<String>,
+        pub redlight_services: Vec<RedlightService>,
     }
 
     // ---

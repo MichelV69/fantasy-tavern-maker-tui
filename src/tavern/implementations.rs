@@ -5,20 +5,12 @@ pub mod list {
     use rand::Rng;
     use rand::distr::{Distribution, StandardUniform};
     use std::fmt;
-
-    use crate::tavern::enums::list::{
-        DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkRumsDetail, DrinkWhiskeysDetail,
-        DrinkWinesDetail, EstablishmentQualityLevel, FirstSmell, HouseDishHowCooked,
-        HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
-        MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
-    };
-    use crate::tavern::functions::{
-        get_establishment_history_notes, get_establishment_quality, get_house_dish,
-        get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size, get_posted_sign,
-        get_redlight_services, get_smells,
-    };
-    use crate::tavern::structs::list::{App, PBHouse};
-    use crate::tavern::traits::list::{AppFn, ToCapitalized};
+    use crate::dice_bag::tower;
+    use crate::dice_bag::tower::RollDice;
+    use crate::tavern::enums::list::{DrinkAlesDetail, DrinkCidersDetail, DrinkList, DrinkRumsDetail, DrinkWhiskeysDetail, DrinkWinesDetail, EstablishmentQualityLevel, FirstSmell, HouseDishHowCooked, HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb, MoodData, NameNoun, NameVerb, PostedSignLocation, PostedSignMessage, RSLCode, SecondSmell, SizeList};
+    use crate::tavern::functions::{get_establishment_history_notes, get_establishment_quality, get_house_dish, get_house_drink, get_lighting, get_mood, get_name, get_pb_house_size, get_posted_sign, get_red_light_services_list, get_smells};
+    use crate::tavern::structs::list::{App, PBHouse, RedlightService};
+    use crate::tavern::traits::list::{AppFn, DiceSize, ToCapitalized};
     use crate::text_postproc::tpp::{
         enum_string_to_phrase, is_a_an, l1_heading, l2_heading, l3_heading, tidy, trim_whitespace,
     };
@@ -439,7 +431,7 @@ pub mod list {
                 house_drink: get_house_drink(eql.level),
                 house_dish: get_house_dish(eql.level),
                 establishment_history_notes: get_establishment_history_notes(&new_name),
-                redlight_services: get_redlight_services(),
+                redlight_services: get_red_light_services_list().expect("Valid list of RSL"),
             }
         }
 
@@ -520,12 +512,32 @@ pub mod list {
             writeln!(f, " ")?;
 
             writeln!(f, "{}", l3_heading("Redlight Services".to_string()))?;
-            for line in &self.redlight_services {
-                writeln!(f, "{}", line)?;
-            }
+            &self.redlight_services.iter().for_each(|rsl| {
+                writeln!(f, "{}", rsl.display());
+            });
             writeln!(f, " ")?;
 
             Ok(())
+        }
+    }
+
+    impl DiceSize for RSLCode {
+        fn get_dc(&self) -> i16 {
+            match self {
+                RSLCode::None =>            0,
+                RSLCode::Gambling =>        tower::DiceResult::from_string("1d4+8").get_total(),
+                RSLCode::Brothel =>         tower::DiceResult::from_string("1d6+10").get_total(),
+                RSLCode::Smuggling =>       tower::DiceResult::from_string("2d4+11").get_total(),
+                RSLCode::PitFighting =>     tower::DiceResult::from_string("2d6+12").get_total(),
+                RSLCode::OpiodDen =>        tower::DiceResult::from_string("3d6+13").get_total(),
+                RSLCode::RogueGuild =>      tower::DiceResult::from_string("3d8+16").get_total(),
+            }
+        }
+    }
+
+    impl RedlightService {
+        pub(crate) fn display(&self) -> String {
+            format!(" * {} (access DC {}+)", enum_string_to_phrase(self.service.to_string()).to_capitalized(), self.dc )
         }
     }
 }

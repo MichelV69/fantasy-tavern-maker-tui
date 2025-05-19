@@ -315,6 +315,17 @@ pub mod list {
         MurderScene,
         PlotRumors,
     }
+
+    #[derive(Display, VariantCount, EnumIter, Debug, Clone)]
+    pub enum RSLCode {
+        None,
+        Gambling,
+        Brothel,
+        Smuggling,
+        PitFighting,
+        OpiodDen,
+        RogueGuild,
+    }
 }
 
 // ---- end of file ----

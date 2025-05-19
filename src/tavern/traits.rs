@@ -9,6 +9,10 @@ pub mod list {
     pub trait AppFn {
         fn get_version(&self) -> String;
     }
+
+    pub trait DiceSize {
+        fn get_dc(&self) -> i16;
+    }
 }
 
 // ---- end of file ----
