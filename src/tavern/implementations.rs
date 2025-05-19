@@ -531,7 +531,7 @@ pub mod list {
                 RSLCode::Brothel =>         tower::DiceResult::from_string("1d6+10").get_total(),
                 RSLCode::Smuggling =>       tower::DiceResult::from_string("2d4+11").get_total(),
                 RSLCode::PitFighting =>     tower::DiceResult::from_string("2d6+12").get_total(),
-                RSLCode::OpiodDen =>        tower::DiceResult::from_string("3d6+13").get_total(),
+                RSLCode::OpioidDen =>        tower::DiceResult::from_string("3d6+13").get_total(),
                 RSLCode::RogueGuild =>      tower::DiceResult::from_string("3d8+16").get_total(),
             }
         }

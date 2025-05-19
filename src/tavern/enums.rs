@@ -323,7 +323,7 @@ pub mod list {
         Brothel,
         Smuggling,
         PitFighting,
-        OpiodDen,
+        OpioidDen,
         RogueGuild,
     }
 }

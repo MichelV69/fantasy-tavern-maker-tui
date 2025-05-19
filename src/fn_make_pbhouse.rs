@@ -1,6 +1,5 @@
 // ---- all the uses all the time
 use cursive::Cursive;
-use cursive::event::Key;
 use cursive::view::Resizable;
 use cursive::view::Scrollable;
 use cursive::views::Dialog;
@@ -44,7 +43,7 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
     gm_text += &("\n\n".to_owned() + &l1_heading("Redlight Services".to_string()));
 
     if pbh.redlight_services.iter().count() > 0 {
-        &pbh.redlight_services.iter().for_each(|rsl| {
+        let _ = &pbh.redlight_services.iter().for_each(|rsl| {
             gm_text += &format!("\n{}", rsl.display());
         });
     } else {
@@ -176,7 +175,13 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
             .title(dialog_title)
             .content(
                 LinearLayout::horizontal()
-                    .child(Dialog::text(gm_text).title("GM Notes").fixed_width(32))
+                    .child(
+                        Dialog::text(gm_text)
+                        .title("GM Notes")
+                        .fixed_width(32)
+                        .scrollable()
+                        .scroll_y(true),
+                    )
                     .child(
                         Dialog::text(player_text)
                             .title("Player Notes")
