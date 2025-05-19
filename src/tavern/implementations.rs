@@ -431,7 +431,9 @@ pub mod list {
                 house_drink: get_house_drink(eql.level),
                 house_dish: get_house_dish(eql.level),
                 establishment_history_notes: get_establishment_history_notes(&new_name),
-                redlight_services: get_red_light_services_list().expect("Valid list of RSL"),
+                redlight_services: {
+                    get_red_light_services_list().unwrap_or_else(|| vec![])
+                },
             }
         }
 
@@ -512,8 +514,8 @@ pub mod list {
             writeln!(f, " ")?;
 
             writeln!(f, "{}", l3_heading("Redlight Services".to_string()))?;
-            &self.redlight_services.iter().for_each(|rsl| {
-                writeln!(f, "{}", rsl.display());
+            let _ = &self.redlight_services.iter().for_each(|rsl| {
+                writeln!(f, "{}", rsl.display()).expect("Expected vaild RSL");
             });
             writeln!(f, " ")?;
 

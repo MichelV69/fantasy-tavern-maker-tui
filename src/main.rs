@@ -23,10 +23,10 @@ use tavern::traits::list::AppFn;
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_major = 0; //0.12.4-185
-    app.version_minor = 12;
-    app.version_fix = 4;
-    app.version_build = 185;
+    app.version_major = 0; //0.13.0-189
+    app.version_minor = 13;
+    app.version_fix = 0;
+    app.version_build = 189;
 
     let mut siv = cursive::default();
 

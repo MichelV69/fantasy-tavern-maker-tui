@@ -413,7 +413,7 @@ pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
             RSLCode::None => {},
             _ => {
                 if test_roll <= current_roll_chance {
-                    current_roll_chance -= 1;
+                    current_roll_chance -= 2;
                     rl_service.service = rsl_code;
                     rl_service.dc = RSLCode::get_dc(&rl_service.service);
                 }
