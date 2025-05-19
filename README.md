@@ -29,11 +29,13 @@ This application is a RUST re-write of an original C# implementation
 that I wrote which I was never happy with. So far, this version is much
 more what I was hoping to achieve.
 
-## Sample Output
+## Current Example Output
 
-![screenshot of example TUI output](content/2025-apr-13-example.png)
+![screenshot of example TUI output](content/2025-may-19a.png)
 
-Check the [demo file](content/fantasy-tavern-maker-tui-spring_ice.md) for an example of saved [Markdown](https://commonmark.org/help/) output.
+![screenshot of example NPC detail](content/2025-may-19b.png)
+
+Check the [demo file](content/fantasy-tavern-maker-tui-autumn_chalice.md) for a current example of saved [Markdown](https://commonmark.org/help/) output.
 
 # user requirements
 
