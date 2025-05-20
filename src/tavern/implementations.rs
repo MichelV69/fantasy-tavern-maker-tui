@@ -420,19 +420,20 @@ pub mod list {
         pub fn new() -> Self {
             let eql = get_establishment_quality();
             let new_name = get_name();
+            let size_data = get_pb_house_size();
             PBHouse {
                 name: new_name.clone(),
                 mood: get_mood(),
                 lighting: get_lighting(),
                 smells: get_smells(),
-                size: get_pb_house_size(),
+                size: size_data.clone(),
                 establishment_quality: eql.clone(),
                 posted_sign: get_posted_sign(),
                 house_drink: get_house_drink(eql.level),
                 house_dish: get_house_dish(eql.level),
                 establishment_history_notes: get_establishment_history_notes(&new_name),
                 redlight_services: {
-                    get_red_light_services_list().unwrap_or_else(|| vec![])
+                    get_red_light_services_list(size_data.size_description).unwrap_or_else(|| vec![])
                 },
             }
         }
@@ -531,7 +532,7 @@ pub mod list {
                 RSLCode::Brothel =>         tower::DiceResult::from_string("1d6+10").get_total(),
                 RSLCode::Smuggling =>       tower::DiceResult::from_string("2d4+11").get_total(),
                 RSLCode::PitFighting =>     tower::DiceResult::from_string("2d6+12").get_total(),
-                RSLCode::OpioidDen =>        tower::DiceResult::from_string("3d6+13").get_total(),
+                RSLCode::OpioidDen =>       tower::DiceResult::from_string("3d6+13").get_total(),
                 RSLCode::RogueGuild =>      tower::DiceResult::from_string("3d8+16").get_total(),
             }
         }

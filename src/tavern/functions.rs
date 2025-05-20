@@ -397,13 +397,21 @@ pub fn get_establishment_reputation() -> String {
     result.into()
 }
 
-pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
+pub fn get_red_light_services_list(size_code: SizeList  ) -> Option<Vec<RedlightService>> {
     if tower::DiceResult::from_string("flip coin").get_total() == 2 {
         return None;
     }
     let mut red_light_services_list:Vec<RedlightService > = vec![];
     let max_range:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.5) as i16;
     let mut current_roll_chance:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.0) as i16;
+
+    let roll_chance_delta = match size_code {
+        SizeList::Massive => 1,
+        SizeList::Large => 1,
+        SizeList::Modest => 2,
+        SizeList::Small => 2,
+        SizeList::Tiny => 3,
+    };
 
     RSLCode::iter().for_each(|rsl_code| {
         let test_roll = random_range(1..=max_range);
@@ -413,7 +421,7 @@ pub fn get_red_light_services_list() -> Option<Vec<RedlightService>> {
             RSLCode::None => {},
             _ => {
                 if test_roll <= current_roll_chance {
-                    current_roll_chance -= 2;
+                    current_roll_chance -= roll_chance_delta;
                     rl_service.service = rsl_code;
                     rl_service.dc = RSLCode::get_dc(&rl_service.service);
                 }

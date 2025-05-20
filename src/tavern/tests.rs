@@ -7,6 +7,7 @@ mod suite {
     use crate::tavern::functions::get_red_light_services_list;
     use crate::tavern::structs::list::RedlightService;
     use crate::tavern::traits::list::DiceSize;
+    use crate::tavern::enums::list::SizeList;
 
     #[test]
     fn can_get_a_service_dc() {
@@ -36,7 +37,7 @@ mod suite {
         event!(Level::INFO, "test_make_many_red_light_services");
 
         for _ in 0..10 {
-            let rsl_list = get_red_light_services_list();
+            let rsl_list = get_red_light_services_list(SizeList::Modest);
             match rsl_list {
                 Some(list) => {
                     let redlight_services: Vec<RedlightService> = list;
