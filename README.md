@@ -44,7 +44,13 @@ This is where you will have to unzip the provided PSV data tables.
 
 ![screenshot of example data folder](content/2025-mar-15-doc-folder.png)
 
-# libraries in use
+# Credits
+
+## Helpful TTRPG Tool Sites
+
+<https://5e.tools/backgrounds.html> -- D&D5e Tools.
+
+## Notable Rust libraries in use
 
 <https://rust-random.github.io/book/quick-start.html> -- RAND functions
 

@@ -1,16 +1,22 @@
- 40 | Commonfolk
- 20 | Tradesperson
- 20 | Tinker
- 20 | Tailor
- 20 | Minstral
- 20 | Militiamun
- 20 | Merchant accompanied by [1d4] guards
- 20 | Lay-Priest
- 20 | Craftsperson
- 10 | Soldier
-  5 | Utility Mage (Mend, Daylight, Message, etc)
-  5 | Spy
-  5 | Noble accompanied by [1d4] entourage
-  5 | Courtesan accompanied by [1d4] entourage
-  5 | Bounty-Hunter accompanied by [1d4] thugs
-  1 | Adventurer ([1d4+1] level) with [1d4] henchmen ([1d4-1] level)
+ 21 | Farmer or Fisher
+ 18 | Tradesperson
+ 18 | Merchant accompanied by [1d4] guards
+ 15 | Guard
+ 15 | Entertainer
+ 15 | Craftsperson
+ 12 | Soldier accompanied by [1d4] other-at-arms
+ 12 | Sailor or Caravaneer accompanied by [1d6-1] Mates
+ 12 | Acolyte
+  9 | Utility Mage (Mend, Daylight, Message, etc)
+  9 | Scribe
+  9 | Guide
+  9 | Artisan
+  6 | Wayfarer
+  6 | Sage
+  6 | Noble accompanied by [1d4] entourage and [1d4] henchmen ([1d4-1] level)
+  6 | Criminal accompanied by [1d4-1] thugs
+  6 | Courtesan accompanied by [1d4] entourage
+  6 | Charlatan (posing as some other type)
+  3 | Bounty-Hunter accompanied by [1d4+1] thugs
+  3 | Adventurer ([1d4+1] level) with [1d4] henchmen ([1d4-1] level)
+  1 | Hermit
