@@ -4,8 +4,8 @@ mod suite {
         narrative_time_manager::ntm::{self, SlotNames},
         npc::build::Profile,
     };
-    use std::mem;
     use pretty_assertions::{assert_eq, assert_ne};
+    use std::mem;
 
     #[test]
     fn number_of_timeslots() {

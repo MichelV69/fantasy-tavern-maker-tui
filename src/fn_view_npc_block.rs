@@ -1,5 +1,5 @@
-use crate::{npc::build::Profile, text_postproc::tpp::l2_heading};
 use crate::npc::build::NpcTypeCode;
+use crate::{npc::build::Profile, text_postproc::tpp::l2_heading};
 
 pub fn view_npc_block(npc_data: &Profile) -> String {
     let npc_type = &npc_data.npc_type;
@@ -19,7 +19,7 @@ pub fn view_npc_block(npc_data: &Profile) -> String {
     let mut text_block = l2_heading(format!("{npc_type} {task}"));
 
     let ects = &npc_data.encounter_slots;
-    
+
     let encounter_text: String = match npc_data.npc_type {
         NpcTypeCode::StoryCharacter | NpcTypeCode::Patron => {
             let temp_text: String = format!(
@@ -29,21 +29,25 @@ pub fn view_npc_block(npc_data: &Profile) -> String {
                 ects[2].name.to_string(),
             );
             temp_text.to_string()
-        },
+        }
         NpcTypeCode::Staff => {
             let mut temp_text: String = "".into();
             for ts in ects {
-                temp_text =  temp_text + &format!(" {} 8+ |", ts.name.to_string());
+                temp_text = temp_text + &format!(" {} 8+ |", ts.name.to_string());
             }
             temp_text.trim_end_matches("|").to_string()
-        },
+        }
     };
-    
-    text_block += &format!("\n\n _[chance of being currently present (2d6): {:?}]_", encounter_text);
+
+    text_block += &format!(
+        "\n\n _[chance of being currently present (2d6): {:?}]_",
+        encounter_text
+    );
     text_block += &format!(
         "\n\n {species:?} with {eye_color} eyes and {hair_color} hair in {hair_style} style."
     );
-    text_block += &format!("\n They are {height_desc} with a {build_desc}, and present as {gender}.");
+    text_block +=
+        &format!("\n They are {height_desc} with a {build_desc}, and present as {gender}.");
 
     text_block += "\n\n Quirks:";
     if quirk_emotional.is_empty() && quirk_physical.is_empty() {

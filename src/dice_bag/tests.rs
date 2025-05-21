@@ -2,15 +2,15 @@
 
 mod suite {
     use crate::dice_bag::tower::{DiceResult, RollDice};
-    use tracing::{Level, event};
     use pretty_assertions::{assert_eq, assert_ne};
+    use tracing::{Level, event};
 
     #[test]
     fn does_flip_coin() {
         let request: &str = "1d2";
         let valid_scope = (1..=2);
 
-        for _ in (0..valid_scope.len() as i16*2)  {
+        for _ in (0..valid_scope.len() as i16 * 2) {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value = resulting_roll.get_total();
             event!(Level::INFO, "roll_value[{}]", roll_value);
@@ -23,7 +23,7 @@ mod suite {
         let request: &str = "1d4";
         let valid_scope = (1..=4);
 
-        for _ in (0..valid_scope.len() as i16*2)  {
+        for _ in (0..valid_scope.len() as i16 * 2) {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value = resulting_roll.get_total();
             event!(Level::INFO, "roll_value[{}]", roll_value);
@@ -36,7 +36,7 @@ mod suite {
         let request: &str = "4d8";
         let valid_scope = (4..=32);
 
-        for _ in (0..valid_scope.len() as i16*2)  {
+        for _ in (0..valid_scope.len() as i16 * 2) {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value = resulting_roll.get_total();
             event!(Level::INFO, "roll_value[{}]", roll_value);
@@ -49,12 +49,12 @@ mod suite {
         let request: &str = "1d6+3";
         let valid_scope = (4..=9);
 
-        for _ in (0..valid_scope.len() as i16*2)  {
+        for _ in (0..valid_scope.len() as i16 * 2) {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value = resulting_roll.get_total();
             event!(Level::INFO, "roll_value[{}]", roll_value);
             assert!(valid_scope.contains(&roll_value));
-        }        
+        }
     }
 
     #[test]
@@ -62,12 +62,12 @@ mod suite {
         let request: &str = "1d6-3";
         let valid_scope = (-2..=3);
 
-        for _ in (0..valid_scope.len() as i16*2)  {
+        for _ in (0..valid_scope.len() as i16 * 2) {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
             let roll_value = resulting_roll.get_total();
             event!(Level::INFO, "roll_value[{}]", roll_value);
             assert!(valid_scope.contains(&roll_value));
-        }        
+        }
     }
 
     #[test]

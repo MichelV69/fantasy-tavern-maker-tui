@@ -2,9 +2,9 @@
 
 pub mod list {
 
-    use crate::tavern::enums::list::{BedTypeList, RSLCode};
     use crate::tavern::enums::list::EstablishmentQualityLevel;
     use crate::tavern::enums::list::SizeList;
+    use crate::tavern::enums::list::{BedTypeList, RSLCode};
 
     #[derive(Debug, Clone)]
     pub struct App {

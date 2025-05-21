@@ -109,7 +109,7 @@ pub mod list {
         OilLamps,
     }
 
-    #[derive(Debug, Display, Clone, Copy)]
+    #[derive(Debug, Display, Clone, Copy, PartialEq)]
     pub enum EstablishmentQualityLevel {
         Aristocratic,
         Comfortable,

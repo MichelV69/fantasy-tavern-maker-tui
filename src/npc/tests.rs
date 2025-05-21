@@ -12,8 +12,8 @@ mod suite {
         },
         tavern::structs::list::App,
     };
-    use tracing::{Level, event};
     use pretty_assertions::{assert_eq, assert_ne};
+    use tracing::{Level, event};
 
     #[test]
     fn profile_new() {

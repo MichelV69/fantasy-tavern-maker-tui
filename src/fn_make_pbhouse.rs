@@ -7,15 +7,7 @@ use cursive::views::LinearLayout;
 use cursive::views::TextView;
 
 // --- my stuff ---
-use dice_bag::tower::DiceResult;
-use dice_bag::tower::RollDice;
-use npc::build::NpcTypeCode;
-use npc::build::Profile as npc_Profile;
-use tavern::enums::list::EstablishmentQualityLevel;
-use tavern::enums::list::SizeList;
-use text_postproc::tpp::l1_heading;
-
-use crate::dice_bag;
+use crate::dice_bag::tower::{DiceResult, RollDice};
 use crate::fn_save_pbhouse_to_file::save_pbhouse_to_file;
 use crate::fn_view_npc_block::view_npc_block;
 use crate::npc;
@@ -23,6 +15,11 @@ use crate::tavern;
 use crate::tavern::structs::list::App;
 use crate::tavern::structs::list::PBHouse;
 use crate::text_postproc;
+use npc::build::NpcTypeCode;
+use npc::build::Profile as npc_Profile;
+use tavern::enums::list::EstablishmentQualityLevel;
+use tavern::enums::list::SizeList;
+use text_postproc::tpp::l1_heading;
 
 pub fn make_pbhouse(s: &mut Cursive, app: App) {
     let pbh = PBHouse::new();
@@ -84,7 +81,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
                 let mut npc_bouncer: npc_Profile = npc_Profile::new();
                 npc_bouncer.task_description = "Bouncer".into();
                 npc_bouncer.npc_type = NpcTypeCode::Staff;
-
             }
         }
     }
@@ -128,7 +124,6 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
 
     let npc_notable_patrons_count: i16 =
         <DiceResult as RollDice>::from_string(&roll_string).get_total();
-    //println!("npc_notable_patrons_count [{npc_notable_patrons_count}]");
 
     for _c in 1..npc_notable_patrons_count {
         let mut npc_patron: npc_Profile = npc_Profile::new();
@@ -140,6 +135,39 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
         npc_patron.set_random_encounter_chance_timeslots();
         npc_notable_patrons_list.push(npc_patron);
     }
+
+    if pbh.establishment_quality.level == EstablishmentQualityLevel::Wealthy {
+        for np in &mut npc_notable_patrons_list {
+            if np.task_description.contains("Farmer") || np.task_description.contains("Commonfolk")
+            {
+                np.task_description = match <DiceResult as RollDice>::from_string("1d4").get_total()
+                {
+                    1 => "Merchant accompanied by [1d4+1] guards".into(),
+                    2 => "Entertainer accompanied by [1d4+1] carousers".into(),
+                    3 => "Courtesan accompanied by [1d4] entourage".into(),
+                    _ => "Farmer or Fisher accompanied by [1d4-1] workers".into(),
+                }
+            }
+        }
+    };
+
+    if pbh.establishment_quality.level == EstablishmentQualityLevel::Aristocratic {
+        for np in &mut npc_notable_patrons_list {
+            if np.task_description.contains("Farmer") || np.task_description.contains("Commonfolk")
+            {
+                np.task_description = match <DiceResult as RollDice>::from_string("1d4").get_total()
+                {
+                    1 => "Merchant accompanied by [1d4+1] guards".into(),
+                    2 => "Entertainer accompanied by [1d4+1] carousers".into(),
+                    3 => "Courtesan accompanied by [1d4] entourage".into(),
+                    _ => {
+                        "Noble accompanied by [1d4+1] entourage and [1d4+] henchmen ([1d4+1] level)"
+                            .into()
+                    }
+                }
+            }
+        }
+    };
 
     //todo!("redlight_services ?? \"specific\" NPCs such as extra bouncer, wealthy gladiator, cardshark, healer ??")
     use crate::npc::build::Profile;
@@ -177,10 +205,10 @@ pub fn make_pbhouse(s: &mut Cursive, app: App) {
                 LinearLayout::horizontal()
                     .child(
                         Dialog::text(gm_text)
-                        .title("GM Notes")
-                        .fixed_width(32)
-                        .scrollable()
-                        .scroll_y(true),
+                            .title("GM Notes")
+                            .fixed_width(32)
+                            .scrollable()
+                            .scroll_y(true),
                     )
                     .child(
                         Dialog::text(player_text)

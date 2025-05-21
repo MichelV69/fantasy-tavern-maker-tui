@@ -1,8 +1,8 @@
 use inflector::string::singularize::to_singular;
-use rand::{random_range, SeedableRng};
 use rand::distr::Distribution;
 use rand::distr::weighted::WeightedIndex;
 use rand::seq::IndexedRandom;
+use rand::{SeedableRng, random_range};
 use rand_chacha::ChaCha20Rng;
 use std::cmp::*;
 use strum::IntoEnumIterator;
@@ -19,7 +19,9 @@ use super::enums::list::{
     HouseDishWhatCooked, HouseDishWhatSide, LightingAdjectives, LightingSources, LightingVerb,
     MoodData, PostedSignLocation, PostedSignMessage, SecondSmell, SizeList,
 };
-use super::structs::list::{EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize, RedlightService};
+use super::structs::list::{
+    EstablishmentQuality, HouseDish, HouseDrink, PBHouseSize, RedlightService,
+};
 
 // ---
 pub fn get_name() -> String {
@@ -397,13 +399,13 @@ pub fn get_establishment_reputation() -> String {
     result.into()
 }
 
-pub fn get_red_light_services_list(size_code: SizeList  ) -> Option<Vec<RedlightService>> {
+pub fn get_red_light_services_list(size_code: SizeList) -> Option<Vec<RedlightService>> {
     if tower::DiceResult::from_string("flip coin").get_total() == 2 {
         return None;
     }
-    let mut red_light_services_list:Vec<RedlightService > = vec![];
-    let max_range:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.5) as i16;
-    let mut current_roll_chance:i16 = (RSLCode::VARIANT_COUNT as f64 * 2.0) as i16;
+    let mut red_light_services_list: Vec<RedlightService> = vec![];
+    let max_range: i16 = (RSLCode::VARIANT_COUNT as f64 * 2.5) as i16;
+    let mut current_roll_chance: i16 = (RSLCode::VARIANT_COUNT as f64 * 2.0) as i16;
 
     let roll_chance_delta = match size_code {
         SizeList::Massive => 1,
@@ -415,10 +417,13 @@ pub fn get_red_light_services_list(size_code: SizeList  ) -> Option<Vec<Redlight
 
     RSLCode::iter().for_each(|rsl_code| {
         let test_roll = random_range(1..=max_range);
-        let mut rl_service: RedlightService = RedlightService { service: RSLCode::None, dc:0 };
+        let mut rl_service: RedlightService = RedlightService {
+            service: RSLCode::None,
+            dc: 0,
+        };
 
         match rsl_code {
-            RSLCode::None => {},
+            RSLCode::None => {}
             _ => {
                 if test_roll <= current_roll_chance {
                     current_roll_chance -= roll_chance_delta;

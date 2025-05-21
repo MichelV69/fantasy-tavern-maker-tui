@@ -58,13 +58,13 @@ impl Profile {
             let resulting_roll = <DiceResult as RollDice>::from_string(request);
 
             let slot_list: Vec<i8> = match resulting_roll.get_total() {
-                1 =>  [1, 2, 3, 4, 5].to_vec(),
-                2 =>  [4, 5, 6, 7, 8].to_vec(),
-                3 =>  [7, 8, 9, 10, 11].to_vec(),
-                4 =>  [10, 11, 12, 13, 14].to_vec(),
-                5 =>  [13, 14, 15, 16, 17].to_vec(),
-                6 =>  [3, 4, 5, 8, 9].to_vec(),
-                _ =>  [3, 4, 5, 6, 7].to_vec(),
+                1 => [1, 2, 3, 4, 5].to_vec(),
+                2 => [4, 5, 6, 7, 8].to_vec(),
+                3 => [7, 8, 9, 10, 11].to_vec(),
+                4 => [10, 11, 12, 13, 14].to_vec(),
+                5 => [13, 14, 15, 16, 17].to_vec(),
+                6 => [3, 4, 5, 8, 9].to_vec(),
+                _ => [3, 4, 5, 6, 7].to_vec(),
             };
 
             for this_slot in slot_list.iter() {

@@ -23,10 +23,10 @@ use tavern::traits::list::AppFn;
 fn main() {
     let mut app: App = App::new();
     app.name = "fantasy-tavern-maker-tui".into();
-    app.version_major = 0; //0.13.1-191
+    app.version_major = 0; //0.13.2-195
     app.version_minor = 13;
-    app.version_fix = 01;
-    app.version_build = 191;
+    app.version_fix = 02;
+    app.version_build = 195;
 
     let mut siv = cursive::default();
 
@@ -38,7 +38,9 @@ fn main() {
             })
             .button("Quit", |s| s.quit()),
     );
-    siv.add_global_callback(Key::Esc , |s|{ s.pop_layer(); });
+    siv.add_global_callback(Key::Esc, |s| {
+        s.pop_layer();
+    });
 
     siv.run()
 }
