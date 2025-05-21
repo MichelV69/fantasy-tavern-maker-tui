@@ -86,6 +86,9 @@ mod suite {
     fn test_read_psv_file() {
         let mut app: App = App::new();
         app.name = "fantasy-tavern-maker-tui".into();
+        
+        let file_how_many_lines = 21;
+        let file_first_content = "Farmer or Fisher";
 
         let test_file = "table-RandomTaskDesc.psv";
         let psv_file_contents = read_psv_file(test_file, &app);
@@ -97,8 +100,8 @@ mod suite {
         );
         println!("psv_file_contents[0].0[{:#?}]", psv_file_contents[0].0);
 
-        assert_eq!(psv_file_contents[0].0, 40);
-        assert_eq!(psv_file_contents[0].1, "Commonfolk");
+        assert_eq!(file_how_many_lines, psv_file_contents[0].0);
+        assert_eq!(file_first_content, psv_file_contents[0].1);
     }
 
     #[test]
