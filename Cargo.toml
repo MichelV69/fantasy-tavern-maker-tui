@@ -10,7 +10,7 @@ pretty_assertions = "1.4.1"
 Inflector = "0.11.4"
 cursive = { version = "0.21.1" , features = ["crossterm-backend", "markdown", "ansi"] }
 is-vowel = "0.1.0"
-rand = "0.9.1"
+rand = "0.9.3"
 rand_chacha = "0.9.0"
 strum = { version = "0.27.1", features = ["derive"] }
 strum_macros = "0.27.1"
